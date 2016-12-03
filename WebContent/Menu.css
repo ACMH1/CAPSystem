@@ -1,0 +1,34 @@
+#navPanel {
+    max-width:300px;
+    }
+    
+.panel-title > a {
+    color: inherit;
+    display:block;
+    text-decoration:none;
+} 
+
+.panel-body {
+    padding: 0px;
+}
+.list-group {
+    padding-left: 0;
+    margin-bottom: 0px;
+}
+
+ .glyphicon-plus:before {
+   content: "\2212";
+}
+
+.collapsed .glyphicon-plus:before {
+    content: "\2b";
+}
+
+
+#upleft
+{
+background:red;
+float:left;
+}
+#
+
