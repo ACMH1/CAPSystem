@@ -1,6 +1,8 @@
 package model;
 
-public class AdminDTO
+import java.io.Serializable;
+
+public class AdminDTO implements Serializable
 {
 	private int adminID;
 	private String password;
