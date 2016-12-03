@@ -1,0 +1,33 @@
+@CHARSET "UTF-8";
+
+footer {
+  font-size: 12px;
+  padding: 20px 0;
+  background-color:black;
+}
+
+footer .col-sm-8 {
+  display: flex;
+  justify-content: flex-end;
+}
+
+footer ul {
+  list-style: none;
+}
+
+footer li img {
+  width: 32px;
+  height: 32px;
+}
+.col-md-6 {
+  margin: 0 0 30px;
+}
+footer .col-sm-4{
+	font-size:20px;	
+}
+.col-sm-4{
+	color:white;
+}
+
+
+
