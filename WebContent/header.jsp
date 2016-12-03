@@ -29,10 +29,12 @@
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
     <ul class="nav navbar-nav">
+    <% if (session.getAttribute("role")==" " ){ %>
       <li id="home" class="active"><a href="#">Home</a></li> 
+      
         <li id="about"><a href="#"><span class="glyphicon glyphicon-eye-open"></span> About-CAPS</a></li>
-          <li id="contact"><a href="#"><span class="glyphicon glyphicon-earphone"></span> Contact us</a></li>
-             <% if (session.getAttribute("role")!=" " ){ %>
+          <li id="contact"><a href="home.jsp/#contacthome"><span class="glyphicon glyphicon-earphone"></span> Contact us</a></li>
+               <% } else if (session.getAttribute("role")!=" " ){ %>
             <li id="welcome" class="active"><a href="#" ><span class="glyphicon glyphicon-user"></span> Welcome "user name"</a></li>
       <%} %>
     </ul>
@@ -42,9 +44,9 @@
         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
         <span class="glyphicon glyphicon-log-in"></span>  Login</a>
         <ul class="dropdown-menu"> 
-          <li><a href="#"><span class="glyphicon glyphicon-user"></span> Admin login</a></li>
-          <li><a href="#"><span class="glyphicon glyphicon-user"></span> Lecture login</a></li>
-          <li><a href="#"><span class="glyphicon glyphicon-user"></span> Student login</a></li> 
+          <li><a href="sample_admin.jsp"><span class="glyphicon glyphicon-user"></span> Admin login</a></li>
+          <li><a href="sample_lecturer.jsp"><span class="glyphicon glyphicon-user"></span> Lecture login</a></li>
+          <li><a href="sample_student.jsp"><span class="glyphicon glyphicon-user"></span> Student login</a></li> 
       </ul>
       </li> 
        <% } else if (session.getAttribute("role")!="") {%> 

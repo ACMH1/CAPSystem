@@ -36,34 +36,42 @@ public class SampleServlet extends HttpServlet {
 
 	private void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		HttpSession session=request.getSession();
-		session.setAttribute("role", " ");
-		
-		String path="sample_login.jsp";
-		RequestDispatcher rd= request.getRequestDispatcher(path);
-		rd.forward(request, response);
-		
-		
-//		HttpSession session=request.getSession();
-//		session.setAttribute("role", "lecturer");
-//		
-//		String path="sample_lesturer.jsp";
-//		RequestDispatcher rd= request.getRequestDispatcher(path);
-//		rd.forward(request, response);
-		
-//		HttpSession session=request.getSession();
-//		session.setAttribute("role", "admin");
-//		
-//		String path="sample_admin.jsp";
-//		RequestDispatcher rd= request.getRequestDispatcher(path);
-//		rd.forward(request, response);
-		
-//		HttpSession session=request.getSession();
-//		session.setAttribute("role", "student");
-//		
-//		String path="sample_student.jsp";
-//		RequestDispatcher rd= request.getRequestDispatcher(path);
-//		rd.forward(request, response);
+        //
+        //		HttpSession session=request.getSession();
+        //		session.setAttribute("role", " ");
+        //
+        //		String path="sample_login.jsp";
+        //		RequestDispatcher rd= request.getRequestDispatcher(path);
+        //		rd.forward(request, response);
+        
+        HttpSession session=request.getSession();
+        session.setAttribute("role", " ");
+        
+        String path="home.jsp";
+        RequestDispatcher rd= request.getRequestDispatcher(path);
+        rd.forward(request, response);
+        
+        
+        //		HttpSession session=request.getSession();
+        //		session.setAttribute("role", "lecturer");
+        //
+        //		String path="sample_lesturer.jsp";
+        //		RequestDispatcher rd= request.getRequestDispatcher(path);
+        //		rd.forward(request, response);
+        //
+        //		HttpSession session=request.getSession();
+        //		session.setAttribute("role", "admin");
+        //
+        //		String path="sample_admin.jsp";
+        //		RequestDispatcher rd= request.getRequestDispatcher(path);
+        //		rd.forward(request, response);
+        
+        //		HttpSession session=request.getSession();
+        //		session.setAttribute("role", "student");
+        //		
+        //		String path="sample_student.jsp";
+        //		RequestDispatcher rd= request.getRequestDispatcher(path);
+        //		rd.forward(request, response);
 		
 	}
 
