@@ -11,7 +11,6 @@ import dao.CourseDAO;
 import dao.LecturerDAO;
 import dao.LecturerDAOFactory;
 import model.CourseDTO;
-import model.LecturerDTO;
 
 public class CourseDAOImpl implements CourseDAO
 {
@@ -219,7 +218,7 @@ public class CourseDAOImpl implements CourseDAO
 	 * @see dao.mysql.CourseDAO#listAllCourse()
 	 */
 	@Override
-	public ArrayList<CourseDTO> findCourseByLecturer(LecturerDTO lecturer)
+	public ArrayList<CourseDTO> findCourseByLecturerID(int lecturerID)
 	{
 		Connection conn = null;
 		try
@@ -227,7 +226,7 @@ public class CourseDAOImpl implements CourseDAO
 			LecturerDAO ld = LecturerDAOFactory.getLecturerDAOInstance();
 			conn = openConnection();
 			PreparedStatement ps = conn.prepareStatement("SELECT * FROM `course` WHERE `lecturerID` = ?");
-			ps.setInt(1, lecturer.getLecturerID());
+			ps.setInt(1, lecturerID);
 			ResultSet rs = ps.executeQuery();
 			ArrayList<CourseDTO> result = new ArrayList<CourseDTO>();
 			while (rs.next())

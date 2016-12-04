@@ -3,7 +3,6 @@ package dao;
 import java.util.ArrayList;
 
 import model.CourseDTO;
-import model.LecturerDTO;
 
 public interface CourseDAO
 {
@@ -16,7 +15,7 @@ public interface CourseDAO
 
 	CourseDTO findCourse(int courseID);
 	
-	ArrayList<CourseDTO> findCourseByLecturer(LecturerDTO lecturer);
+	ArrayList<CourseDTO> findCourseByLecturerID(int lecturerID);
 
 	ArrayList<CourseDTO> listAllCourse();
 
