@@ -11,6 +11,7 @@ import dao.CourseDAO;
 import dao.LecturerDAO;
 import dao.LecturerDAOFactory;
 import model.CourseDTO;
+import model.LecturerDTO;
 
 public class CourseDAOImpl implements CourseDAO
 {
@@ -35,7 +36,9 @@ public class CourseDAOImpl implements CourseDAO
 		return connection;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see dao.mysql.CourseDAO#createCourse(model.CourseDTO)
 	 */
 	@Override
@@ -79,7 +82,9 @@ public class CourseDAOImpl implements CourseDAO
 
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see dao.mysql.CourseDAO#updateCourse(model.CourseDTO)
 	 */
 	@Override
@@ -123,7 +128,9 @@ public class CourseDAOImpl implements CourseDAO
 
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see dao.mysql.CourseDAO#removeCourse(model.CourseDTO)
 	 */
 	@Override
@@ -160,7 +167,9 @@ public class CourseDAOImpl implements CourseDAO
 
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see dao.mysql.CourseDAO#findCourse(int)
 	 */
 	@Override
@@ -204,7 +213,53 @@ public class CourseDAOImpl implements CourseDAO
 
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see dao.mysql.CourseDAO#listAllCourse()
+	 */
+	@Override
+	public ArrayList<CourseDTO> findCourseByLecturer(LecturerDTO lecturer)
+	{
+		Connection conn = null;
+		try
+		{
+			LecturerDAO ld = LecturerDAOFactory.getLecturerDAOInstance();
+			conn = openConnection();
+			PreparedStatement ps = conn.prepareStatement("SELECT * FROM `course` WHERE `lecturerID` = ?");
+			ps.setInt(1, lecturer.getLecturerID());
+			ResultSet rs = ps.executeQuery();
+			ArrayList<CourseDTO> result = new ArrayList<CourseDTO>();
+			while (rs.next())
+			{
+				CourseDTO row = new CourseDTO(rs.getInt("courseID"), rs.getString("courseName"), rs.getInt("size"),
+						rs.getInt("credits"), ld.findLecturer(rs.getInt("lecturerID")), rs.getDate("startDate"),
+						rs.getDate("endDate"));
+				result.add(row);
+			}
+			ps.close();
+			conn.close();
+			return result;
+		} catch (Exception e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			try
+			{
+				conn.close();
+				return null;
+			} catch (SQLException e1)
+			{
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			return null;
+		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see dao.mysql.CourseDAO#listAllCourse()
 	 */
 	@Override
@@ -245,7 +300,9 @@ public class CourseDAOImpl implements CourseDAO
 		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see dao.mysql.CourseDAO#getNextCourseID()
 	 */
 	@Override
