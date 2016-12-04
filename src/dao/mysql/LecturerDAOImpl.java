@@ -46,7 +46,7 @@ public class LecturerDAOImpl implements LecturerDAO
 		{
 			conn = openConnection();
 			PreparedStatement ps = conn.prepareStatement(
-					"INSERT INTO `capsdb`.`lecturer` (`lecturerID`, `lastName`, `firstMidName`, `email`, `password`) VALUES (?, ?, ?, ?, ?);");
+					"INSERT INTO `lecturer` (`lecturerID`, `lastName`, `firstMidName`, `email`, `password`) VALUES (?, ?, ?, ?, ?);");
 			ps.setInt(1, lecturer.getLecturerID());
 			ps.setString(2, lecturer.getLastName());
 			ps.setString(3, lecturer.getFirstMidName());
@@ -90,7 +90,7 @@ public class LecturerDAOImpl implements LecturerDAO
 		{
 			conn = openConnection();
 			PreparedStatement ps = conn.prepareStatement(
-					"UPDATE `capsdb`.`lecturer` SET `lastName` = ?, `firstMidName` = ?,`email` = ?, `password` = ? WHERE LecturerID = ?");
+					"UPDATE `lecturer` SET `lastName` = ?, `firstMidName` = ?,`email` = ?, `password` = ? WHERE LecturerID = ?");
 			ps.setInt(5, lecturer.getLecturerID());
 			ps.setString(1, lecturer.getLastName());
 			ps.setString(2, lecturer.getFirstMidName());
@@ -133,7 +133,7 @@ public class LecturerDAOImpl implements LecturerDAO
 		try
 		{
 			conn = openConnection();
-			PreparedStatement ps = conn.prepareStatement("DELETE FROM `capsdb`.`lecturer` WHERE LecturerID = ?");
+			PreparedStatement ps = conn.prepareStatement("DELETE FROM `lecturer` WHERE LecturerID = ?");
 			ps.setInt(1, lecturer.getLecturerID());
 			if (ps.executeUpdate() != 1)
 				throw new SQLException("Delete failed");
@@ -172,7 +172,7 @@ public class LecturerDAOImpl implements LecturerDAO
 		try
 		{
 			conn = openConnection();
-			PreparedStatement ps = conn.prepareStatement("SELECT * FROM `capsdb`.`lecturer` WHERE LecturerID = ?");
+			PreparedStatement ps = conn.prepareStatement("SELECT * FROM `lecturer` WHERE LecturerID = ?");
 			ps.setInt(1, lecturerID);
 			ResultSet rs = ps.executeQuery();
 			rs.next();
@@ -215,7 +215,7 @@ public class LecturerDAOImpl implements LecturerDAO
 		try
 		{
 			conn = openConnection();
-			PreparedStatement ps = conn.prepareStatement("SELECT * FROM `capsdb`.`lecturer`");
+			PreparedStatement ps = conn.prepareStatement("SELECT * FROM `lecturer`");
 			ResultSet rs = ps.executeQuery();
 			ArrayList<LecturerDTO> result = new ArrayList<LecturerDTO>();
 			while (rs.next())
@@ -257,7 +257,7 @@ public class LecturerDAOImpl implements LecturerDAO
 		try
 		{
 			conn = openConnection();
-			PreparedStatement ps = conn.prepareStatement("SELECT MAX(lecturerID) FROM `capsdb`.`lecturer`");
+			PreparedStatement ps = conn.prepareStatement("SELECT MAX(lecturerID) FROM `lecturer`");
 			ResultSet rs = ps.executeQuery();
 			rs.next();
 			n = rs.getInt(1) + 1;

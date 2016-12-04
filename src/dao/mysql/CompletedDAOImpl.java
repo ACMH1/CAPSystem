@@ -51,8 +51,8 @@ public class CompletedDAOImpl implements CompletedDAO
 		try
 		{
 			conn = openConnection();
-			PreparedStatement ps = conn.prepareStatement(
-					"INSERT INTO `capsdb`.`completed` (`studentID`, `courseID`, `grade`) VALUES (?, ?, ?);");
+			PreparedStatement ps = conn
+					.prepareStatement("INSERT INTO `completed` (`studentID`, `courseID`, `grade`) VALUES (?, ?, ?);");
 			ps.setInt(1, completed.getStudent().getStudentID());
 			ps.setInt(2, completed.getCourse().getCourseID());
 			ps.setInt(3, completed.getGrade());
@@ -94,7 +94,7 @@ public class CompletedDAOImpl implements CompletedDAO
 		{
 			conn = openConnection();
 			PreparedStatement ps = conn
-					.prepareStatement("DELETE FROM `capsdb`.`completed` WHERE studentID = ? AND courseID = ?");
+					.prepareStatement("DELETE FROM `completed` WHERE studentID = ? AND courseID = ?");
 			ps.setInt(1, completed.getStudent().getStudentID());
 			ps.setInt(2, completed.getCourse().getCourseID());
 			if (ps.executeUpdate() != 1)
@@ -136,7 +136,7 @@ public class CompletedDAOImpl implements CompletedDAO
 			StudentDAO sd = StudentDAOFactory.getStudentDAOInstance();
 			CourseDAO cd = CourseDAOFactory.getCourseDAOInstance();
 			conn = openConnection();
-			PreparedStatement ps = conn.prepareStatement("SELECT * FROM `capsdb`.`completed` WHERE courseID = ?");
+			PreparedStatement ps = conn.prepareStatement("SELECT * FROM `completed` WHERE courseID = ?");
 			ps.setInt(1, course.getCourseID());
 			ResultSet rs = ps.executeQuery();
 			ArrayList<CompletedDTO> result = new ArrayList<CompletedDTO>();
@@ -182,7 +182,7 @@ public class CompletedDAOImpl implements CompletedDAO
 			StudentDAO sd = StudentDAOFactory.getStudentDAOInstance();
 			CourseDAO cd = CourseDAOFactory.getCourseDAOInstance();
 			conn = openConnection();
-			PreparedStatement ps = conn.prepareStatement("SELECT * FROM `capsdb`.`completed` WHERE studentID = ?");
+			PreparedStatement ps = conn.prepareStatement("SELECT * FROM `completed` WHERE studentID = ?");
 			ps.setInt(1, student.getStudentID());
 			ResultSet rs = ps.executeQuery();
 			ArrayList<CompletedDTO> result = new ArrayList<CompletedDTO>();
@@ -228,7 +228,7 @@ public class CompletedDAOImpl implements CompletedDAO
 			StudentDAO sd = StudentDAOFactory.getStudentDAOInstance();
 			CourseDAO cd = CourseDAOFactory.getCourseDAOInstance();
 			conn = openConnection();
-			PreparedStatement ps = conn.prepareStatement("SELECT * FROM `capsdb`.`completed`");
+			PreparedStatement ps = conn.prepareStatement("SELECT * FROM `completed`");
 			ResultSet rs = ps.executeQuery();
 			ArrayList<CompletedDTO> result = new ArrayList<CompletedDTO>();
 			while (rs.next())

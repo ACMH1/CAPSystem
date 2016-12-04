@@ -40,7 +40,7 @@ public class CompletedTest
 //			System.out.println(e.getCourse().getCourseID() + e.getCourse().getCourseName());
 //		}
 		
-		for (CompletedDTO e : ed.findCompletedByCourse(cd.findCourse(2)))
+		for (CompletedDTO e : ed.findCompletedByCourse(cd.findCourse(7009)))
 		{
 			System.out.println(e.getStudent().getStudentID() + e.getStudent().getLastName());
 		}
