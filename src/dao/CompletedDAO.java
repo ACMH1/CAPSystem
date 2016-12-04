@@ -3,6 +3,8 @@ package dao;
 import java.util.ArrayList;
 
 import model.CompletedDTO;
+import model.CourseDTO;
+import model.StudentDTO;
 
 public interface CompletedDAO
 {
@@ -11,9 +13,9 @@ public interface CompletedDAO
 
 	int removeCompleted(CompletedDTO completed);
 
-	CompletedDTO findCompletedByCourse(int courseID);
+	ArrayList<CompletedDTO> findCompletedByCourse(CourseDTO course);
 
-	CompletedDTO findCompletedByStudent(int studentID);
+	ArrayList<CompletedDTO> findCompletedByStudent(StudentDTO student);
 
 	ArrayList<CompletedDTO> listAllCompleted();
 

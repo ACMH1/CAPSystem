@@ -13,6 +13,8 @@ import dao.CourseDAOFactory;
 import dao.StudentDAO;
 import dao.StudentDAOFactory;
 import model.CompletedDTO;
+import model.CourseDTO;
+import model.StudentDTO;
 
 public class CompletedDAOImpl implements CompletedDAO
 {
@@ -126,7 +128,7 @@ public class CompletedDAOImpl implements CompletedDAO
 	 * @see dao.mysql.CompletedDAO#findCompletedByCourse(int)
 	 */
 	@Override
-	public CompletedDTO findCompletedByCourse(int courseID)
+	public ArrayList<CompletedDTO> findCompletedByCourse(CourseDTO course)
 	{
 		Connection conn = null;
 		try
@@ -135,13 +137,17 @@ public class CompletedDAOImpl implements CompletedDAO
 			CourseDAO cd = CourseDAOFactory.getCourseDAOInstance();
 			conn = openConnection();
 			PreparedStatement ps = conn.prepareStatement("SELECT * FROM `capsdb`.`completed` WHERE courseID = ?");
-			ps.setInt(1, courseID);
+			ps.setInt(1, course.getCourseID());
 			ResultSet rs = ps.executeQuery();
-			rs.next();
-			CompletedDTO result = new CompletedDTO();
-			result.setStudent(sd.findStudent(rs.getInt("studentID")));
-			result.setCourse(cd.findCourse(rs.getInt("courseID")));
-			result.setGrade(rs.getInt("grade"));
+			ArrayList<CompletedDTO> result = new ArrayList<CompletedDTO>();
+			while (rs.next())
+			{
+				CompletedDTO row = new CompletedDTO();
+				row.setStudent(sd.findStudent(rs.getInt("studentID")));
+				row.setCourse(cd.findCourse(rs.getInt("courseID")));
+				row.setGrade(rs.getInt("grade"));
+				result.add(row);
+			}
 			ps.close();
 			conn.close();
 			return result;
@@ -168,7 +174,7 @@ public class CompletedDAOImpl implements CompletedDAO
 	 * @see dao.mysql.CompletedDAO#findCompletedByStudent(int)
 	 */
 	@Override
-	public CompletedDTO findCompletedByStudent(int studentID)
+	public ArrayList<CompletedDTO> findCompletedByStudent(StudentDTO student)
 	{
 		Connection conn = null;
 		try
@@ -177,13 +183,17 @@ public class CompletedDAOImpl implements CompletedDAO
 			CourseDAO cd = CourseDAOFactory.getCourseDAOInstance();
 			conn = openConnection();
 			PreparedStatement ps = conn.prepareStatement("SELECT * FROM `capsdb`.`completed` WHERE studentID = ?");
-			ps.setInt(1, studentID);
+			ps.setInt(1, student.getStudentID());
 			ResultSet rs = ps.executeQuery();
-			rs.next();
-			CompletedDTO result = new CompletedDTO();
-			result.setStudent(sd.findStudent(rs.getInt("studentID")));
-			result.setCourse(cd.findCourse(rs.getInt("courseID")));
-			result.setGrade(rs.getInt("grade"));
+			ArrayList<CompletedDTO> result = new ArrayList<CompletedDTO>();
+			while (rs.next())
+			{
+				CompletedDTO row = new CompletedDTO();
+				row.setStudent(sd.findStudent(rs.getInt("studentID")));
+				row.setCourse(cd.findCourse(rs.getInt("courseID")));
+				row.setGrade(rs.getInt("grade"));
+				result.add(row);
+			}
 			ps.close();
 			conn.close();
 			return result;
