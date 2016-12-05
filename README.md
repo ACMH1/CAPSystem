@@ -12,3 +12,7 @@ SampleServlet.java is for testing sample_*.jsp
 Requirement:
 
 session: key:  "role";  value:" " "admin" "student" "lecturer" is needed.
+
+
+
+vishal
