@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import dao.AdminDAO;
+import dao.NoDataException;
 import model.AdminDTO;
 
 public class AdminDAOImpl implements AdminDAO
@@ -33,7 +34,9 @@ public class AdminDAOImpl implements AdminDAO
 		return connection;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see dao.mysql.AdminDAO#createAdmin(model.AdminDTO)
 	 */
 	@Override
@@ -43,12 +46,12 @@ public class AdminDAOImpl implements AdminDAO
 		try
 		{
 			conn = openConnection();
-			PreparedStatement ps = conn.prepareStatement(
-					"INSERT INTO `admin` (`adminID`, `password`) VALUES (?, ?);");
+			PreparedStatement ps = conn
+					.prepareStatement("INSERT INTO `admin` (`adminID`, `password`, `status`) VALUES (?, ?, 1);");
 			ps.setInt(1, admin.getAdminID());
 			ps.setString(2, admin.getPassword());
 			if (ps.executeUpdate() != 1)
-				throw new SQLException("Update failed");
+				throw new SQLException("Insert failed");
 			conn.commit();
 			ps.close();
 			conn.close();
@@ -72,7 +75,9 @@ public class AdminDAOImpl implements AdminDAO
 
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see dao.mysql.AdminDAO#updateAdmin(model.AdminDTO)
 	 */
 	@Override
@@ -82,8 +87,7 @@ public class AdminDAOImpl implements AdminDAO
 		try
 		{
 			conn = openConnection();
-			PreparedStatement ps = conn.prepareStatement(
-					"UPDATE `admin` SET `password` = ? WHERE AdminID = ?");
+			PreparedStatement ps = conn.prepareStatement("UPDATE `admin` SET `password` = ? WHERE AdminID = ?");
 			ps.setInt(2, admin.getAdminID());
 			ps.setString(1, admin.getPassword());
 			if (ps.executeUpdate() != 1)
@@ -111,7 +115,9 @@ public class AdminDAOImpl implements AdminDAO
 
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see dao.mysql.AdminDAO#removeAdmin(model.AdminDTO)
 	 */
 	@Override
@@ -121,7 +127,7 @@ public class AdminDAOImpl implements AdminDAO
 		try
 		{
 			conn = openConnection();
-			PreparedStatement ps = conn.prepareStatement("DELETE FROM `admin` WHERE AdminID = ?");
+			PreparedStatement ps = conn.prepareStatement("UPDATE `admin` SET `status` = 0 WHERE AdminID = ?");
 			ps.setInt(1, admin.getAdminID());
 			if (ps.executeUpdate() != 1)
 				throw new SQLException("Delete failed");
@@ -148,7 +154,9 @@ public class AdminDAOImpl implements AdminDAO
 
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see dao.mysql.AdminDAO#findAdmin(int)
 	 */
 	@Override
@@ -158,50 +166,17 @@ public class AdminDAOImpl implements AdminDAO
 		try
 		{
 			conn = openConnection();
-			PreparedStatement ps = conn.prepareStatement("SELECT * FROM `admin` WHERE AdminID = ?");
+			PreparedStatement ps = conn.prepareStatement("SELECT * FROM `admin` WHERE AdminID = ? AND `status` = 1");
 			ps.setInt(1, adminID);
 			ResultSet rs = ps.executeQuery();
-			rs.next();
-			AdminDTO result = new AdminDTO();
-			result.setAdminID(rs.getInt("adminID"));
-			result.setPassword(rs.getString("password"));
-			ps.close();
-			conn.close();
-			return result;
-		} catch (Exception e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			try
+			AdminDTO result = null;
+			if (rs.next())
 			{
-				conn.close();
-				return null;
-			} catch (SQLException e1)
-			{
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			return null;
-		}
-	}
-	/* (non-Javadoc)
-	 * @see dao.mysql.AdminDAO#listAllAdmin()
-	 */
-	@Override
-	public ArrayList<AdminDTO> listAllAdmin()
-	{
-		Connection conn = null;
-		try
-		{
-			conn = openConnection();
-			PreparedStatement ps = conn.prepareStatement("SELECT * FROM `admin`");
-			ResultSet rs = ps.executeQuery();
-			ArrayList<AdminDTO> result = new ArrayList<AdminDTO>();
-			while (rs.next())
-			{
-				AdminDTO row = new AdminDTO(rs.getInt("adminID"), rs.getString("password"));
-				result.add(row);
-			}
+				result = new AdminDTO();
+				result.setAdminID(rs.getInt("adminID"));
+				result.setPassword(rs.getString("password"));
+			} else
+				throw new NoDataException();
 			ps.close();
 			conn.close();
 			return result;
@@ -222,7 +197,51 @@ public class AdminDAOImpl implements AdminDAO
 		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see dao.mysql.AdminDAO#listAllAdmin()
+	 */
+	@Override
+	public ArrayList<AdminDTO> listAllAdmin()
+	{
+		Connection conn = null;
+		try
+		{
+			conn = openConnection();
+			PreparedStatement ps = conn.prepareStatement("SELECT * FROM `admin` WHERE `status` = 1");
+			ResultSet rs = ps.executeQuery();
+			ArrayList<AdminDTO> result = new ArrayList<AdminDTO>();
+			while (rs.next())
+			{
+				AdminDTO row = new AdminDTO(rs.getInt("adminID"), rs.getString("password"));
+				result.add(row);
+			}
+			ps.close();
+			conn.close();
+			if (result.isEmpty())
+				throw new NoDataException();
+			return result;
+		} catch (Exception e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			try
+			{
+				conn.close();
+				return null;
+			} catch (SQLException e1)
+			{
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			return null;
+		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see dao.mysql.AdminDAO#getNextAdminID()
 	 */
 	@Override
@@ -235,8 +254,11 @@ public class AdminDAOImpl implements AdminDAO
 			conn = openConnection();
 			PreparedStatement ps = conn.prepareStatement("SELECT MAX(adminID) FROM `admin`");
 			ResultSet rs = ps.executeQuery();
-			rs.next();
-			n = rs.getInt(1) + 1;
+			if (rs.next())
+			{
+				n = rs.getInt(1) + 1;
+			} else
+				throw new NoDataException();
 			ps.close();
 			conn.close();
 			return n;

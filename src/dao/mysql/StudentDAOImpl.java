@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import dao.NoDataException;
 import dao.StudentDAO;
 import model.StudentDTO;
 
@@ -46,7 +47,7 @@ public class StudentDAOImpl implements StudentDAO
 		{
 			conn = openConnection();
 			PreparedStatement ps = conn.prepareStatement(
-					"INSERT INTO `student` (`studentID`, `lastName`, `firstMidName`, `enrolmentDate`, `email`, `password`) VALUES (?, ?, ?, ?, ?, ?);");
+					"INSERT INTO `student` (`studentID`, `lastName`, `firstMidName`, `enrolmentDate`, `email`, `password`, `status`) VALUES (?, ?, ?, ?, ?, ?, 1);");
 			ps.setInt(1, student.getStudentID());
 			ps.setString(2, student.getLastName());
 			ps.setString(3, student.getFirstMidName());
@@ -54,7 +55,7 @@ public class StudentDAOImpl implements StudentDAO
 			ps.setString(5, student.getEmail());
 			ps.setString(6, student.getPassword());
 			if (ps.executeUpdate() != 1)
-				throw new SQLException("Update failed");
+				throw new SQLException("Insert failed");
 			conn.commit();
 			ps.close();
 			conn.close();
@@ -135,7 +136,7 @@ public class StudentDAOImpl implements StudentDAO
 		try
 		{
 			conn = openConnection();
-			PreparedStatement ps = conn.prepareStatement("DELETE FROM `student` WHERE studentID = ?");
+			PreparedStatement ps = conn.prepareStatement("UPDATE `student` SET `status` = 1 WHERE studentID = ?");
 			ps.setInt(1, student.getStudentID());
 			if (ps.executeUpdate() != 1)
 				throw new SQLException("Delete failed");
@@ -174,15 +175,16 @@ public class StudentDAOImpl implements StudentDAO
 		try
 		{
 			conn = openConnection();
-			PreparedStatement ps = conn.prepareStatement("SELECT * FROM `student` WHERE studentID = ?");
+			PreparedStatement ps = conn
+					.prepareStatement("SELECT * FROM `student` WHERE studentID = ? AND `status` = 1");
 			ps.setInt(1, studentID);
 			ResultSet rs = ps.executeQuery();
-			rs.next();
-			StudentDTO result = new StudentDTO(rs.getInt("studentID"), rs.getString("lastName"),
-					rs.getString("firstMidName"), rs.getDate("enrolmentDate"), rs.getString("email"),
-					rs.getString("password"));
-			;
-
+			StudentDTO result = null;
+			if (rs.next())
+				result = new StudentDTO(rs.getInt("studentID"), rs.getString("lastName"), rs.getString("firstMidName"),
+						rs.getDate("enrolmentDate"), rs.getString("email"), rs.getString("password"));
+			else
+				throw new NoDataException();
 			ps.close();
 			conn.close();
 			return result;
@@ -216,7 +218,7 @@ public class StudentDAOImpl implements StudentDAO
 		try
 		{
 			conn = openConnection();
-			PreparedStatement ps = conn.prepareStatement("SELECT * FROM `student`");
+			PreparedStatement ps = conn.prepareStatement("SELECT * FROM `student` WHERE `status` = 1");
 			ResultSet rs = ps.executeQuery();
 			ArrayList<StudentDTO> result = new ArrayList<StudentDTO>();
 			while (rs.next())
@@ -228,6 +230,8 @@ public class StudentDAOImpl implements StudentDAO
 			}
 			ps.close();
 			conn.close();
+			if (result.isEmpty())
+				throw new NoDataException();
 			return result;
 		} catch (Exception e)
 		{
@@ -261,8 +265,10 @@ public class StudentDAOImpl implements StudentDAO
 			conn = openConnection();
 			PreparedStatement ps = conn.prepareStatement("SELECT MAX(studentID) FROM `student`");
 			ResultSet rs = ps.executeQuery();
-			rs.next();
-			n = rs.getInt(1) + 1;
+			if (rs.next())
+				n = rs.getInt(1) + 1;
+			else
+				throw new NoDataException();
 			ps.close();
 			conn.close();
 			return n;

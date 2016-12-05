@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import dao.LecturerDAO;
+import dao.NoDataException;
 import model.LecturerDTO;
 
 public class LecturerDAOImpl implements LecturerDAO
@@ -46,14 +47,14 @@ public class LecturerDAOImpl implements LecturerDAO
 		{
 			conn = openConnection();
 			PreparedStatement ps = conn.prepareStatement(
-					"INSERT INTO `lecturer` (`lecturerID`, `lastName`, `firstMidName`, `email`, `password`) VALUES (?, ?, ?, ?, ?);");
+					"INSERT INTO `lecturer` (`lecturerID`, `lastName`, `firstMidName`, `email`, `password`, `status`) VALUES (?, ?, ?, ?, ?, 1);");
 			ps.setInt(1, lecturer.getLecturerID());
 			ps.setString(2, lecturer.getLastName());
 			ps.setString(3, lecturer.getFirstMidName());
 			ps.setString(4, lecturer.getEmail());
 			ps.setString(5, lecturer.getPassword());
 			if (ps.executeUpdate() != 1)
-				throw new SQLException("Update failed");
+				throw new SQLException("Insert failed");
 			conn.commit();
 			ps.close();
 			conn.close();
@@ -133,7 +134,7 @@ public class LecturerDAOImpl implements LecturerDAO
 		try
 		{
 			conn = openConnection();
-			PreparedStatement ps = conn.prepareStatement("DELETE FROM `lecturer` WHERE LecturerID = ?");
+			PreparedStatement ps = conn.prepareStatement("UPDATE `lecturer` SET `status` = 0 WHERE LecturerID = ?");
 			ps.setInt(1, lecturer.getLecturerID());
 			if (ps.executeUpdate() != 1)
 				throw new SQLException("Delete failed");
@@ -172,16 +173,17 @@ public class LecturerDAOImpl implements LecturerDAO
 		try
 		{
 			conn = openConnection();
-			PreparedStatement ps = conn.prepareStatement("SELECT * FROM `lecturer` WHERE LecturerID = ?");
+			PreparedStatement ps = conn
+					.prepareStatement("SELECT * FROM `lecturer` WHERE LecturerID = ? AND status = 1");
 			ps.setInt(1, lecturerID);
 			ResultSet rs = ps.executeQuery();
-			rs.next();
-			LecturerDTO result = new LecturerDTO();
-			result.setLecturerID(rs.getInt("lecturerID"));
-			result.setLastName(rs.getString("lastName"));
-			result.setFirstMidName(rs.getString("firstMidName"));
-			result.setEmail(rs.getString("email"));
-			result.setPassword(rs.getString("password"));
+			LecturerDTO result = null;
+			if (rs.next())
+			{
+				result = new LecturerDTO(rs.getInt("lecturerID"), rs.getString("lastName"),
+						rs.getString("firstMidName"), rs.getString("email"), rs.getString("password"));
+			} else
+				throw new NoDataException();
 			ps.close();
 			conn.close();
 			return result;
@@ -215,7 +217,7 @@ public class LecturerDAOImpl implements LecturerDAO
 		try
 		{
 			conn = openConnection();
-			PreparedStatement ps = conn.prepareStatement("SELECT * FROM `lecturer`");
+			PreparedStatement ps = conn.prepareStatement("SELECT * FROM `lecturer` WHERE `status` = 1");
 			ResultSet rs = ps.executeQuery();
 			ArrayList<LecturerDTO> result = new ArrayList<LecturerDTO>();
 			while (rs.next())
@@ -226,6 +228,8 @@ public class LecturerDAOImpl implements LecturerDAO
 			}
 			ps.close();
 			conn.close();
+			if (result.isEmpty())
+				throw new NoDataException();
 			return result;
 		} catch (Exception e)
 		{
@@ -259,8 +263,10 @@ public class LecturerDAOImpl implements LecturerDAO
 			conn = openConnection();
 			PreparedStatement ps = conn.prepareStatement("SELECT MAX(lecturerID) FROM `lecturer`");
 			ResultSet rs = ps.executeQuery();
-			rs.next();
-			n = rs.getInt(1) + 1;
+			if (rs.next())
+				n = rs.getInt(1) + 1;
+			else
+				throw new NoDataException();
 			ps.close();
 			conn.close();
 			return n;

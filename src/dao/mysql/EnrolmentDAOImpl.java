@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import dao.CourseDAO;
 import dao.DAOFactory;
 import dao.EnrolmentDAO;
+import dao.NoDataException;
 import dao.StudentDAO;
 import model.CourseDTO;
 import model.EnrolmentDTO;
@@ -55,7 +56,7 @@ public class EnrolmentDAOImpl implements EnrolmentDAO
 			ps.setInt(1, enrolment.getStudent().getStudentID());
 			ps.setInt(2, enrolment.getCourse().getCourseID());
 			if (ps.executeUpdate() != 1)
-				throw new SQLException("Update failed");
+				throw new SQLException("Insert failed");
 			conn.commit();
 			ps.close();
 			conn.close();
@@ -148,6 +149,8 @@ public class EnrolmentDAOImpl implements EnrolmentDAO
 			}
 			ps.close();
 			conn.close();
+			if (result.isEmpty())
+				throw new NoDataException();
 			return result;
 		} catch (Exception e)
 		{
@@ -194,6 +197,8 @@ public class EnrolmentDAOImpl implements EnrolmentDAO
 			}
 			ps.close();
 			conn.close();
+			if (result.isEmpty())
+				throw new NoDataException();
 			return result;
 		} catch (Exception e)
 		{
@@ -238,6 +243,8 @@ public class EnrolmentDAOImpl implements EnrolmentDAO
 			}
 			ps.close();
 			conn.close();
+			if (result.isEmpty())
+				throw new NoDataException();
 			return result;
 		} catch (Exception e)
 		{
