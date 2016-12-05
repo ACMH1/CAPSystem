@@ -4,9 +4,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import dao.CourseDAO;
-import dao.CourseDAOFactory;
+import dao.DAOFactory;
 import dao.LecturerDAO;
-import dao.LecturerDAOFactory;
+import dao.StudentDAO;
 import model.CourseDTO;
 
 public class CourseTest
@@ -14,8 +14,9 @@ public class CourseTest
 
 	public static void main(String[] args)
 	{
-		CourseDAO cd = CourseDAOFactory.getCourseDAOInstance();
-		LecturerDAO ld = LecturerDAOFactory.getLecturerDAOInstance();
+		DAOFactory DF = DAOFactory.loadInstance();
+		CourseDAO cd = DF.getCourseDAO();
+		LecturerDAO ld = DF.getLecturerDAO();
 		SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
 		
 //		try

@@ -9,9 +9,8 @@ import java.util.ArrayList;
 
 import dao.CompletedDAO;
 import dao.CourseDAO;
-import dao.CourseDAOFactory;
+import dao.DAOFactory;
 import dao.StudentDAO;
-import dao.StudentDAOFactory;
 import model.CompletedDTO;
 import model.CourseDTO;
 import model.StudentDTO;
@@ -133,8 +132,9 @@ public class CompletedDAOImpl implements CompletedDAO
 		Connection conn = null;
 		try
 		{
-			StudentDAO sd = StudentDAOFactory.getStudentDAOInstance();
-			CourseDAO cd = CourseDAOFactory.getCourseDAOInstance();
+			DAOFactory DF = DAOFactory.loadInstance();
+			StudentDAO sd = DF.getStudentDAO();
+			CourseDAO cd = DF.getCourseDAO();
 			conn = openConnection();
 			PreparedStatement ps = conn.prepareStatement("SELECT * FROM `completed` WHERE courseID = ?");
 			ps.setInt(1, course.getCourseID());
@@ -179,8 +179,9 @@ public class CompletedDAOImpl implements CompletedDAO
 		Connection conn = null;
 		try
 		{
-			StudentDAO sd = StudentDAOFactory.getStudentDAOInstance();
-			CourseDAO cd = CourseDAOFactory.getCourseDAOInstance();
+			DAOFactory DF = DAOFactory.loadInstance();
+			StudentDAO sd = DF.getStudentDAO();
+			CourseDAO cd = DF.getCourseDAO();
 			conn = openConnection();
 			PreparedStatement ps = conn.prepareStatement("SELECT * FROM `completed` WHERE studentID = ?");
 			ps.setInt(1, student.getStudentID());
@@ -225,8 +226,9 @@ public class CompletedDAOImpl implements CompletedDAO
 		Connection conn = null;
 		try
 		{
-			StudentDAO sd = StudentDAOFactory.getStudentDAOInstance();
-			CourseDAO cd = CourseDAOFactory.getCourseDAOInstance();
+			DAOFactory DF = DAOFactory.loadInstance();
+			StudentDAO sd = DF.getStudentDAO();
+			CourseDAO cd = DF.getCourseDAO();
 			conn = openConnection();
 			PreparedStatement ps = conn.prepareStatement("SELECT * FROM `completed`");
 			ResultSet rs = ps.executeQuery();

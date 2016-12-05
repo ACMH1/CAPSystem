@@ -2,30 +2,31 @@ package test;
 
 import java.util.Calendar;
 
+import dao.DAOFactory;
 import dao.StudentDAO;
-import dao.StudentDAOFactory;
 import model.StudentDTO;
 
 public class StudentTest
 {
 	public static void main(String[] args)
 	{
-		StudentDAO S = StudentDAOFactory.getStudentDAOInstance();
+		DAOFactory DF = DAOFactory.loadInstance();
+		StudentDAO sd = DF.getStudentDAO();
 		Calendar cal = Calendar.getInstance();
 		
 //		StudentDTO s1 = new StudentDTO(10101, "alan", "aeiou", cal.getTime(), "aaa@aa.org", "AAAA");
-//		S.createStudent(s1);
+//		sd.createStudent(s1);
 		
 		//StudentDTO s2 = new StudentDTO(3, "alan", "aeiou", cal.getTime(), "aaa@aa.org", "AAAA");
-		//S.createStudent(s2);
+		//sd.createStudent(s2);
 		
-//		S.removeStudent(s1);
+//		sd.removeStudent(s1);
 		
 //		StudentDTO s3 = S.findStudent(10095);
 //		s3.setEmail("bbb@bb.com");
-//		S.updateStudent(s3);
+//		sd.updateStudent(s3);
 		
-		for (StudentDTO s : S.listAllstudent())
+		for (StudentDTO s : sd.listAllstudent())
 		{
 			System.out.println(s.getStudentID());
 		}

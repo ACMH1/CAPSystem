@@ -1,11 +1,9 @@
 package test;
 
 import dao.CompletedDAO;
-import dao.CompletedDAOFactory;
 import dao.CourseDAO;
-import dao.CourseDAOFactory;
+import dao.DAOFactory;
 import dao.StudentDAO;
-import dao.StudentDAOFactory;
 import model.CompletedDTO;
 import model.StudentDTO;
 
@@ -14,9 +12,10 @@ public class CompletedTest
 
 	public static void main(String[] args)
 	{
-		CourseDAO cd = CourseDAOFactory.getCourseDAOInstance();
-		StudentDAO sd = StudentDAOFactory.getStudentDAOInstance();
-		CompletedDAO ed = CompletedDAOFactory.getCompletedDAOInstance();
+		DAOFactory DF = DAOFactory.loadInstance();
+		StudentDAO sd = DF.getStudentDAO();
+		CourseDAO cd = DF.getCourseDAO();
+		CompletedDAO ed = DF.getCompletedDAO();
 //		
 //		CompletedDTO e1 = new CompletedDTO(sd.findStudent(3), cd.findCourse(2), 55);
 //		CompletedDTO e2 = new CompletedDTO(sd.findStudent(3), cd.findCourse(4), 38);

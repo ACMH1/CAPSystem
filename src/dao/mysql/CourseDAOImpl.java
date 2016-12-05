@@ -8,8 +8,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import dao.CourseDAO;
+import dao.DAOFactory;
 import dao.LecturerDAO;
-import dao.LecturerDAOFactory;
 import model.CourseDTO;
 
 public class CourseDAOImpl implements CourseDAO
@@ -177,7 +177,8 @@ public class CourseDAOImpl implements CourseDAO
 		Connection conn = null;
 		try
 		{
-			LecturerDAO ld = LecturerDAOFactory.getLecturerDAOInstance();
+			DAOFactory DF = DAOFactory.loadInstance();
+			LecturerDAO ld = DF.getLecturerDAO();
 			conn = openConnection();
 			PreparedStatement ps = conn.prepareStatement("SELECT * FROM `course` WHERE CourseID = ?");
 			ps.setInt(1, courseID);
@@ -223,7 +224,8 @@ public class CourseDAOImpl implements CourseDAO
 		Connection conn = null;
 		try
 		{
-			LecturerDAO ld = LecturerDAOFactory.getLecturerDAOInstance();
+			DAOFactory DF = DAOFactory.loadInstance();
+			LecturerDAO ld = DF.getLecturerDAO();
 			conn = openConnection();
 			PreparedStatement ps = conn.prepareStatement("SELECT * FROM `course` WHERE `lecturerID` = ?");
 			ps.setInt(1, lecturerID);
@@ -267,7 +269,8 @@ public class CourseDAOImpl implements CourseDAO
 		Connection conn = null;
 		try
 		{
-			LecturerDAO ld = LecturerDAOFactory.getLecturerDAOInstance();
+			DAOFactory DF = DAOFactory.loadInstance();
+			LecturerDAO ld = DF.getLecturerDAO();
 			conn = openConnection();
 			PreparedStatement ps = conn.prepareStatement("SELECT * FROM `course`");
 			ResultSet rs = ps.executeQuery();

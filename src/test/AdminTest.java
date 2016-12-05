@@ -1,7 +1,9 @@
 package test;
 
 import dao.AdminDAO;
-import dao.AdminDAOFactory;
+import dao.CourseDAO;
+import dao.DAOFactory;
+import dao.StudentDAO;
 import model.AdminDTO;
 
 public class AdminTest
@@ -9,7 +11,8 @@ public class AdminTest
 
 	public static void main(String[] args)
 	{
-		AdminDAO A = AdminDAOFactory.getAdminDAOInstance();
+		DAOFactory DF = DAOFactory.loadInstance();
+		AdminDAO A = DF.getAdminDAO();
 		AdminDTO a1 = new AdminDTO(A.getNextAdminID(), "waddup");
 		A.createAdmin(a1);
 		AdminDTO a2 = A.findAdmin(3);

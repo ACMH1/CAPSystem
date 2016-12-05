@@ -1,11 +1,9 @@
 package test;
 
 import dao.CourseDAO;
-import dao.CourseDAOFactory;
+import dao.DAOFactory;
 import dao.EnrolmentDAO;
-import dao.EnrolmentDAOFactory;
 import dao.StudentDAO;
-import dao.StudentDAOFactory;
 import model.EnrolmentDTO;
 import model.StudentDTO;
 
@@ -13,9 +11,10 @@ public class EnrolmentTest
 {
 	public static void main(String[] args)
 	{
-		CourseDAO cd = CourseDAOFactory.getCourseDAOInstance();
-		StudentDAO sd = StudentDAOFactory.getStudentDAOInstance();
-		EnrolmentDAO ed = EnrolmentDAOFactory.getEnrolmentDAOInstance();
+		DAOFactory DF = DAOFactory.loadInstance();
+		StudentDAO sd = DF.getStudentDAO();
+		CourseDAO cd = DF.getCourseDAO();
+		EnrolmentDAO ed = DF.getEnrolmentDAO();
 		/*
 		EnrolmentDTO e1 = new EnrolmentDTO(sd.findStudent(3), cd.findCourse(2));
 		EnrolmentDTO e2 = new EnrolmentDTO(sd.findStudent(3), cd.findCourse(4));

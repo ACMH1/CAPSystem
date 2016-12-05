@@ -8,10 +8,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import dao.CourseDAO;
-import dao.CourseDAOFactory;
+import dao.DAOFactory;
 import dao.EnrolmentDAO;
 import dao.StudentDAO;
-import dao.StudentDAOFactory;
 import model.CourseDTO;
 import model.EnrolmentDTO;
 import model.StudentDTO;
@@ -132,8 +131,9 @@ public class EnrolmentDAOImpl implements EnrolmentDAO
 		Connection conn = null;
 		try
 		{
-			StudentDAO sd = StudentDAOFactory.getStudentDAOInstance();
-			CourseDAO cd = CourseDAOFactory.getCourseDAOInstance();
+			DAOFactory DF = DAOFactory.loadInstance();
+			StudentDAO sd = DF.getStudentDAO();
+			CourseDAO cd = DF.getCourseDAO();
 			conn = openConnection();
 			PreparedStatement ps = conn.prepareStatement("SELECT * FROM `enrolment` WHERE courseID = ?");
 			ps.setInt(1, course.getCourseID());
@@ -177,8 +177,9 @@ public class EnrolmentDAOImpl implements EnrolmentDAO
 		Connection conn = null;
 		try
 		{
-			StudentDAO sd = StudentDAOFactory.getStudentDAOInstance();
-			CourseDAO cd = CourseDAOFactory.getCourseDAOInstance();
+			DAOFactory DF = DAOFactory.loadInstance();
+			StudentDAO sd = DF.getStudentDAO();
+			CourseDAO cd = DF.getCourseDAO();
 			conn = openConnection();
 			PreparedStatement ps = conn.prepareStatement("SELECT * FROM `enrolment` WHERE studentID = ?");
 			ps.setInt(1, student.getStudentID());
@@ -222,8 +223,9 @@ public class EnrolmentDAOImpl implements EnrolmentDAO
 		Connection conn = null;
 		try
 		{
-			StudentDAO sd = StudentDAOFactory.getStudentDAOInstance();
-			CourseDAO cd = CourseDAOFactory.getCourseDAOInstance();
+			DAOFactory DF = DAOFactory.loadInstance();
+			StudentDAO sd = DF.getStudentDAO();
+			CourseDAO cd = DF.getCourseDAO();
 			conn = openConnection();
 			PreparedStatement ps = conn.prepareStatement("SELECT * FROM `enrolment`");
 			ResultSet rs = ps.executeQuery();

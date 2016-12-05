@@ -1,7 +1,9 @@
 package test;
 
+import dao.CourseDAO;
+import dao.DAOFactory;
 import dao.LecturerDAO;
-import dao.LecturerDAOFactory;
+import dao.StudentDAO;
 import model.LecturerDTO;
 
 public class LecturerTest
@@ -9,7 +11,8 @@ public class LecturerTest
 
 	public static void main(String[] args)
 	{
-		LecturerDAO L = LecturerDAOFactory.getLecturerDAOInstance();
+		DAOFactory DF = DAOFactory.loadInstance();
+		LecturerDAO L = DF.getLecturerDAO();
 //		LecturerDTO l1 = new LecturerDTO(L.getNextLecturerID(), "Alice", "aa","dodo@gmail.com", "dfgfggfj");
 //		L.createLecturer(l1);
 //		LecturerDTO l2 = new LecturerDTO(L.getNextLecturerID(), "Bob", "bb","b@gmail.com", "dfdfgdfg");
