@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import dao.CourseDAO;
 import dao.DAOFactory;
@@ -18,6 +19,9 @@ import model.StudentDTO;
 
 public class EnrolmentDAOImpl implements EnrolmentDAO
 {
+
+	private static HashSet<EnrolmentDTO> EnrolmentCache = new HashSet<EnrolmentDTO>();
+
 	private Connection openConnection()
 	{
 		try
@@ -98,6 +102,8 @@ public class EnrolmentDAOImpl implements EnrolmentDAO
 			ps.setInt(2, enrolment.getCourse().getCourseID());
 			if (ps.executeUpdate() != 1)
 				throw new SQLException("Delete failed");
+			else
+				EnrolmentCache.remove(enrolment);
 			conn.commit();
 			ps.close();
 			conn.close();
@@ -142,10 +148,20 @@ public class EnrolmentDAOImpl implements EnrolmentDAO
 			ArrayList<EnrolmentDTO> result = new ArrayList<EnrolmentDTO>();
 			while (rs.next())
 			{
-				EnrolmentDTO row = new EnrolmentDTO();
-				row.setStudent(sd.findStudent(rs.getInt("studentID")));
-				row.setCourse(cd.findCourse(rs.getInt("courseID")));
-				result.add(row);
+				EnrolmentDTO row = new EnrolmentDTO(sd.findStudent(rs.getInt("studentID")),
+						cd.findCourse(rs.getInt("courseID")));
+				if (EnrolmentCache.contains(row))
+				{
+					for (EnrolmentDTO et : EnrolmentCache)
+					{
+						if (et.equals(row))
+						{
+							result.add(et);
+							break;
+						}
+					}
+				} else
+					result.add(row);
 			}
 			ps.close();
 			conn.close();
@@ -190,10 +206,20 @@ public class EnrolmentDAOImpl implements EnrolmentDAO
 			ArrayList<EnrolmentDTO> result = new ArrayList<EnrolmentDTO>();
 			while (rs.next())
 			{
-				EnrolmentDTO row = new EnrolmentDTO();
-				row.setStudent(sd.findStudent(rs.getInt("studentID")));
-				row.setCourse(cd.findCourse(rs.getInt("courseID")));
-				result.add(row);
+				EnrolmentDTO row = new EnrolmentDTO(sd.findStudent(rs.getInt("studentID")),
+						cd.findCourse(rs.getInt("courseID")));
+				if (EnrolmentCache.contains(row))
+				{
+					for (EnrolmentDTO et : EnrolmentCache)
+					{
+						if (et.equals(row))
+						{
+							result.add(et);
+							break;
+						}
+					}
+				} else
+					result.add(row);
 			}
 			ps.close();
 			conn.close();
@@ -239,7 +265,18 @@ public class EnrolmentDAOImpl implements EnrolmentDAO
 			{
 				EnrolmentDTO row = new EnrolmentDTO(sd.findStudent(rs.getInt("studentID")),
 						cd.findCourse(rs.getInt("courseID")));
-				result.add(row);
+				if (EnrolmentCache.contains(row))
+				{
+					for (EnrolmentDTO et : EnrolmentCache)
+					{
+						if (et.equals(row))
+						{
+							result.add(et);
+							break;
+						}
+					}
+				} else
+					result.add(row);
 			}
 			ps.close();
 			conn.close();

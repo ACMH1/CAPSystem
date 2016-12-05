@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import dao.AdminDAO;
 import dao.NoDataException;
@@ -13,6 +14,8 @@ import model.AdminDTO;
 
 public class AdminDAOImpl implements AdminDAO
 {
+	private static HashSet<AdminDTO> AdminCache = new HashSet<AdminDTO>();
+
 	private Connection openConnection()
 	{
 		try
@@ -87,11 +90,26 @@ public class AdminDAOImpl implements AdminDAO
 		try
 		{
 			conn = openConnection();
-			PreparedStatement ps = conn.prepareStatement("UPDATE `admin` SET `password` = ? WHERE AdminID = ?");
+			PreparedStatement ps = conn
+					.prepareStatement("UPDATE `admin` SET `password` = ? WHERE AdminID = ? AND `status` = 1");
 			ps.setInt(2, admin.getAdminID());
 			ps.setString(1, admin.getPassword());
 			if (ps.executeUpdate() != 1)
 				throw new SQLException("Update failed");
+			else
+			{
+				if (AdminCache.contains(admin))
+				{
+					for (AdminDTO at : AdminCache)
+					{
+						if (at.equals(admin))
+						{
+							at.setPassword(admin.getPassword());
+							break;
+						}
+					}
+				}
+			}
 			conn.commit();
 			ps.close();
 			conn.close();
@@ -131,6 +149,8 @@ public class AdminDAOImpl implements AdminDAO
 			ps.setInt(1, admin.getAdminID());
 			if (ps.executeUpdate() != 1)
 				throw new SQLException("Delete failed");
+			else
+				AdminCache.remove(admin);
 			conn.commit();
 			ps.close();
 			conn.close();
@@ -162,6 +182,11 @@ public class AdminDAOImpl implements AdminDAO
 	@Override
 	public AdminDTO findAdmin(int adminID)
 	{
+		for (AdminDTO at : AdminCache)
+		{
+			if (at.getAdminID() == adminID)
+				return at;
+		}
 		Connection conn = null;
 		try
 		{
@@ -175,6 +200,7 @@ public class AdminDAOImpl implements AdminDAO
 				result = new AdminDTO();
 				result.setAdminID(rs.getInt("adminID"));
 				result.setPassword(rs.getString("password"));
+				AdminCache.add(result);
 			} else
 				throw new NoDataException();
 			ps.close();
@@ -215,7 +241,18 @@ public class AdminDAOImpl implements AdminDAO
 			while (rs.next())
 			{
 				AdminDTO row = new AdminDTO(rs.getInt("adminID"), rs.getString("password"));
-				result.add(row);
+				if (AdminCache.contains(row))
+				{
+					for (AdminDTO at : AdminCache)
+					{
+						if (at.equals(row))
+						{
+							result.add(at);
+							break;
+						}
+					}
+				} else
+					result.add(row);
 			}
 			ps.close();
 			conn.close();

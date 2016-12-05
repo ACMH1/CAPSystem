@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import dao.CourseDAO;
 import dao.DAOFactory;
@@ -15,6 +16,8 @@ import model.CourseDTO;
 
 public class CourseDAOImpl implements CourseDAO
 {
+	private static HashSet<CourseDTO> CourseCache = new HashSet<CourseDTO>();
+
 	private Connection openConnection()
 	{
 		try
@@ -95,7 +98,7 @@ public class CourseDAOImpl implements CourseDAO
 		{
 			conn = openConnection();
 			PreparedStatement ps = conn.prepareStatement(
-					"UPDATE `course` SET `courseName` = ?, `size` = ?, `credits` = ?, `lecturerID` = ?, `startDate` = ?, `endDate` = ? WHERE CourseID = ?");
+					"UPDATE `course` SET `courseName` = ?, `size` = ?, `credits` = ?, `lecturerID` = ?, `startDate` = ?, `endDate` = ? WHERE CourseID = ? AND `status` = 1");
 			ps.setInt(7, course.getCourseID());
 			ps.setString(1, course.getCourseName());
 			ps.setInt(2, course.getSize());
@@ -105,6 +108,25 @@ public class CourseDAOImpl implements CourseDAO
 			ps.setDate(6, new java.sql.Date(course.getEndDate().getTime()));
 			if (ps.executeUpdate() != 1)
 				throw new SQLException("Update failed");
+			else
+			{
+				if (CourseCache.contains(course))
+				{
+					for (CourseDTO ct : CourseCache)
+					{
+						if (ct.equals(course))
+						{
+							ct.setCourseName(course.getCourseName());
+							ct.setSize(course.getSize());
+							ct.setCredits(course.getCredits());
+							ct.setLecturer(course.getLecturer());
+							ct.setStartDate(course.getStartDate());
+							ct.setEndDate(course.getEndDate());
+							break;
+						}
+					}
+				}
+			}
 			conn.commit();
 			ps.close();
 			conn.close();
@@ -144,6 +166,8 @@ public class CourseDAOImpl implements CourseDAO
 			ps.setInt(1, course.getCourseID());
 			if (ps.executeUpdate() != 1)
 				throw new SQLException("Delete failed");
+			else
+				CourseCache.remove(course);
 			conn.commit();
 			ps.close();
 			conn.close();
@@ -175,6 +199,11 @@ public class CourseDAOImpl implements CourseDAO
 	@Override
 	public CourseDTO findCourse(int courseID)
 	{
+		for (CourseDTO ct : CourseCache)
+		{
+			if (ct.getCourseID() == courseID)
+				return ct;
+		}
 		Connection conn = null;
 		try
 		{
@@ -237,7 +266,18 @@ public class CourseDAOImpl implements CourseDAO
 				CourseDTO row = new CourseDTO(rs.getInt("courseID"), rs.getString("courseName"), rs.getInt("size"),
 						rs.getInt("credits"), ld.findLecturer(rs.getInt("lecturerID")), rs.getDate("startDate"),
 						rs.getDate("endDate"));
-				result.add(row);
+				if (CourseCache.contains(row))
+				{
+					for (CourseDTO ct : CourseCache)
+					{
+						if (ct.equals(row))
+						{
+							result.add(ct);
+							break;
+						}
+					}
+				} else
+					result.add(row);
 			}
 			ps.close();
 			conn.close();
@@ -283,7 +323,18 @@ public class CourseDAOImpl implements CourseDAO
 				CourseDTO row = new CourseDTO(rs.getInt("courseID"), rs.getString("courseName"), rs.getInt("size"),
 						rs.getInt("credits"), ld.findLecturer(rs.getInt("lecturerID")), rs.getDate("startDate"),
 						rs.getDate("endDate"));
-				result.add(row);
+				if (CourseCache.contains(row))
+				{
+					for (CourseDTO ct : CourseCache)
+					{
+						if (ct.equals(row))
+						{
+							result.add(ct);
+							break;
+						}
+					}
+				} else
+					result.add(row);
 			}
 			ps.close();
 			conn.close();

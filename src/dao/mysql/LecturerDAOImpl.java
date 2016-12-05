@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import dao.LecturerDAO;
 import dao.NoDataException;
@@ -13,6 +14,9 @@ import model.LecturerDTO;
 
 public class LecturerDAOImpl implements LecturerDAO
 {
+
+	private static HashSet<LecturerDTO> LecturerCache = new HashSet<LecturerDTO>();
+
 	private Connection openConnection()
 	{
 		try
@@ -91,7 +95,7 @@ public class LecturerDAOImpl implements LecturerDAO
 		{
 			conn = openConnection();
 			PreparedStatement ps = conn.prepareStatement(
-					"UPDATE `lecturer` SET `lastName` = ?, `firstMidName` = ?,`email` = ?, `password` = ? WHERE LecturerID = ?");
+					"UPDATE `lecturer` SET `lastName` = ?, `firstMidName` = ?,`email` = ?, `password` = ? WHERE LecturerID = ? AND `status` = 1");
 			ps.setInt(5, lecturer.getLecturerID());
 			ps.setString(1, lecturer.getLastName());
 			ps.setString(2, lecturer.getFirstMidName());
@@ -99,6 +103,23 @@ public class LecturerDAOImpl implements LecturerDAO
 			ps.setString(4, lecturer.getPassword());
 			if (ps.executeUpdate() != 1)
 				throw new SQLException("Update failed");
+			else
+			{
+				if (LecturerCache.contains(lecturer))
+				{
+					for (LecturerDTO lt : LecturerCache)
+					{
+						if (lt.equals(lecturer))
+						{
+							lt.setLastName(lecturer.getLastName());
+							lt.setFirstMidName(lecturer.getFirstMidName());
+							lt.setEmail(lecturer.getEmail());
+							lt.setPassword(lecturer.getPassword());
+							break;
+						}
+					}
+				}
+			}
 			conn.commit();
 			ps.close();
 			conn.close();
@@ -138,6 +159,8 @@ public class LecturerDAOImpl implements LecturerDAO
 			ps.setInt(1, lecturer.getLecturerID());
 			if (ps.executeUpdate() != 1)
 				throw new SQLException("Delete failed");
+			else
+				LecturerCache.remove(lecturer);
 			conn.commit();
 			ps.close();
 			conn.close();
@@ -169,6 +192,11 @@ public class LecturerDAOImpl implements LecturerDAO
 	@Override
 	public LecturerDTO findLecturer(int lecturerID)
 	{
+		for (LecturerDTO lt : LecturerCache)
+		{
+			if (lt.getLecturerID() == lecturerID)
+				return lt;
+		}
 		Connection conn = null;
 		try
 		{
@@ -224,7 +252,18 @@ public class LecturerDAOImpl implements LecturerDAO
 			{
 				LecturerDTO row = new LecturerDTO(rs.getInt("lecturerID"), rs.getString("lastName"),
 						rs.getString("firstMidName"), rs.getString("email"), rs.getString("password"));
-				result.add(row);
+				if (LecturerCache.contains(row))
+				{
+					for (LecturerDTO lt : LecturerCache)
+					{
+						if (lt.equals(row))
+						{
+							result.add(lt);
+							break;
+						}
+					}
+				} else
+					result.add(row);
 			}
 			ps.close();
 			conn.close();

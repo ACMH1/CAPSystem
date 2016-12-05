@@ -100,4 +100,17 @@ public class CourseDTO implements Serializable
 	{
 		this.endDate = endDate;
 	}
+
+	@Override
+	public boolean equals(Object that)
+	{
+		if (that == null)
+			return false;
+		else if (that == this)
+			return true;
+		else if (!(that instanceof CompletedDTO))
+			return false;
+		else
+			return (this.getCourseID() == ((CourseDTO) that).getCourseID());
+	}
 }

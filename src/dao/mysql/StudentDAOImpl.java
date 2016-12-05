@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import dao.NoDataException;
 import dao.StudentDAO;
@@ -13,6 +14,9 @@ import model.StudentDTO;
 
 public class StudentDAOImpl implements StudentDAO
 {
+
+	private static HashSet<StudentDTO> StudentCache = new HashSet<StudentDTO>();
+
 	private Connection openConnection()
 	{
 		try
@@ -92,7 +96,7 @@ public class StudentDAOImpl implements StudentDAO
 		{
 			conn = openConnection();
 			PreparedStatement ps = conn.prepareStatement(
-					"UPDATE `student` SET `lastName` = ?, `firstMidName` = ?, `enrolmentDate` = ?, `email` = ?, `password` = ? WHERE studentID = ?");
+					"UPDATE `student` SET `lastName` = ?, `firstMidName` = ?, `enrolmentDate` = ?, `email` = ?, `password` = ? WHERE studentID = ? AND `status` = 1");
 			ps.setInt(6, student.getStudentID());
 			ps.setString(1, student.getLastName());
 			ps.setString(2, student.getFirstMidName());
@@ -101,6 +105,24 @@ public class StudentDAOImpl implements StudentDAO
 			ps.setString(5, student.getPassword());
 			if (ps.executeUpdate() != 1)
 				throw new SQLException("Update failed");
+			else
+			{
+				if (StudentCache.contains(student))
+				{
+					for (StudentDTO st : StudentCache)
+					{
+						if (st.equals(student))
+						{
+							st.setLastName(student.getLastName());
+							st.setFirstMidName(student.getFirstMidName());
+							st.setEnrolmentDate(student.getEnrolmentDate());
+							st.setEmail(student.getEmail());
+							st.setPassword(student.getPassword());
+							break;
+						}
+					}
+				}
+			}
 			conn.commit();
 			ps.close();
 			conn.close();
@@ -140,6 +162,8 @@ public class StudentDAOImpl implements StudentDAO
 			ps.setInt(1, student.getStudentID());
 			if (ps.executeUpdate() != 1)
 				throw new SQLException("Delete failed");
+			else
+				StudentCache.remove(student);
 			conn.commit();
 			ps.close();
 			conn.close();
@@ -171,6 +195,11 @@ public class StudentDAOImpl implements StudentDAO
 	@Override
 	public StudentDTO findStudent(int studentID)
 	{
+		for (StudentDTO st : StudentCache)
+		{
+			if (st.getStudentID() == studentID)
+				return st;
+		}
 		Connection conn = null;
 		try
 		{
@@ -226,7 +255,18 @@ public class StudentDAOImpl implements StudentDAO
 				StudentDTO row = new StudentDTO(rs.getInt("studentID"), rs.getString("lastName"),
 						rs.getString("firstMidName"), rs.getDate("enrolmentDate"), rs.getString("email"),
 						rs.getString("password"));
-				result.add(row);
+				if (StudentCache.contains(row))
+				{
+					for (StudentDTO st : StudentCache)
+					{
+						if (st.equals(row))
+						{
+							result.add(st);
+							break;
+						}
+					}
+				} else
+					result.add(row);
 			}
 			ps.close();
 			conn.close();

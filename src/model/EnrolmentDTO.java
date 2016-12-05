@@ -38,4 +38,18 @@ public class EnrolmentDTO implements Serializable
 	{
 		this.course = course;
 	}
+
+	@Override
+	public boolean equals(Object that)
+	{
+		if (that == null)
+			return false;
+		else if (that == this)
+			return true;
+		else if (!(that instanceof CompletedDTO))
+			return false;
+		else
+			return (this.getStudent().getStudentID() == ((CompletedDTO) that).getStudent().getStudentID()
+					&& this.getCourse().getCourseID() == ((CompletedDTO) that).getCourse().getCourseID());
+	}
 }

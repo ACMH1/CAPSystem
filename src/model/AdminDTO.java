@@ -38,4 +38,17 @@ public class AdminDTO implements Serializable
 	{
 		this.password = password;
 	}
+
+	@Override
+	public boolean equals(Object that)
+	{
+		if (that == null)
+			return false;
+		else if (that == this)
+			return true;
+		else if (!(that instanceof AdminDTO))
+			return false;
+		else
+			return (this.getAdminID() == ((AdminDTO) that).getAdminID());
+	}
 }

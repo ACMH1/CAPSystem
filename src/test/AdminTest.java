@@ -13,16 +13,15 @@ public class AdminTest
 	{
 		DAOFactory DF = DAOFactory.loadInstance();
 		AdminDAO A = DF.getAdminDAO();
-		
-//		AdminDTO a1 = new AdminDTO(A.getNextAdminID(), "waddup");
-//		A.createAdmin(a1);
-		
+
+		// AdminDTO a1 = new AdminDTO(A.getNextAdminID(), "waddup");
+		// A.createAdmin(a1);
+
 		AdminDTO a2 = A.findAdmin(6);
 		a2.setPassword("hello");
 		A.updateAdmin(a2);
-		
-//		AdminDTO a3 = new AdminDTO(4, "waddup");
-//		A.removeAdmin(a3);
-	}
 
+		// AdminDTO a3 = new AdminDTO(4, "waddup");
+		// A.removeAdmin(a3);
+	}
 }

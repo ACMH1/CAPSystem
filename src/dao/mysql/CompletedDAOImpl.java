@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import dao.CompletedDAO;
 import dao.CourseDAO;
@@ -18,6 +19,8 @@ import model.StudentDTO;
 
 public class CompletedDAOImpl implements CompletedDAO
 {
+	private static HashSet<CompletedDTO> CompletedCache = new HashSet<CompletedDTO>();
+
 	private Connection openConnection()
 	{
 		try
@@ -143,11 +146,20 @@ public class CompletedDAOImpl implements CompletedDAO
 			ArrayList<CompletedDTO> result = new ArrayList<CompletedDTO>();
 			while (rs.next())
 			{
-				CompletedDTO row = new CompletedDTO();
-				row.setStudent(sd.findStudent(rs.getInt("studentID")));
-				row.setCourse(cd.findCourse(rs.getInt("courseID")));
-				row.setGrade(rs.getInt("grade"));
-				result.add(row);
+				CompletedDTO row = new CompletedDTO(sd.findStudent(rs.getInt("studentID")),
+						cd.findCourse(rs.getInt("courseID")), rs.getInt("grade"));
+				if (CompletedCache.contains(row))
+				{
+					for (CompletedDTO ct : CompletedCache)
+					{
+						if (ct.equals(row))
+						{
+							result.add(ct);
+							break;
+						}
+					}
+				} else
+					result.add(row);
 			}
 			ps.close();
 			conn.close();
@@ -192,11 +204,20 @@ public class CompletedDAOImpl implements CompletedDAO
 			ArrayList<CompletedDTO> result = new ArrayList<CompletedDTO>();
 			while (rs.next())
 			{
-				CompletedDTO row = new CompletedDTO();
-				row.setStudent(sd.findStudent(rs.getInt("studentID")));
-				row.setCourse(cd.findCourse(rs.getInt("courseID")));
-				row.setGrade(rs.getInt("grade"));
-				result.add(row);
+				CompletedDTO row = new CompletedDTO(sd.findStudent(rs.getInt("studentID")),
+						cd.findCourse(rs.getInt("courseID")), rs.getInt("grade"));
+				if (CompletedCache.contains(row))
+				{
+					for (CompletedDTO ct : CompletedCache)
+					{
+						if (ct.equals(row))
+						{
+							result.add(ct);
+							break;
+						}
+					}
+				} else
+					result.add(row);
 			}
 			ps.close();
 			conn.close();
@@ -242,7 +263,18 @@ public class CompletedDAOImpl implements CompletedDAO
 			{
 				CompletedDTO row = new CompletedDTO(sd.findStudent(rs.getInt("studentID")),
 						cd.findCourse(rs.getInt("courseID")), rs.getInt("grade"));
-				result.add(row);
+				if (CompletedCache.contains(row))
+				{
+					for (CompletedDTO ct : CompletedCache)
+					{
+						if (ct.equals(row))
+						{
+							result.add(ct);
+							break;
+						}
+					}
+				} else
+					result.add(row);
 			}
 			ps.close();
 			conn.close();

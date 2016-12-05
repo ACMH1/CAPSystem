@@ -11,8 +11,6 @@ public class LecturerDTO implements Serializable
 	private String email;
 	private String password;
 
-
-
 	public LecturerDTO(int lecturerID, String lastName, String firstMidName, String email, String password)
 	{
 		super();
@@ -78,4 +76,16 @@ public class LecturerDTO implements Serializable
 		this.email = email;
 	}
 
+	@Override
+	public boolean equals(Object that)
+	{
+		if (that == null)
+			return false;
+		else if (that == this)
+			return true;
+		else if (!(that instanceof CompletedDTO))
+			return false;
+		else
+			return (this.getLecturerID() == ((LecturerDTO) that).getLecturerID());
+	}
 }
