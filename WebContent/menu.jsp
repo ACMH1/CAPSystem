@@ -60,7 +60,7 @@
 </div>
 <%} %>
 <% if (session.getAttribute("role").equals("student")) { %>
-<div class="container" id="admin">
+<div class="container" id="student">
          <div class="row">
   <div class="col-md-3">
 
@@ -99,7 +99,7 @@
 <%} %>
 
 <% if (session.getAttribute("role").equals("lecturer")) { %>
-<div class="container" id="admin">
+<div class="container" id="lecturer">
          <div class="row">
   <div class="col-md-3">
 
