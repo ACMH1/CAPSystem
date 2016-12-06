@@ -52,7 +52,7 @@ public class CourseDAOImpl implements CourseDAO
 		{
 			conn = openConnection();
 			PreparedStatement ps = conn.prepareStatement(
-					"INSERT INTO `course` (`courseID`, `courseName`, `size`, `credits`, `lecturerID`, `startDate`, `endDate`, `status`) VALUES (?, ?, ?, ?, ?, ?, ?, 1);");
+					"INSERT INTO course (courseID, courseName, size, credits, lecturerID, startDate, endDate, status) VALUES (?, ?, ?, ?, ?, ?, ?, 1);");
 			ps.setInt(1, course.getCourseID());
 			ps.setString(2, course.getCourseName());
 			ps.setInt(3, course.getSize());
@@ -98,7 +98,7 @@ public class CourseDAOImpl implements CourseDAO
 		{
 			conn = openConnection();
 			PreparedStatement ps = conn.prepareStatement(
-					"UPDATE `course` SET `courseName` = ?, `size` = ?, `credits` = ?, `lecturerID` = ?, `startDate` = ?, `endDate` = ? WHERE CourseID = ? AND `status` = 1");
+					"UPDATE course SET courseName = ?, size = ?, credits = ?, lecturerID = ?, startDate = ?, endDate = ? WHERE CourseID = ? AND status = 1");
 			ps.setInt(7, course.getCourseID());
 			ps.setString(1, course.getCourseName());
 			ps.setInt(2, course.getSize());
@@ -162,7 +162,7 @@ public class CourseDAOImpl implements CourseDAO
 		try
 		{
 			conn = openConnection();
-			PreparedStatement ps = conn.prepareStatement("UPDATE `course` SET `status` = 0 WHERE CourseID = ?");
+			PreparedStatement ps = conn.prepareStatement("UPDATE course SET status = 0 WHERE CourseID = ?");
 			ps.setInt(1, course.getCourseID());
 			if (ps.executeUpdate() != 1)
 				throw new SQLException("Delete failed");
@@ -210,7 +210,7 @@ public class CourseDAOImpl implements CourseDAO
 			DAOFactory DF = DAOFactory.loadInstance();
 			LecturerDAO ld = DF.getLecturerDAO();
 			conn = openConnection();
-			PreparedStatement ps = conn.prepareStatement("SELECT * FROM `course` WHERE CourseID = ?");
+			PreparedStatement ps = conn.prepareStatement("SELECT * FROM course WHERE CourseID = ?");
 			ps.setInt(1, courseID);
 			ResultSet rs = ps.executeQuery();
 			CourseDTO result = null;
@@ -257,7 +257,7 @@ public class CourseDAOImpl implements CourseDAO
 			LecturerDAO ld = DF.getLecturerDAO();
 			conn = openConnection();
 			PreparedStatement ps = conn
-					.prepareStatement("SELECT * FROM `course` WHERE `lecturerID` = ? AND `status` = 1");
+					.prepareStatement("SELECT * FROM course WHERE lecturerID = ? AND status = 1");
 			ps.setInt(1, lecturerID);
 			ResultSet rs = ps.executeQuery();
 			ArrayList<CourseDTO> result = new ArrayList<CourseDTO>();
@@ -315,7 +315,7 @@ public class CourseDAOImpl implements CourseDAO
 			DAOFactory DF = DAOFactory.loadInstance();
 			LecturerDAO ld = DF.getLecturerDAO();
 			conn = openConnection();
-			PreparedStatement ps = conn.prepareStatement("SELECT * FROM `course` WHERE `status` = 1");
+			PreparedStatement ps = conn.prepareStatement("SELECT * FROM course WHERE status = 1");
 			ResultSet rs = ps.executeQuery();
 			ArrayList<CourseDTO> result = new ArrayList<CourseDTO>();
 			while (rs.next())
@@ -371,7 +371,7 @@ public class CourseDAOImpl implements CourseDAO
 		try
 		{
 			conn = openConnection();
-			PreparedStatement ps = conn.prepareStatement("SELECT MAX(courseID) FROM `course`");
+			PreparedStatement ps = conn.prepareStatement("SELECT MAX(courseID) FROM course");
 			ResultSet rs = ps.executeQuery();
 			if (rs.next())
 				n = rs.getInt(1) + 1;

@@ -56,7 +56,7 @@ public class EnrolmentDAOImpl implements EnrolmentDAO
 		{
 			conn = openConnection();
 			PreparedStatement ps = conn
-					.prepareStatement("INSERT INTO `enrolment` (`studentID`, `courseID`) VALUES (?, ?);");
+					.prepareStatement("INSERT INTO enrolment (studentID, courseID) VALUES (?, ?);");
 			ps.setInt(1, enrolment.getStudent().getStudentID());
 			ps.setInt(2, enrolment.getCourse().getCourseID());
 			if (ps.executeUpdate() != 1)
@@ -97,7 +97,7 @@ public class EnrolmentDAOImpl implements EnrolmentDAO
 		{
 			conn = openConnection();
 			PreparedStatement ps = conn
-					.prepareStatement("DELETE FROM `enrolment` WHERE studentID = ? AND courseID = ?");
+					.prepareStatement("DELETE FROM enrolment WHERE studentID = ? AND courseID = ?");
 			ps.setInt(1, enrolment.getStudent().getStudentID());
 			ps.setInt(2, enrolment.getCourse().getCourseID());
 			if (ps.executeUpdate() != 1)
@@ -142,7 +142,7 @@ public class EnrolmentDAOImpl implements EnrolmentDAO
 			StudentDAO sd = DF.getStudentDAO();
 			CourseDAO cd = DF.getCourseDAO();
 			conn = openConnection();
-			PreparedStatement ps = conn.prepareStatement("SELECT * FROM `enrolment` WHERE courseID = ?");
+			PreparedStatement ps = conn.prepareStatement("SELECT * FROM enrolment WHERE courseID = ?");
 			ps.setInt(1, course.getCourseID());
 			ResultSet rs = ps.executeQuery();
 			ArrayList<EnrolmentDTO> result = new ArrayList<EnrolmentDTO>();
@@ -200,7 +200,7 @@ public class EnrolmentDAOImpl implements EnrolmentDAO
 			StudentDAO sd = DF.getStudentDAO();
 			CourseDAO cd = DF.getCourseDAO();
 			conn = openConnection();
-			PreparedStatement ps = conn.prepareStatement("SELECT * FROM `enrolment` WHERE studentID = ?");
+			PreparedStatement ps = conn.prepareStatement("SELECT * FROM enrolment WHERE studentID = ?");
 			ps.setInt(1, student.getStudentID());
 			ResultSet rs = ps.executeQuery();
 			ArrayList<EnrolmentDTO> result = new ArrayList<EnrolmentDTO>();
@@ -258,7 +258,7 @@ public class EnrolmentDAOImpl implements EnrolmentDAO
 			StudentDAO sd = DF.getStudentDAO();
 			CourseDAO cd = DF.getCourseDAO();
 			conn = openConnection();
-			PreparedStatement ps = conn.prepareStatement("SELECT * FROM `enrolment`");
+			PreparedStatement ps = conn.prepareStatement("SELECT * FROM enrolment");
 			ResultSet rs = ps.executeQuery();
 			ArrayList<EnrolmentDTO> result = new ArrayList<EnrolmentDTO>();
 			while (rs.next())

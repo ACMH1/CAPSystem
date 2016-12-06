@@ -50,7 +50,7 @@ public class AdminDAOImpl implements AdminDAO
 		{
 			conn = openConnection();
 			PreparedStatement ps = conn
-					.prepareStatement("INSERT INTO `admin` (`adminID`, `password`, `status`) VALUES (?, ?, 1);");
+					.prepareStatement("INSERT INTO admin (adminID, password, status) VALUES (?, ?, 1);");
 			ps.setInt(1, admin.getAdminID());
 			ps.setString(2, admin.getPassword());
 			if (ps.executeUpdate() != 1)
@@ -91,7 +91,7 @@ public class AdminDAOImpl implements AdminDAO
 		{
 			conn = openConnection();
 			PreparedStatement ps = conn
-					.prepareStatement("UPDATE `admin` SET `password` = ? WHERE AdminID = ? AND `status` = 1");
+					.prepareStatement("UPDATE admin SET password = ? WHERE AdminID = ? AND status = 1");
 			ps.setInt(2, admin.getAdminID());
 			ps.setString(1, admin.getPassword());
 			if (ps.executeUpdate() != 1)
@@ -145,7 +145,7 @@ public class AdminDAOImpl implements AdminDAO
 		try
 		{
 			conn = openConnection();
-			PreparedStatement ps = conn.prepareStatement("UPDATE `admin` SET `status` = 0 WHERE AdminID = ?");
+			PreparedStatement ps = conn.prepareStatement("UPDATE admin SET status = 0 WHERE AdminID = ?");
 			ps.setInt(1, admin.getAdminID());
 			if (ps.executeUpdate() != 1)
 				throw new SQLException("Delete failed");
@@ -191,7 +191,7 @@ public class AdminDAOImpl implements AdminDAO
 		try
 		{
 			conn = openConnection();
-			PreparedStatement ps = conn.prepareStatement("SELECT * FROM `admin` WHERE AdminID = ? AND `status` = 1");
+			PreparedStatement ps = conn.prepareStatement("SELECT * FROM admin WHERE AdminID = ? AND status = 1");
 			ps.setInt(1, adminID);
 			ResultSet rs = ps.executeQuery();
 			AdminDTO result = null;
@@ -235,7 +235,7 @@ public class AdminDAOImpl implements AdminDAO
 		try
 		{
 			conn = openConnection();
-			PreparedStatement ps = conn.prepareStatement("SELECT * FROM `admin` WHERE `status` = 1");
+			PreparedStatement ps = conn.prepareStatement("SELECT * FROM admin WHERE status = 1");
 			ResultSet rs = ps.executeQuery();
 			ArrayList<AdminDTO> result = new ArrayList<AdminDTO>();
 			while (rs.next())
@@ -289,7 +289,7 @@ public class AdminDAOImpl implements AdminDAO
 		try
 		{
 			conn = openConnection();
-			PreparedStatement ps = conn.prepareStatement("SELECT MAX(adminID) FROM `admin`");
+			PreparedStatement ps = conn.prepareStatement("SELECT MAX(adminID) FROM admin");
 			ResultSet rs = ps.executeQuery();
 			if (rs.next())
 			{

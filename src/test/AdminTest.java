@@ -17,7 +17,7 @@ public class AdminTest
 		// AdminDTO a1 = new AdminDTO(A.getNextAdminID(), "waddup");
 		// A.createAdmin(a1);
 
-		AdminDTO a2 = A.findAdmin(6);
+		AdminDTO a2 = A.findAdmin(5);
 		a2.setPassword("hello");
 		A.updateAdmin(a2);
 
