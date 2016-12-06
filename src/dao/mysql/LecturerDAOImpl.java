@@ -22,7 +22,8 @@ public class LecturerDAOImpl implements LecturerDAO
 		try
 		{
 			Class.forName(MYSQLConstants.DRIVER_CLASS);
-		} catch (ClassNotFoundException e)
+		}
+		catch (ClassNotFoundException e)
 		{
 			e.printStackTrace();
 		}
@@ -31,7 +32,8 @@ public class LecturerDAOImpl implements LecturerDAO
 		{
 			connection = DriverManager.getConnection(MYSQLConstants.URL, MYSQLConstants.USER, MYSQLConstants.PASSWORD);
 			connection.setAutoCommit(false);
-		} catch (SQLException e)
+		}
+		catch (SQLException e)
 		{
 			System.out.println("ERROR: Unable to Connect to Database.");
 		}
@@ -63,7 +65,8 @@ public class LecturerDAOImpl implements LecturerDAO
 			ps.close();
 			conn.close();
 			return 1;
-		} catch (Exception e)
+		}
+		catch (Exception e)
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -72,7 +75,8 @@ public class LecturerDAOImpl implements LecturerDAO
 				conn.rollback();
 				conn.close();
 				return 0;
-			} catch (SQLException e1)
+			}
+			catch (SQLException e1)
 			{
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -124,7 +128,8 @@ public class LecturerDAOImpl implements LecturerDAO
 			ps.close();
 			conn.close();
 			return 1;
-		} catch (Exception e)
+		}
+		catch (Exception e)
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -133,7 +138,8 @@ public class LecturerDAOImpl implements LecturerDAO
 				conn.rollback();
 				conn.close();
 				return 0;
-			} catch (SQLException e1)
+			}
+			catch (SQLException e1)
 			{
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -165,7 +171,8 @@ public class LecturerDAOImpl implements LecturerDAO
 			ps.close();
 			conn.close();
 			return 1;
-		} catch (Exception e)
+		}
+		catch (Exception e)
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -174,7 +181,8 @@ public class LecturerDAOImpl implements LecturerDAO
 				conn.rollback();
 				conn.close();
 				return 0;
-			} catch (SQLException e1)
+			}
+			catch (SQLException e1)
 			{
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -201,8 +209,7 @@ public class LecturerDAOImpl implements LecturerDAO
 		try
 		{
 			conn = openConnection();
-			PreparedStatement ps = conn
-					.prepareStatement("SELECT * FROM lecturer WHERE LecturerID = ? AND status = 1");
+			PreparedStatement ps = conn.prepareStatement("SELECT * FROM lecturer WHERE LecturerID = ? AND status = 1");
 			ps.setInt(1, lecturerID);
 			ResultSet rs = ps.executeQuery();
 			LecturerDTO result = null;
@@ -210,12 +217,14 @@ public class LecturerDAOImpl implements LecturerDAO
 			{
 				result = new LecturerDTO(rs.getInt("lecturerID"), rs.getString("lastName"),
 						rs.getString("firstMidName"), rs.getString("email"), rs.getString("password"));
-			} else
+			}
+			else
 				throw new NoDataException();
 			ps.close();
 			conn.close();
 			return result;
-		} catch (Exception e)
+		}
+		catch (Exception e)
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -223,7 +232,8 @@ public class LecturerDAOImpl implements LecturerDAO
 			{
 				conn.close();
 				return null;
-			} catch (SQLException e1)
+			}
+			catch (SQLException e1)
 			{
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -262,15 +272,20 @@ public class LecturerDAOImpl implements LecturerDAO
 							break;
 						}
 					}
-				} else
+				}
+				else
+				{
 					result.add(row);
+					LecturerCache.add(row);
+				}
 			}
 			ps.close();
 			conn.close();
 			if (result.isEmpty())
 				throw new NoDataException();
 			return result;
-		} catch (Exception e)
+		}
+		catch (Exception e)
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -278,7 +293,8 @@ public class LecturerDAOImpl implements LecturerDAO
 			{
 				conn.close();
 				return null;
-			} catch (SQLException e1)
+			}
+			catch (SQLException e1)
 			{
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -309,7 +325,8 @@ public class LecturerDAOImpl implements LecturerDAO
 			ps.close();
 			conn.close();
 			return n;
-		} catch (Exception e)
+		}
+		catch (Exception e)
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -317,7 +334,8 @@ public class LecturerDAOImpl implements LecturerDAO
 			{
 				conn.close();
 				return n;
-			} catch (SQLException e1)
+			}
+			catch (SQLException e1)
 			{
 				// TODO Auto-generated catch block
 				e1.printStackTrace();

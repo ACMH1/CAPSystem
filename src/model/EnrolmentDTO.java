@@ -46,10 +46,10 @@ public class EnrolmentDTO implements Serializable
 			return false;
 		else if (that == this)
 			return true;
-		else if (!(that instanceof CompletedDTO))
+		else if (!(that instanceof EnrolmentDTO))
 			return false;
 		else
-			return (this.getStudent().getStudentID() == ((CompletedDTO) that).getStudent().getStudentID()
-					&& this.getCourse().getCourseID() == ((CompletedDTO) that).getCourse().getCourseID());
+			return (this.getStudent().getStudentID() == ((EnrolmentDTO) that).getStudent().getStudentID()
+					&& this.getCourse().getCourseID() == ((EnrolmentDTO) that).getCourse().getCourseID());
 	}
 }

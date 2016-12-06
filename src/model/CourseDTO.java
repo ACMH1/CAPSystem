@@ -108,7 +108,7 @@ public class CourseDTO implements Serializable
 			return false;
 		else if (that == this)
 			return true;
-		else if (!(that instanceof CompletedDTO))
+		else if (!(that instanceof CourseDTO))
 			return false;
 		else
 			return (this.getCourseID() == ((CourseDTO) that).getCourseID());

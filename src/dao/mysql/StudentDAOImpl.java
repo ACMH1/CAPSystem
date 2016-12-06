@@ -22,7 +22,8 @@ public class StudentDAOImpl implements StudentDAO
 		try
 		{
 			Class.forName(MYSQLConstants.DRIVER_CLASS);
-		} catch (ClassNotFoundException e)
+		}
+		catch (ClassNotFoundException e)
 		{
 			e.printStackTrace();
 		}
@@ -31,7 +32,8 @@ public class StudentDAOImpl implements StudentDAO
 		{
 			connection = DriverManager.getConnection(MYSQLConstants.URL, MYSQLConstants.USER, MYSQLConstants.PASSWORD);
 			connection.setAutoCommit(false);
-		} catch (SQLException e)
+		}
+		catch (SQLException e)
 		{
 			System.out.println("ERROR: Unable to Connect to Database.");
 		}
@@ -64,7 +66,8 @@ public class StudentDAOImpl implements StudentDAO
 			ps.close();
 			conn.close();
 			return 1;
-		} catch (Exception e)
+		}
+		catch (Exception e)
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -73,7 +76,8 @@ public class StudentDAOImpl implements StudentDAO
 				conn.rollback();
 				conn.close();
 				return 0;
-			} catch (SQLException e1)
+			}
+			catch (SQLException e1)
 			{
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -127,7 +131,8 @@ public class StudentDAOImpl implements StudentDAO
 			ps.close();
 			conn.close();
 			return 1;
-		} catch (Exception e)
+		}
+		catch (Exception e)
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -136,7 +141,8 @@ public class StudentDAOImpl implements StudentDAO
 				conn.rollback();
 				conn.close();
 				return 0;
-			} catch (SQLException e1)
+			}
+			catch (SQLException e1)
 			{
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -168,7 +174,8 @@ public class StudentDAOImpl implements StudentDAO
 			ps.close();
 			conn.close();
 			return 1;
-		} catch (Exception e)
+		}
+		catch (Exception e)
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -177,7 +184,8 @@ public class StudentDAOImpl implements StudentDAO
 				conn.rollback();
 				conn.close();
 				return 0;
-			} catch (SQLException e1)
+			}
+			catch (SQLException e1)
 			{
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -204,8 +212,7 @@ public class StudentDAOImpl implements StudentDAO
 		try
 		{
 			conn = openConnection();
-			PreparedStatement ps = conn
-					.prepareStatement("SELECT * FROM student WHERE studentID = ? AND status = 1");
+			PreparedStatement ps = conn.prepareStatement("SELECT * FROM student WHERE studentID = ? AND status = 1");
 			ps.setInt(1, studentID);
 			ResultSet rs = ps.executeQuery();
 			StudentDTO result = null;
@@ -217,7 +224,8 @@ public class StudentDAOImpl implements StudentDAO
 			ps.close();
 			conn.close();
 			return result;
-		} catch (Exception e)
+		}
+		catch (Exception e)
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -225,7 +233,8 @@ public class StudentDAOImpl implements StudentDAO
 			{
 				conn.close();
 				return null;
-			} catch (SQLException e1)
+			}
+			catch (SQLException e1)
 			{
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -265,15 +274,20 @@ public class StudentDAOImpl implements StudentDAO
 							break;
 						}
 					}
-				} else
+				}
+				else
+				{
 					result.add(row);
+					StudentCache.add(row);
+				}
 			}
 			ps.close();
 			conn.close();
 			if (result.isEmpty())
 				throw new NoDataException();
 			return result;
-		} catch (Exception e)
+		}
+		catch (Exception e)
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -281,7 +295,8 @@ public class StudentDAOImpl implements StudentDAO
 			{
 				conn.close();
 				return null;
-			} catch (SQLException e1)
+			}
+			catch (SQLException e1)
 			{
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -312,7 +327,8 @@ public class StudentDAOImpl implements StudentDAO
 			ps.close();
 			conn.close();
 			return n;
-		} catch (Exception e)
+		}
+		catch (Exception e)
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -320,7 +336,8 @@ public class StudentDAOImpl implements StudentDAO
 			{
 				conn.close();
 				return n;
-			} catch (SQLException e1)
+			}
+			catch (SQLException e1)
 			{
 				// TODO Auto-generated catch block
 				e1.printStackTrace();

@@ -7,7 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashSet;
-
 import dao.CourseDAO;
 import dao.DAOFactory;
 import dao.LecturerDAO;
@@ -23,7 +22,8 @@ public class CourseDAOImpl implements CourseDAO
 		try
 		{
 			Class.forName(MYSQLConstants.DRIVER_CLASS);
-		} catch (ClassNotFoundException e)
+		}
+		catch (ClassNotFoundException e)
 		{
 			e.printStackTrace();
 		}
@@ -32,7 +32,8 @@ public class CourseDAOImpl implements CourseDAO
 		{
 			connection = DriverManager.getConnection(MYSQLConstants.URL, MYSQLConstants.USER, MYSQLConstants.PASSWORD);
 			connection.setAutoCommit(false);
-		} catch (SQLException e)
+		}
+		catch (SQLException e)
 		{
 			System.out.println("ERROR: Unable to Connect to Database.");
 		}
@@ -66,7 +67,8 @@ public class CourseDAOImpl implements CourseDAO
 			ps.close();
 			conn.close();
 			return 1;
-		} catch (Exception e)
+		}
+		catch (Exception e)
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -75,7 +77,8 @@ public class CourseDAOImpl implements CourseDAO
 				conn.rollback();
 				conn.close();
 				return 0;
-			} catch (SQLException e1)
+			}
+			catch (SQLException e1)
 			{
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -131,7 +134,8 @@ public class CourseDAOImpl implements CourseDAO
 			ps.close();
 			conn.close();
 			return 1;
-		} catch (Exception e)
+		}
+		catch (Exception e)
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -140,7 +144,8 @@ public class CourseDAOImpl implements CourseDAO
 				conn.rollback();
 				conn.close();
 				return 0;
-			} catch (SQLException e1)
+			}
+			catch (SQLException e1)
 			{
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -172,7 +177,8 @@ public class CourseDAOImpl implements CourseDAO
 			ps.close();
 			conn.close();
 			return 1;
-		} catch (Exception e)
+		}
+		catch (Exception e)
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -181,7 +187,8 @@ public class CourseDAOImpl implements CourseDAO
 				conn.rollback();
 				conn.close();
 				return 0;
-			} catch (SQLException e1)
+			}
+			catch (SQLException e1)
 			{
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -219,12 +226,14 @@ public class CourseDAOImpl implements CourseDAO
 				result = new CourseDTO(rs.getInt("courseID"), rs.getString("courseName"), rs.getInt("size"),
 						rs.getInt("credits"), ld.findLecturer(rs.getInt("LecturerID")), rs.getDate("startDate"),
 						rs.getDate("endDate"));
-			} else
+			}
+			else
 				throw new NoDataException();
 			ps.close();
 			conn.close();
 			return result;
-		} catch (Exception e)
+		}
+		catch (Exception e)
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -232,7 +241,8 @@ public class CourseDAOImpl implements CourseDAO
 			{
 				conn.close();
 				return null;
-			} catch (SQLException e1)
+			}
+			catch (SQLException e1)
 			{
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -256,8 +266,7 @@ public class CourseDAOImpl implements CourseDAO
 			DAOFactory DF = DAOFactory.loadInstance();
 			LecturerDAO ld = DF.getLecturerDAO();
 			conn = openConnection();
-			PreparedStatement ps = conn
-					.prepareStatement("SELECT * FROM course WHERE lecturerID = ? AND status = 1");
+			PreparedStatement ps = conn.prepareStatement("SELECT * FROM course WHERE lecturerID = ? AND status = 1");
 			ps.setInt(1, lecturerID);
 			ResultSet rs = ps.executeQuery();
 			ArrayList<CourseDTO> result = new ArrayList<CourseDTO>();
@@ -276,15 +285,20 @@ public class CourseDAOImpl implements CourseDAO
 							break;
 						}
 					}
-				} else
+				}
+				else
+				{
 					result.add(row);
+					CourseCache.add(row);
+				}
 			}
 			ps.close();
 			conn.close();
 			if (result.isEmpty())
 				throw new NoDataException();
 			return result;
-		} catch (Exception e)
+		}
+		catch (Exception e)
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -292,7 +306,8 @@ public class CourseDAOImpl implements CourseDAO
 			{
 				conn.close();
 				return null;
-			} catch (SQLException e1)
+			}
+			catch (SQLException e1)
 			{
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -333,15 +348,20 @@ public class CourseDAOImpl implements CourseDAO
 							break;
 						}
 					}
-				} else
+				}
+				else
+				{
 					result.add(row);
+					CourseCache.add(row);
+				}
 			}
 			ps.close();
 			conn.close();
 			if (result.isEmpty())
 				throw new NoDataException();
 			return result;
-		} catch (Exception e)
+		}
+		catch (Exception e)
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -349,7 +369,8 @@ public class CourseDAOImpl implements CourseDAO
 			{
 				conn.close();
 				return null;
-			} catch (SQLException e1)
+			}
+			catch (SQLException e1)
 			{
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -380,7 +401,8 @@ public class CourseDAOImpl implements CourseDAO
 			ps.close();
 			conn.close();
 			return n;
-		} catch (Exception e)
+		}
+		catch (Exception e)
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -388,7 +410,8 @@ public class CourseDAOImpl implements CourseDAO
 			{
 				conn.close();
 				return n;
-			} catch (SQLException e1)
+			}
+			catch (SQLException e1)
 			{
 				// TODO Auto-generated catch block
 				e1.printStackTrace();

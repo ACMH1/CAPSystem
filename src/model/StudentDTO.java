@@ -97,7 +97,7 @@ public class StudentDTO implements Serializable
 			return false;
 		else if (that == this)
 			return true;
-		else if (!(that instanceof CompletedDTO))
+		else if (!(that instanceof StudentDTO))
 			return false;
 		else
 			return (this.getStudentID() == ((StudentDTO) that).getStudentID());

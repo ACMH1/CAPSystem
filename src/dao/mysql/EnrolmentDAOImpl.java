@@ -27,7 +27,8 @@ public class EnrolmentDAOImpl implements EnrolmentDAO
 		try
 		{
 			Class.forName(MYSQLConstants.DRIVER_CLASS);
-		} catch (ClassNotFoundException e)
+		}
+		catch (ClassNotFoundException e)
 		{
 			e.printStackTrace();
 		}
@@ -36,7 +37,8 @@ public class EnrolmentDAOImpl implements EnrolmentDAO
 		{
 			connection = DriverManager.getConnection(MYSQLConstants.URL, MYSQLConstants.USER, MYSQLConstants.PASSWORD);
 			connection.setAutoCommit(false);
-		} catch (SQLException e)
+		}
+		catch (SQLException e)
 		{
 			System.out.println("ERROR: Unable to Connect to Database.");
 		}
@@ -55,8 +57,7 @@ public class EnrolmentDAOImpl implements EnrolmentDAO
 		try
 		{
 			conn = openConnection();
-			PreparedStatement ps = conn
-					.prepareStatement("INSERT INTO enrolment (studentID, courseID) VALUES (?, ?);");
+			PreparedStatement ps = conn.prepareStatement("INSERT INTO enrolment (studentID, courseID) VALUES (?, ?);");
 			ps.setInt(1, enrolment.getStudent().getStudentID());
 			ps.setInt(2, enrolment.getCourse().getCourseID());
 			if (ps.executeUpdate() != 1)
@@ -65,7 +66,8 @@ public class EnrolmentDAOImpl implements EnrolmentDAO
 			ps.close();
 			conn.close();
 			return 1;
-		} catch (Exception e)
+		}
+		catch (Exception e)
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -74,7 +76,8 @@ public class EnrolmentDAOImpl implements EnrolmentDAO
 				conn.rollback();
 				conn.close();
 				return 0;
-			} catch (SQLException e1)
+			}
+			catch (SQLException e1)
 			{
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -96,8 +99,7 @@ public class EnrolmentDAOImpl implements EnrolmentDAO
 		try
 		{
 			conn = openConnection();
-			PreparedStatement ps = conn
-					.prepareStatement("DELETE FROM enrolment WHERE studentID = ? AND courseID = ?");
+			PreparedStatement ps = conn.prepareStatement("DELETE FROM enrolment WHERE studentID = ? AND courseID = ?");
 			ps.setInt(1, enrolment.getStudent().getStudentID());
 			ps.setInt(2, enrolment.getCourse().getCourseID());
 			if (ps.executeUpdate() != 1)
@@ -108,7 +110,8 @@ public class EnrolmentDAOImpl implements EnrolmentDAO
 			ps.close();
 			conn.close();
 			return 1;
-		} catch (Exception e)
+		}
+		catch (Exception e)
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -117,7 +120,8 @@ public class EnrolmentDAOImpl implements EnrolmentDAO
 				conn.rollback();
 				conn.close();
 				return 0;
-			} catch (SQLException e1)
+			}
+			catch (SQLException e1)
 			{
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -160,15 +164,20 @@ public class EnrolmentDAOImpl implements EnrolmentDAO
 							break;
 						}
 					}
-				} else
+				}
+				else
+				{
 					result.add(row);
+					EnrolmentCache.add(row);
+				}
 			}
 			ps.close();
 			conn.close();
 			if (result.isEmpty())
 				throw new NoDataException();
 			return result;
-		} catch (Exception e)
+		}
+		catch (Exception e)
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -176,7 +185,8 @@ public class EnrolmentDAOImpl implements EnrolmentDAO
 			{
 				conn.close();
 				return null;
-			} catch (SQLException e1)
+			}
+			catch (SQLException e1)
 			{
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -218,15 +228,20 @@ public class EnrolmentDAOImpl implements EnrolmentDAO
 							break;
 						}
 					}
-				} else
+				}
+				else
+				{
 					result.add(row);
+					EnrolmentCache.add(row);
+				}
 			}
 			ps.close();
 			conn.close();
 			if (result.isEmpty())
 				throw new NoDataException();
 			return result;
-		} catch (Exception e)
+		}
+		catch (Exception e)
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -234,7 +249,8 @@ public class EnrolmentDAOImpl implements EnrolmentDAO
 			{
 				conn.close();
 				return null;
-			} catch (SQLException e1)
+			}
+			catch (SQLException e1)
 			{
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -275,15 +291,20 @@ public class EnrolmentDAOImpl implements EnrolmentDAO
 							break;
 						}
 					}
-				} else
+				}
+				else
+				{
 					result.add(row);
+					EnrolmentCache.add(row);
+				}
 			}
 			ps.close();
 			conn.close();
 			if (result.isEmpty())
 				throw new NoDataException();
 			return result;
-		} catch (Exception e)
+		}
+		catch (Exception e)
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -291,7 +312,8 @@ public class EnrolmentDAOImpl implements EnrolmentDAO
 			{
 				conn.close();
 				return null;
-			} catch (SQLException e1)
+			}
+			catch (SQLException e1)
 			{
 				// TODO Auto-generated catch block
 				e1.printStackTrace();

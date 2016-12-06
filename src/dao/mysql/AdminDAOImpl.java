@@ -21,7 +21,8 @@ public class AdminDAOImpl implements AdminDAO
 		try
 		{
 			Class.forName(MYSQLConstants.DRIVER_CLASS);
-		} catch (ClassNotFoundException e)
+		}
+		catch (ClassNotFoundException e)
 		{
 			e.printStackTrace();
 		}
@@ -30,7 +31,8 @@ public class AdminDAOImpl implements AdminDAO
 		{
 			connection = DriverManager.getConnection(MYSQLConstants.URL, MYSQLConstants.USER, MYSQLConstants.PASSWORD);
 			connection.setAutoCommit(false);
-		} catch (SQLException e)
+		}
+		catch (SQLException e)
 		{
 			System.out.println("ERROR: Unable to Connect to Database.");
 		}
@@ -59,7 +61,8 @@ public class AdminDAOImpl implements AdminDAO
 			ps.close();
 			conn.close();
 			return 1;
-		} catch (Exception e)
+		}
+		catch (Exception e)
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -68,7 +71,8 @@ public class AdminDAOImpl implements AdminDAO
 				conn.rollback();
 				conn.close();
 				return 0;
-			} catch (SQLException e1)
+			}
+			catch (SQLException e1)
 			{
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -114,7 +118,8 @@ public class AdminDAOImpl implements AdminDAO
 			ps.close();
 			conn.close();
 			return 1;
-		} catch (Exception e)
+		}
+		catch (Exception e)
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -123,7 +128,8 @@ public class AdminDAOImpl implements AdminDAO
 				conn.rollback();
 				conn.close();
 				return 0;
-			} catch (SQLException e1)
+			}
+			catch (SQLException e1)
 			{
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -155,7 +161,8 @@ public class AdminDAOImpl implements AdminDAO
 			ps.close();
 			conn.close();
 			return 1;
-		} catch (Exception e)
+		}
+		catch (Exception e)
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -164,7 +171,8 @@ public class AdminDAOImpl implements AdminDAO
 				conn.rollback();
 				conn.close();
 				return 0;
-			} catch (SQLException e1)
+			}
+			catch (SQLException e1)
 			{
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -201,12 +209,14 @@ public class AdminDAOImpl implements AdminDAO
 				result.setAdminID(rs.getInt("adminID"));
 				result.setPassword(rs.getString("password"));
 				AdminCache.add(result);
-			} else
+			}
+			else
 				throw new NoDataException();
 			ps.close();
 			conn.close();
 			return result;
-		} catch (Exception e)
+		}
+		catch (Exception e)
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -214,7 +224,8 @@ public class AdminDAOImpl implements AdminDAO
 			{
 				conn.close();
 				return null;
-			} catch (SQLException e1)
+			}
+			catch (SQLException e1)
 			{
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -251,15 +262,20 @@ public class AdminDAOImpl implements AdminDAO
 							break;
 						}
 					}
-				} else
+				}
+				else
+				{
 					result.add(row);
+					AdminCache.add(row);
+				}
 			}
 			ps.close();
 			conn.close();
 			if (result.isEmpty())
 				throw new NoDataException();
 			return result;
-		} catch (Exception e)
+		}
+		catch (Exception e)
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -267,7 +283,8 @@ public class AdminDAOImpl implements AdminDAO
 			{
 				conn.close();
 				return null;
-			} catch (SQLException e1)
+			}
+			catch (SQLException e1)
 			{
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -294,12 +311,14 @@ public class AdminDAOImpl implements AdminDAO
 			if (rs.next())
 			{
 				n = rs.getInt(1) + 1;
-			} else
+			}
+			else
 				throw new NoDataException();
 			ps.close();
 			conn.close();
 			return n;
-		} catch (Exception e)
+		}
+		catch (Exception e)
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -307,7 +326,8 @@ public class AdminDAOImpl implements AdminDAO
 			{
 				conn.close();
 				return n;
-			} catch (SQLException e1)
+			}
+			catch (SQLException e1)
 			{
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
