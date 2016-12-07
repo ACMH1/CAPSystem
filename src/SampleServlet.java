@@ -3,14 +3,12 @@
 import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.xml.ws.spi.http.HttpContext;
 
 /**
  * Servlet implementation class SampleServlet
@@ -44,20 +42,20 @@ public class SampleServlet extends HttpServlet {
         //		RequestDispatcher rd= request.getRequestDispatcher(path);
         //		rd.forward(request, response);
         
-        HttpSession session=request.getSession();
-        session.setAttribute("role", " ");
-        
-        String path="home.jsp";
-        RequestDispatcher rd= request.getRequestDispatcher(path);
-        rd.forward(request, response);
-        
-        
-//        		HttpSession session=request.getSession();
-//        		session.setAttribute("role", "lecturer");
+//        HttpSession session=request.getSession();
+//        session.setAttribute("role", " ");
 //        
-//        		String path="sample_lecturer.jsp";
-//        		RequestDispatcher rd= request.getRequestDispatcher(path);
-//        		rd.forward(request, response);
+//        String path="home.jsp";
+//        RequestDispatcher rd= request.getRequestDispatcher(path);
+//        rd.forward(request, response);
+        
+        
+        		HttpSession session=request.getSession();
+        		session.setAttribute("role", "lecturer");
+        
+        		
+        		RequestDispatcher rd= request.getRequestDispatcher("coursecontoller");
+        		rd.forward(request, response);
         //
         //		HttpSession session=request.getSession();
         //		session.setAttribute("role", "admin");
@@ -79,7 +77,7 @@ public class SampleServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doProcess(request,response);
+		//doProcess(request,response);
 	}
 
 }

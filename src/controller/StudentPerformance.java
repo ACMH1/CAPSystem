@@ -11,20 +11,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import exception.MyDataException;
-import model.CourseDTO;
+import model.CompletedDTO;
+import model.StudentDTO;
 import services.coursemanager;
 
 /**
- * Servlet implementation class coursecontroller
+ * Servlet implementation class StudentPerformance
  */
-@WebServlet("/coursecontoller")
-public class coursecontroller extends HttpServlet {
+@WebServlet("/StudentPerformance")
+public class StudentPerformance extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public coursecontroller() {
+    public StudentPerformance() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,21 +35,25 @@ public class coursecontroller extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-	doProcess(request,response);
+doProcess(request,response);
 	}
 
-	private void doProcess(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
-		coursemanager cmgr = new coursemanager();
-			try {
-				
-				ArrayList<CourseDTO> mlist = cmgr.searchAllMovies();
-				request.setAttribute("mlist", mlist);
-				RequestDispatcher rd = request.getRequestDispatcher("/button1.jsp");
-				rd.forward(request, response);
-			} catch (MyDataException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+	private void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		coursemanager cmgr=new coursemanager();
+		StudentDTO student=new StudentDTO();
+		int studentid=Integer.parseInt(request.getParameter("studentId"));
+		student.setStudentID(studentid);
+		try {
+			ArrayList<CompletedDTO> elist=cmgr.findStudentEnrolment(student);
+			request.setAttribute("elist", elist);
+			RequestDispatcher rd = request.getRequestDispatcher("/button4.jsp");
+			rd.forward(request, response);	
+		} catch (MyDataException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
 	/**

@@ -12,19 +12,20 @@ import javax.servlet.http.HttpServletResponse;
 
 import exception.MyDataException;
 import model.CourseDTO;
+import model.EnrolmentDTO;
 import services.coursemanager;
 
 /**
- * Servlet implementation class coursecontroller
+ * Servlet implementation class GradeCourse
  */
-@WebServlet("/coursecontoller")
-public class coursecontroller extends HttpServlet {
+@WebServlet("/GradeCourse")
+public class GradeCourse extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public coursecontroller() {
+    public GradeCourse() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,21 +35,32 @@ public class coursecontroller extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-	doProcess(request,response);
+		doProcess(request,response);
 	}
 
-	private void doProcess(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
-		coursemanager cmgr = new coursemanager();
-			try {
-				
-				ArrayList<CourseDTO> mlist = cmgr.searchAllMovies();
-				request.setAttribute("mlist", mlist);
-				RequestDispatcher rd = request.getRequestDispatcher("/button1.jsp");
-				rd.forward(request, response);
-			} catch (MyDataException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+	private void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		// TODO Auto-generated method stub
+		coursemanager cmgr=new coursemanager();
+		CourseDTO course=new CourseDTO();
+		int courseID;
+	if(request.getAttribute("courseid") != null )
+	{
+		courseID=Integer.parseInt(request.getAttribute("courseid").toString());
+		course.setCourseID(courseID);
+	}
+	else{
+		course.setCourseID(Integer.parseInt(request.getParameter("cid")));		
+		}
+		try {
+			ArrayList<EnrolmentDTO> elist=cmgr.findCourseEnrolment(course);
+			request.setAttribute("elist", elist);
+			RequestDispatcher rd = request.getRequestDispatcher("/button3.jsp");
+			rd.forward(request, response);	
+		} catch (MyDataException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
 	/**
