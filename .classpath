@@ -13,7 +13,6 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="src/dao/mysql/mysql-connector-java-5.1.40-bin.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
