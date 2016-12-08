@@ -70,32 +70,34 @@ INSERT INTO `Student` VALUES (10001,'Christel','Agripina','2015-08-24','stone@me
 UNLOCK TABLES;
 
 --
--- Table structure for table `Completed`
+-- Table structure for table `Lecturer`
 --
 
-DROP TABLE IF EXISTS `Completed`;
+DROP TABLE IF EXISTS `Lecturer`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Completed` (
-  `studentid` int(11) NOT NULL,
-  `courseid` int(11) NOT NULL,
-  `Grade` int(11) NOT NULL,
-  KEY `courseid_idx` (`courseid`),
-  KEY `studentid_idx` (`studentid`),
-  CONSTRAINT `courseidcompleted` FOREIGN KEY (`courseid`) REFERENCES `Course` (`courseid`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `studentidcompleted` FOREIGN KEY (`studentid`) REFERENCES `Student` (`studentID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+CREATE TABLE `Lecturer` (
+  `lecturerid` int(11) NOT NULL AUTO_INCREMENT,
+  `lastname` varchar(25) NOT NULL,
+  `firstmidname` varchar(25) NOT NULL,
+  `email` varchar(25) NOT NULL,
+  `Password` varchar(25) NOT NULL,
+  `status` tinyint(1) NOT NULL,
+  PRIMARY KEY (`lecturerid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `Completed`
+-- Dumping data for table `Lecturer`
 --
 
-LOCK TABLES `Completed` WRITE;
-/*!40000 ALTER TABLE `Completed` DISABLE KEYS */;
-INSERT INTO `Completed` VALUES (10001,7014,5),(10002,7015,1),(10003,7016,3),(10004,7017,1),(10005,7018,1),(10006,7019,5),(10007,7020,5),(10008,7021,4),(10009,7022,3),(10010,7023,3),(10011,7024,3),(10012,7025,3),(10013,7001,6),(10014,7002,4),(10015,7003,1),(10016,7004,3),(10017,7005,5),(10018,7006,3),(10019,7007,1),(10020,7008,4),(10021,7009,1),(10022,7010,4),(10023,7011,2),(10024,7012,4),(10025,7013,1),(10026,7011,4),(10027,7012,2),(10028,7013,5),(10029,7014,3),(10030,7015,4),(10031,7016,2),(10032,7017,2),(10033,7018,2),(10034,7019,1),(10035,7020,2);
-/*!40000 ALTER TABLE `Completed` ENABLE KEYS */;
+LOCK TABLES `Lecturer` WRITE;
+/*!40000 ALTER TABLE `Lecturer` DISABLE KEYS */;
+INSERT INTO `Lecturer` VALUES (2001,'Lavonne','Sheldon','Lavonne@gmail.com','Sheldon',1),(2002,'Sheridan','Arletha','Sheridan@gmail.com','Arletha',1),(2003,'Mindy','Keitha','Mindy@gmail.com','Keitha',1),(2004,'Merle','Velia','Merle@gmail.com','Velia',1),(2005,'Kennith','Marita','Kennith@gmail.com','Marita',1),(2006,'Shaneka','Dreama','Shaneka@gmail.com','Dreama',1),(2007,'Ashlyn','Norma','Ashlyn@gmail.com','Norma',1),(2008,'Frederick','Kecia','Frederick@gmail.com','Kecia',1),(2009,'Layne','Murray','Layne@gmail.com','Murray',1),(2010,'Tim','Shera','Tim@gmail.com','Shera',1);
+/*!40000 ALTER TABLE `Lecturer` ENABLE KEYS */;
 UNLOCK TABLES;
+
+
 
 --
 -- Table structure for table `Course`
@@ -130,6 +132,35 @@ INSERT INTO `Course` VALUES (7001,'Fundamental Programming Concepts',84,4,2002,'
 UNLOCK TABLES;
 
 --
+-- Table structure for table `Completed`
+--
+
+DROP TABLE IF EXISTS `Completed`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Completed` (
+  `studentid` int(11) NOT NULL,
+  `courseid` int(11) NOT NULL,
+  `Grade` int(11) NOT NULL,
+  KEY `courseid_idx` (`courseid`),
+  KEY `studentid_idx` (`studentid`),
+  CONSTRAINT `courseidcompleted` FOREIGN KEY (`courseid`) REFERENCES `Course` (`courseid`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `studentidcompleted` FOREIGN KEY (`studentid`) REFERENCES `Student` (`studentID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Completed`
+--
+
+LOCK TABLES `Completed` WRITE;
+/*!40000 ALTER TABLE `Completed` DISABLE KEYS */;
+INSERT INTO `Completed` VALUES (10001,7014,5),(10002,7015,1),(10003,7016,3),(10004,7017,1),(10005,7018,1),(10006,7019,5),(10007,7020,5),(10008,7021,4),(10009,7022,3),(10010,7023,3),(10011,7024,3),(10012,7025,3),(10013,7001,6),(10014,7002,4),(10015,7003,1),(10016,7004,3),(10017,7005,5),(10018,7006,3),(10019,7007,1),(10020,7008,4),(10021,7009,1),(10022,7010,4),(10023,7011,2),(10024,7012,4),(10025,7013,1),(10026,7011,4),(10027,7012,2),(10028,7013,5),(10029,7014,3),(10030,7015,4),(10031,7016,2),(10032,7017,2),(10033,7018,2),(10034,7019,1),(10035,7020,2);
+/*!40000 ALTER TABLE `Completed` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+--
 -- Table structure for table `Enrolment`
 --
 
@@ -154,34 +185,6 @@ LOCK TABLES `Enrolment` WRITE;
 /*!40000 ALTER TABLE `Enrolment` DISABLE KEYS */;
 INSERT INTO `Enrolment` VALUES (10001,7001),(10002,7002),(10003,7003),(10004,7004),(10005,7005),(10006,7006),(10007,7007),(10008,7008),(10009,7009),(10010,7010),(10011,7011),(10012,7012),(10013,7013),(10014,7014),(10015,7015),(10016,7016),(10017,7017),(10018,7018),(10019,7019),(10020,7020),(10021,7021),(10022,7022),(10023,7023),(10024,7024),(10025,7025),(10026,7001),(10027,7002),(10028,7003),(10029,7004),(10030,7005),(10031,7006),(10032,7007),(10033,7008),(10034,7009),(10035,7010),(10036,7011),(10037,7012),(10038,7013),(10039,7014),(10040,7015),(10041,7016),(10042,7017),(10043,7018),(10044,7019),(10045,7020),(10046,7021),(10047,7022),(10048,7023),(10049,7024),(10050,7025),(10051,7001),(10052,7002),(10053,7003),(10054,7004),(10055,7005),(10056,7006),(10057,7007),(10058,7008),(10059,7009),(10060,7010),(10061,7011),(10062,7012),(10063,7013),(10064,7014),(10065,7015),(10066,7016),(10067,7017),(10068,7018),(10069,7019),(10070,7020),(10071,7021),(10072,7022),(10073,7023),(10074,7024),(10075,7025),(10076,7001),(10077,7002),(10078,7003),(10079,7004),(10080,7005),(10081,7006),(10082,7007),(10083,7008),(10084,7009),(10085,7010),(10086,7011),(10087,7012),(10088,7013),(10089,7014),(10090,7015),(10091,7016),(10092,7017),(10093,7018),(10094,7019),(10095,7020),(10096,7021),(10097,7022),(10098,7023),(10099,7024),(10100,7025);
 /*!40000 ALTER TABLE `Enrolment` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `Lecturer`
---
-
-DROP TABLE IF EXISTS `Lecturer`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Lecturer` (
-  `lecturerid` int(11) NOT NULL AUTO_INCREMENT,
-  `lastname` varchar(25) NOT NULL,
-  `firstmidname` varchar(25) NOT NULL,
-  `email` varchar(25) NOT NULL,
-  `Password` varchar(25) NOT NULL,
-  `status` tinyint(1) NOT NULL,
-  PRIMARY KEY (`lecturerid`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `Lecturer`
---
-
-LOCK TABLES `Lecturer` WRITE;
-/*!40000 ALTER TABLE `Lecturer` DISABLE KEYS */;
-INSERT INTO `Lecturer` VALUES (2001,'Lavonne','Sheldon','Lavonne@gmail.com','Sheldon',1),(2002,'Sheridan','Arletha','Sheridan@gmail.com','Arletha',1),(2003,'Mindy','Keitha','Mindy@gmail.com','Keitha',1),(2004,'Merle','Velia','Merle@gmail.com','Velia',1),(2005,'Kennith','Marita','Kennith@gmail.com','Marita',1),(2006,'Shaneka','Dreama','Shaneka@gmail.com','Dreama',1),(2007,'Ashlyn','Norma','Ashlyn@gmail.com','Norma',1),(2008,'Frederick','Kecia','Frederick@gmail.com','Kecia',1),(2009,'Layne','Murray','Layne@gmail.com','Murray',1),(2010,'Tim','Shera','Tim@gmail.com','Shera',1);
-/*!40000 ALTER TABLE `Lecturer` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
