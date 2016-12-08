@@ -39,7 +39,7 @@
         <div class="panel-heading" style ="background-color:#191919" role="tab" id="headingThree">
           <h4 class="panel-title">
             <a class="" role="button" data-toggle="collapse" data-parent="#accordion" href=" " aria-expanded="true" aria-controls="collapseThree">
-             <a href=" ">Manage Courses</a>
+            <a href="${pageContext.request.contextPath}/admin_managecourses"> Manage Courses </a>
             </a>
           </h4>
         </div>
@@ -48,7 +48,7 @@
         <div class="panel-heading" style ="background-color:#191919" role="tab" id="headingThree">
           <h4 class="panel-title">
             <a class="" role="button" data-toggle="collapse" data-parent="#accordion" href=" " aria-expanded="true" aria-controls="collapseThree">
-             <a href=" ">Manage Enrolment</a>
+                 <a href="${pageContext.request.contextPath}/admin_manageenrolment">  Manage Enrollment </a>
             </a>
           </h4>
         </div>

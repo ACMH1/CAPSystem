@@ -52,19 +52,19 @@ public class SampleServlet extends HttpServlet {
 //        rd.forward(request, response);
         
         
-        		HttpSession session=request.getSession();
-        		session.setAttribute("role", "student");
+//        		HttpSession session=request.getSession();
+//        		session.setAttribute("role", "student");
+//        
+//        		String path="sample_student.jsp";
+//        		RequestDispatcher rd= request.getRequestDispatcher(path);
+//        		rd.forward(request, response);
         
-        		String path="sample_student.jsp";
+        		HttpSession session=request.getSession();
+        		session.setAttribute("role", "admin");
+        
+        		String path="sample_admin.jsp";
         		RequestDispatcher rd= request.getRequestDispatcher(path);
         		rd.forward(request, response);
-        //
-        //		HttpSession session=request.getSession();
-        //		session.setAttribute("role", "admin");
-        //
-        //		String path="sample_admin.jsp";
-        //		RequestDispatcher rd= request.getRequestDispatcher(path);
-        //		rd.forward(request, response);
         
         //		HttpSession session=request.getSession();
         //		session.setAttribute("role", "student");

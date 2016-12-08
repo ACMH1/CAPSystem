@@ -1,5 +1,9 @@
 /CourseGradeController.class
 /SampleServlet.class
+/admin_courseManager.class
+/admin_enrolmentManager.class
+/admin_lecturerManager.class
+/admin_studentManager.class
 /controller/
 /dao/
 /exception/
