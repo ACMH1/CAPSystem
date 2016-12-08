@@ -214,8 +214,7 @@ public class AdminCourseController extends HttpServlet {
 				start = format.parse(request.getParameter("StartDate"));
 				end=format.parse(request.getParameter("EndDate"));
 			} catch (ParseException e1) {
-				request.setAttribute("StartDate", null);
-				request.setAttribute("EndDate", null);
+				
 				path="admin_managecourses?startError=start/end date format is incorrect&courseID="+ID;		
 				RequestDispatcher rd = request.getRequestDispatcher(path);
 				try {
@@ -229,18 +228,21 @@ public class AdminCourseController extends HttpServlet {
 				}
 			}
 			
-		
+			AdminLecturerManager lecturerManager=new AdminLecturerManager();
 			 boolean dateResult=courseManager.dateValidation(start, end);
 				System.out.println(dateResult);
 				if(dateResult)
 				{						
-							AdminLecturerManager lecturerManager=new AdminLecturerManager();
+						
 						if(lecturerManager.lecturerValidation(Integer.parseInt(request.getParameter("LecturerId"))))
 							{
 									try {
 										course.setLecturer(lecturerManager.findThatLecturer(Integer.parseInt(request.getParameter("LecturerId"))));
+									
+										int editlecturer=courseManager .updateCourses(course);
+									    System.out.println(editlecturer);
 									} catch (NumberFormatException | NoDataException e) {
-										request.setAttribute("LecturerId", null);
+										
 										path="/processCourse.jsp?lecturerError=incorrect.";
 										RequestDispatcher rd = request.getRequestDispatcher(path);
 										try {
@@ -254,27 +256,79 @@ public class AdminCourseController extends HttpServlet {
 										}
 									}
 							    course.setCourseName(request.getParameter("CourseName"));
-								course.setCredits(Integer.parseInt(request.getParameter("Credits")));		
+							    int editName=courseManager .updateCourses(course);
+							    System.out.println(editName);
+								course.setCredits(Integer.parseInt(request.getParameter("Credits")));	
+								int editcredit=courseManager .updateCourses(course);
+								System.out.println(editcredit);
 								course.setSize(Integer.parseInt(request.getParameter("Size")));
+								int editsize=courseManager .updateCourses(course);
+								System.out.println(editsize);
 								course.setStartDate(start);
+								int editstart=courseManager .updateCourses(course);
+								System.out.println(editstart);
 								course.setEndDate(end);
+								int editend=courseManager .updateCourses(course);
+								System.out.println(editend);
 								System.out.println(course.getCourseID());
 									
-								int editrow=courseManager .updateCourses(course);
-								System.out.println(editrow);
+								
+								
 								request.setAttribute("message", "success");
 									path="/admin_managecourses?action=";
 							}
 							else
 							{
-								request.setAttribute("LecturerId", null);
-								path="admin_managecourses?action=edit&lecturerError=incorrect&courseID="+ID;
+								
+								course.setCourseName(request.getParameter("CourseName"));
+							    int editName=courseManager .updateCourses(course);
+							    
+								course.setCredits(Integer.parseInt(request.getParameter("Credits")));	
+								int editcredit=courseManager .updateCourses(course);
+								System.out.println(editcredit);
+								course.setSize(Integer.parseInt(request.getParameter("Size")));
+								int editsize=courseManager .updateCourses(course);
+								System.out.println(editsize);
+								course.setStartDate(start);
+								int editstart=courseManager .updateCourses(course);
+								System.out.println(editstart);
+								course.setEndDate(end);
+								int editend=courseManager .updateCourses(course);
+								System.out.println(editend);
+								System.out.println(course.getCourseID());
+								path="admin_managecourses?action=edit&lecturerError=incorrect";
 							}							
 						}													
 				
 				else
 				{
-					request.setAttribute("StartDate", null);
+					try {
+						course.setLecturer(lecturerManager.findThatLecturer(Integer.parseInt(request.getParameter("LecturerId"))));
+					} catch (NumberFormatException | NoDataException e) {
+						path="/processCourse.jsp?lecturerError=incorrect.";
+						RequestDispatcher rd = request.getRequestDispatcher(path);
+						try {
+							rd.forward(request, response);
+						} catch (ServletException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+					}
+					
+					int editlecturer=courseManager .updateCourses(course);
+				    System.out.println(editlecturer);
+					course.setCourseName(request.getParameter("CourseName"));
+				    int editName=courseManager .updateCourses(course);
+				    
+					course.setCredits(Integer.parseInt(request.getParameter("Credits")));	
+					int editcredit=courseManager .updateCourses(course);
+					System.out.println(editcredit);
+					course.setSize(Integer.parseInt(request.getParameter("Size")));
+					int editsize=courseManager .updateCourses(course);
+					System.out.println(editsize);
 					path="admin_managecourses?action=edit&startError=start date should be before end date and after today&courseID="+ID;				
 				}
 				System.out.println(path);
