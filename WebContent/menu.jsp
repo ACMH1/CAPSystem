@@ -30,7 +30,7 @@
         <div class="panel-heading"  style ="background-color:#191919" role="tab" id="headingTwo">
           <h4 class="panel-title">
             <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href=" " aria-expanded="false" aria-controls="collapseTwo">
-              Manage Lechters 
+              Manage Lecturers 
             </a>
           </h4>
         </div>
