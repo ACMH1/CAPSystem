@@ -77,8 +77,8 @@
       <div class="panel panel-primary">
         <div class="panel-heading"  style ="background-color:#191919" role="tab" id="headingTwo">
           <h4 class="panel-title">
-            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href=" " aria-expanded="false" aria-controls="collapseTwo">
-              <a href=" ">View Courses</a>
+            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="StudentController" aria-expanded="false" aria-controls="collapseTwo">
+              <a href="StudentController">View Courses</a>
             </a>
           </h4>
         </div>
@@ -86,8 +86,8 @@
       <div class="panel panel-primary">
         <div class="panel-heading" style ="background-color:#191919" role="tab" id="headingThree">
           <h4 class="panel-title">
-            <a class="" role="button" data-toggle="collapse" data-parent="#accordion" href=" " aria-expanded="true" aria-controls="collapseThree">
-             <a href=" ">Enroll for a Course</a>
+            <a class="" role="button" data-toggle="collapse" data-parent="#accordion" href="courseEnroll" aria-expanded="true" aria-controls="collapseThree">
+             <a href="courseEnroll">Enroll for a Course</a>
             </a>
           </h4>
         </div>
