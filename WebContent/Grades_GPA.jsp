@@ -3,6 +3,7 @@
     pageEncoding="UTF-8"%>
      <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://displaytag.sf.net" prefix="display"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -32,7 +33,7 @@ integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh
   <center> 
   Your GPA:<input type="text" value="${gpa}"><br/><br/>
   
-   <table width="100%" border=1>
+<%--    <table width="100%" border=1>
 <tr>
 <th><fmt:message key="label.course.courseId"></fmt:message></th>
  <th><fmt:message key="label.course.courseName"></fmt:message></th>
@@ -50,9 +51,20 @@ integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh
                    
                 </tr>
             </c:forEach>
-
-</table>
+            
+</table> --%>
     </center>
+     <display:table name="courseGradeList" pagesize="10" requestURI="/CourseGradeController"
+								id="courseGradeList" class="table-fill">
+								<display:column property="course.courseID" title="courseId ID"
+									class="text-center" />
+								<display:column property="course.courseName" title="courseName" class="text-center" />
+								<display:column property="course.credits" title="credit" class="text-center"/>
+								<display:column property="grade" title=" grade" class="text-center"/>
+								<display:setProperty name="paging.banner.placement"
+									value="bottom" />
+									
+									</display:table>
     </div>
 </div>
 </div>
