@@ -76,7 +76,7 @@ public class AuthenticateAdmin extends HttpServlet {
 			
 		if (result)
 		{
-			path = "/Success.jsp";		
+			path = "student";		
 			request.getSession().setAttribute("status", " ");
 	
 		}

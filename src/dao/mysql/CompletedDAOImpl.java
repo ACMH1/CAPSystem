@@ -174,8 +174,6 @@ public class CompletedDAOImpl implements CompletedDAO
 			}
 			ps.close();
 			conn.close();
-			if (result.isEmpty())
-				throw new NoDataException();
 			return result;
 		}
 		catch (Exception e)
@@ -238,8 +236,6 @@ public class CompletedDAOImpl implements CompletedDAO
 			}
 			ps.close();
 			conn.close();
-			if (result.isEmpty())
-				throw new NoDataException();
 			return result;
 		}
 		catch (Exception e)

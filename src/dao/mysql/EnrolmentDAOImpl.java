@@ -173,8 +173,6 @@ public class EnrolmentDAOImpl implements EnrolmentDAO
 			}
 			ps.close();
 			conn.close();
-			if (result.isEmpty())
-				throw new NoDataException();
 			return result;
 		}
 		catch (Exception e)
@@ -237,8 +235,6 @@ public class EnrolmentDAOImpl implements EnrolmentDAO
 			}
 			ps.close();
 			conn.close();
-			if (result.isEmpty())
-				throw new NoDataException();
 			return result;
 		}
 		catch (Exception e)
