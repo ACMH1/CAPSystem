@@ -206,7 +206,6 @@ INSERT INTO `Completed` (`studentid`, `courseid`, `Grade`) VALUES ('10001', '702
 INSERT INTO `Completed` (`studentid`, `courseid`, `Grade`) VALUES ('10001', '7023', '2');
 INSERT INTO `Completed` (`studentid`, `courseid`, `Grade`) VALUES ('10001', '7022', '2');
 INSERT INTO `Completed` (`studentid`, `courseid`, `Grade`) VALUES ('10001', '7021', '2');
-INSERT INTO `Completed` (`studentid`, `courseid`, `Grade`) VALUES ('10001', '7022', '2');
 INSERT INTO `Completed` (`studentid`, `courseid`, `Grade`) VALUES ('10002', '7025', '2');
 INSERT INTO `Completed` (`studentid`, `courseid`, `Grade`) VALUES ('10003', '7025', '2');
 INSERT INTO `Completed` (`studentid`, `courseid`, `Grade`) VALUES ('10004', '7025', '3');
@@ -217,3 +216,9 @@ INSERT INTO `Enrolment` (`studentid`, `courseid`) VALUES ('10001', '7002');
 INSERT INTO `Enrolment` (`studentid`, `courseid`) VALUES ('10001', '7003');
 INSERT INTO `Enrolment` (`studentid`, `courseid`) VALUES ('10001', '7004');
 INSERT INTO `Enrolment` (`studentid`, `courseid`) VALUES ('10001', '7005');
+
+ALTER TABLE `Enrolment` 
+ADD PRIMARY KEY (`studentid`, `courseid`);
+
+ALTER TABLE `Completed` 
+ADD PRIMARY KEY (`studentid`, `courseid`);

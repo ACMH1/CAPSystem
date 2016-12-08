@@ -68,8 +68,8 @@
       <div class="panel panel-primary" >
         <div class="panel-heading"  role="tab"  style ="background-color:#191919"  id="headingOne">
           <h4 class="panel-title">
-            <a role="button" data-toggle="collapse" data-parent="#accordion" href=" " aria-expanded="false" aria-controls="collapseOne" class="collapsed">
-              Grands and GPA
+            <a href="/CAPSystem/CourseGradeController" aria-expanded="false" aria-controls="collapseOne" class="collapsed">
+              Grades and GPA
             </a>
           </h4>
         </div>
@@ -117,7 +117,7 @@
         <div class="panel-heading"  style ="background-color:#191919" role="tab" id="headingTwo">
           <h4 class="panel-title">
             <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href=" " aria-expanded="false" aria-controls="collapseTwo">
-              View Course Enrollment
+              View Course Enrolment
             </a>
           </h4>
         </div>

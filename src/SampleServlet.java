@@ -53,9 +53,9 @@ public class SampleServlet extends HttpServlet {
         
         
         		HttpSession session=request.getSession();
-        		session.setAttribute("role", "lecturer");
+        		session.setAttribute("role", "student");
         
-        		String path="sample_lesturer.jsp";
+        		String path="sample_student.jsp";
         		RequestDispatcher rd= request.getRequestDispatcher(path);
         		rd.forward(request, response);
         //
