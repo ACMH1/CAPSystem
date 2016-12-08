@@ -3,6 +3,9 @@ package model;
 import java.io.Serializable;
 import java.util.Date;
 
+import dao.DAOFactory;
+import dao.EnrolmentDAO;
+
 public class CourseDTO implements Serializable
 {
 	private int courseID;
@@ -99,6 +102,13 @@ public class CourseDTO implements Serializable
 	public void setEndDate(Date endDate)
 	{
 		this.endDate = endDate;
+	}
+	
+	public int courseSlots()
+	{
+		DAOFactory df = DAOFactory.loadInstance();
+		EnrolmentDAO ed = df.getEnrolmentDAO();
+		return size - ed.findEnrolmentByCourse(this).size();
 	}
 
 	@Override
