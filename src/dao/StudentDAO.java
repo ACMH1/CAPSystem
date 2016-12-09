@@ -15,7 +15,7 @@ public interface StudentDAO
 
 	StudentDTO findStudent(int studentID);
 
-	ArrayList<StudentDTO> listAllstudent();
+	ArrayList<StudentDTO> listAllStudent();
 
 	int getNextStudentID();
 

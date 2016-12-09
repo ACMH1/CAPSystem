@@ -26,7 +26,7 @@ public class StudentTest
 //		s3.setEmail("bbb@bb.com");
 //		sd.updateStudent(s3);
 		
-		for (StudentDTO s : sd.listAllstudent())
+		for (StudentDTO s : sd.listAllStudent())
 		{
 			System.out.println(s.getStudentID());
 		}

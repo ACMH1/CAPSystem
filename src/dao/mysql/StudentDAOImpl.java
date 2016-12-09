@@ -250,7 +250,7 @@ public class StudentDAOImpl implements StudentDAO
 	 * @see dao.mysql.StudentDAO#listAllstudent()
 	 */
 	@Override
-	public ArrayList<StudentDTO> listAllstudent()
+	public ArrayList<StudentDTO> listAllStudent()
 	{
 		Connection conn = null;
 		try

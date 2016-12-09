@@ -41,7 +41,7 @@ public class StudentManager
 
 	public ArrayList<StudentDTO> searchAllStudent() throws MyDataException
 	{
-		ArrayList<StudentDTO> result = sdao.listAllstudent();
+		ArrayList<StudentDTO> result = sdao.listAllStudent();
 		return result;
 	}
 

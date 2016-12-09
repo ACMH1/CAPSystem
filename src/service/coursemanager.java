@@ -36,7 +36,7 @@ public class coursemanager {
 	}
 	public ArrayList<StudentDTO> searchAllStudents() throws MyDataException {
 		try {
-			ArrayList<StudentDTO> result = sdao.listAllstudent();
+			ArrayList<StudentDTO> result = sdao.listAllStudent();
 			return result;
 		} catch (Exception sql) {
 			throw new MyDataException("ERROR IN CREATE METHOD");
