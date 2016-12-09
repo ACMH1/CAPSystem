@@ -43,9 +43,9 @@ public class LecturerCourseController extends HttpServlet {
 		  int lectureId=0;
 			try {
 				HttpSession session=request.getSession();
-				if(session.getAttribute("lecturedid") != null)
+				if(session.getAttribute("lecturerid") != null)
 				{
-					lectureId= Integer.parseInt(session.getAttribute("lecturedid").toString());
+					lectureId= Integer.parseInt(session.getAttribute("lecturerid").toString());
 				}
 				
 				coursemanager cmgr = new coursemanager();

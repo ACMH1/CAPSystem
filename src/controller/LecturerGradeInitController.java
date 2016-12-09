@@ -40,11 +40,14 @@ public class LecturerGradeInitController extends HttpServlet {
 
 	private void doProcess(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
 		coursemanager cmgr = new coursemanager();
-		int lecturer=2006;
+		int lecturerId=0;
 			try {
-				
-				ArrayList<CourseDTO> mlist = cmgr.findCourseByLecturer(lecturer);
 				HttpSession session=request.getSession();
+				if(session.getAttribute("lecturerid") != null)
+				{
+					lecturerId= Integer.parseInt(session.getAttribute("lecturerid").toString());
+				}
+				ArrayList<CourseDTO> mlist = cmgr.findCourseByLecturer(lecturerId);
         		session.setAttribute("mlist", mlist);
 				RequestDispatcher rd = request.getRequestDispatcher("/LecturerGradeCourseInit.jsp");
 				rd.forward(request, response);

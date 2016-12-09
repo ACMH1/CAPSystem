@@ -52,7 +52,7 @@
         <span class="glyphicon glyphicon-log-in"></span>  Login</a>
         <ul class="dropdown-menu"> 
           <li><a href="admin_login.jsp"><span class="glyphicon glyphicon-user"></span> Admin login</a></li>
-          <li><a href="lecturer_login.jsp"><span class="glyphicon glyphicon-user"></span> Lecture login</a></li>
+          <li><a href="lecturer_login.jsp"><span class="glyphicon glyphicon-user"></span> Lecturer login</a></li>
           <li><a href="student_login.jsp"><span class="glyphicon glyphicon-user"></span> Student login</a></li> 
       </ul>
       </li> 
