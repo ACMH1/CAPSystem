@@ -21,7 +21,7 @@
         <div class="panel-heading"  role="tab"  style ="background-color:#191919"  id="headingOne">
           <h4 class="panel-title">
             <a role="button" data-toggle="collapse" data-parent="#accordion" href=" " aria-expanded="false" aria-controls="collapseOne" class="collapsed">
-              <a href="student">Manage Students</a>
+              Manage Students 
             </a>
           </h4>
         </div>
@@ -30,7 +30,7 @@
         <div class="panel-heading"  style ="background-color:#191919" role="tab" id="headingTwo">
           <h4 class="panel-title">
             <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href=" " aria-expanded="false" aria-controls="collapseTwo">
-              <a href="lecturer">Manage Lecturers</a>
+              Manage Lecturers 
             </a>
           </h4>
         </div>
@@ -39,7 +39,7 @@
         <div class="panel-heading" style ="background-color:#191919" role="tab" id="headingThree">
           <h4 class="panel-title">
             <a class="" role="button" data-toggle="collapse" data-parent="#accordion" href=" " aria-expanded="true" aria-controls="collapseThree">
-            <a href="${pageContext.request.contextPath}/admin_managecourses"> Manage Courses </a>
+             Manage Courses 
             </a>
           </h4>
         </div>
@@ -48,7 +48,7 @@
         <div class="panel-heading" style ="background-color:#191919" role="tab" id="headingThree">
           <h4 class="panel-title">
             <a class="" role="button" data-toggle="collapse" data-parent="#accordion" href=" " aria-expanded="true" aria-controls="collapseThree">
-                 <a href="${pageContext.request.contextPath}/admin_manageenrolment">  Manage Enrollment </a>
+             Manage Enrollment 
             </a>
           </h4>
         </div>
@@ -68,8 +68,8 @@
       <div class="panel panel-primary" >
         <div class="panel-heading"  role="tab"  style ="background-color:#191919"  id="headingOne">
           <h4 class="panel-title">
-            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="/CAPSystem/CourseGradeController" aria-expanded="false" aria-controls="collapseOne" class="collapsed">
-              <a href="/CAPSystem/CourseGradeController">Grades and GPA</a>
+            <a href="/CAPSystem/CourseGradeController" aria-expanded="false" aria-controls="collapseOne" class="collapsed">
+              Grades and GPA
             </a>
           </h4>
         </div>
@@ -77,8 +77,8 @@
       <div class="panel panel-primary">
         <div class="panel-heading"  style ="background-color:#191919" role="tab" id="headingTwo">
           <h4 class="panel-title">
-            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="StudentController" aria-expanded="false" aria-controls="collapseTwo">
-              <a href="StudentController">View Courses</a>
+            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href=" " aria-expanded="false" aria-controls="collapseTwo">
+              View Courses 
             </a>
           </h4>
         </div>
@@ -86,8 +86,8 @@
       <div class="panel panel-primary">
         <div class="panel-heading" style ="background-color:#191919" role="tab" id="headingThree">
           <h4 class="panel-title">
-            <a class="" role="button" data-toggle="collapse" data-parent="#accordion" href="courseEnroll" aria-expanded="true" aria-controls="collapseThree">
-             <a href="courseEnroll">Enroll for a Course</a>
+            <a class="" role="button" data-toggle="collapse" data-parent="#accordion" href=" " aria-expanded="true" aria-controls="collapseThree">
+             Enroll for a Course
             </a>
           </h4>
         </div>
@@ -99,7 +99,7 @@
 <%} %>
 
 <% if (session.getAttribute("role").equals("lecturer")) { %>
-<div class="container" id="admin">
+<div class="container" id="lecturer">
          <div class="row">
   <div class="col-md-3">
 
@@ -107,8 +107,8 @@
       <div class="panel panel-primary" >
         <div class="panel-heading"  role="tab"  style ="background-color:#191919"  id="headingOne">
           <h4 class="panel-title">
-            <a role="button" data-toggle="collapse" data-parent="#accordion" href=" " aria-expanded="false" aria-controls="collapseOne" class="collapsed">
-              <a href=" ">View Courses Taught</a>
+            <a href="coursecontoller" aria-expanded="false" aria-controls="collapseOne" class="collapsed">
+              View Courses Taught
             </a>
           </h4>
         </div>
@@ -116,8 +116,8 @@
         <div class="panel panel-primary">
         <div class="panel-heading"  style ="background-color:#191919" role="tab" id="headingTwo">
           <h4 class="panel-title">
-            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href=" " aria-expanded="false" aria-controls="collapseTwo">
-              <a href=" ">View Course Enrolment</a>
+            <a href="CourseEnrolInit"" aria-expanded="false" aria-controls="collapseTwo">
+              View Course Enrollment
             </a>
           </h4>
         </div>
@@ -125,8 +125,8 @@
       <div class="panel panel-primary">
         <div class="panel-heading"  style ="background-color:#191919" role="tab" id="headingTwo">
           <h4 class="panel-title">
-            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href=" " aria-expanded="false" aria-controls="collapseTwo">
-              <a href=" ">Grade a Course</a>
+            <a href="FindCourseForGrade" aria-expanded="false" aria-controls="collapseTwo">
+              Grade a Course
             </a>
           </h4>
         </div>
@@ -134,8 +134,8 @@
       <div class="panel panel-primary">
         <div class="panel-heading" style ="background-color:#191919" role="tab" id="headingThree">
           <h4 class="panel-title">
-            <a class="" role="button" data-toggle="collapse" data-parent="#accordion" href=" " aria-expanded="true" aria-controls="collapseThree">
-            <a href=" ">View a Student Performance</a>
+            <a href="StudentPerformanceInit" aria-expanded="true" aria-controls="collapseThree">
+            View a Student Performance 
             </a>
           </h4>
         </div>

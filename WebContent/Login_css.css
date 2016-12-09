@@ -1,0 +1,23 @@
+@CHARSET "UTF-8";
+@import url(http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700|Open+Sans:400,300,600);
+
+*{box-sizing:border-box;}
+
+body {
+  font-family: 'open sans', helvetica, arial, sans;
+background:url(http://farm8.staticflickr.com/7064/6858179818_5d652f531c_h.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  
+}
+.log-form{
+	
+  position:absolute;
+  top:50%;
+  left:50%;
+  margin-top:-150px; /* this is half the height of your div*/  
+  margin-left:-100px; /*this is half of width of your div*/
+
+}
