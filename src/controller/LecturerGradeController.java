@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import exception.MyDataException;
 import model.CourseDTO;
 import model.EnrolmentDTO;
-import service.coursemanager;
+import service.CourseManager;
 
 /**
  * Servlet implementation class GradeCourse
@@ -40,7 +40,7 @@ public class LecturerGradeController extends HttpServlet {
 
 	private void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		// TODO Auto-generated method stub
-		coursemanager cmgr=new coursemanager();
+		CourseManager cmgr=new CourseManager();
 		CourseDTO course=new CourseDTO();
 		int courseID;
 	if(request.getAttribute("courseid") != null )

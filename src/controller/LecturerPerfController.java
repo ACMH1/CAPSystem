@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import exception.MyDataException;
 import model.CompletedDTO;
 import model.StudentDTO;
-import service.coursemanager;
+import service.CourseManager;
 
 /**
  * Servlet implementation class StudentPerformance
@@ -40,7 +40,7 @@ doProcess(request,response);
 
 	private void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		coursemanager cmgr=new coursemanager();
+		CourseManager cmgr=new CourseManager();
 		StudentDTO student=new StudentDTO();
 		int studentid=Integer.parseInt(request.getParameter("studentId"));
 		student.setStudentID(studentid);

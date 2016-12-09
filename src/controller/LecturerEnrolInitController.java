@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import exception.MyDataException;
 import model.CourseDTO;
-import service.coursemanager;
+import service.CourseManager;
 
 /**
  * Servlet implementation class CourseEnrolInit
@@ -39,7 +39,7 @@ doProcess(request,response);
 
 	private void doProcess(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
 		try {
-			coursemanager cmgr = new coursemanager();
+			CourseManager cmgr = new CourseManager();
 			ArrayList<CourseDTO> mlist = cmgr.searchAllCourses();
 			request.setAttribute("mlist", mlist);
 			RequestDispatcher rd = request.getRequestDispatcher("/LecturerViewEnrolInit.jsp");

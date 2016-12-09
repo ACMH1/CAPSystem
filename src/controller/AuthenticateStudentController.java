@@ -77,7 +77,7 @@ public class AuthenticateStudentController extends HttpServlet {
 			session.setAttribute("studentID", u);
 
 			if (result) {
-				path = "/Success.jsp";
+				path = "/CourseGradeController";
 				request.getSession().setAttribute("status", " ");
 
 			} else {

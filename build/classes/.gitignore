@@ -1,5 +1,4 @@
-/controller/
-/service/
-/utility/
 /test/
-/dao/
+/service/
+/controller/
+/exception/

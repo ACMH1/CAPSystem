@@ -11,6 +11,7 @@ import dao.LecturerDAO;
 
 import exception.MyDataException;
 import model.LecturerDTO;
+import utility.PasswordUtility;
 
 public class LecturerManager
 {
@@ -59,7 +60,7 @@ public class LecturerManager
 		LecturerDTO dto = ldao.findLecturer(lecturerID);
 		if (dto != null)
 		{
-			if (dto.getPassword().equals(pass))
+			if (dto.getPassword().equals(PasswordUtility.base64encode(pass)))
 			{
 				HttpSession session = request.getSession();
 				session.setAttribute("firstmidname", dto.getFirstMidName());

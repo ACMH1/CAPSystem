@@ -15,8 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import dao.NoDataException;
 import model.CourseDTO;
-import service.AdminCourseManager;
-import service.AdminLecturerManager;
+import service.AdminManager;
 
 /**
  * Servlet implementation class admin_managecourses
@@ -57,7 +56,7 @@ public class AdminCourseController extends HttpServlet {
 		CourseDTO course= new CourseDTO();
 		String courseID = request.getParameter("courseID");
 		System.out.println(courseID);
-		AdminCourseManager courseManager = new AdminCourseManager();
+		AdminManager courseManager = new AdminManager();
 		String path="";
 		if(action!=null&&action.equals("add"))
 		{
@@ -87,7 +86,7 @@ public class AdminCourseController extends HttpServlet {
 			if(dateResult)
 			{	
 				
-						 AdminLecturerManager lecturerManager=new AdminLecturerManager();
+						 AdminManager lecturerManager=new AdminManager();
 						if(lecturerManager.lecturerValidation(Integer.parseInt(request.getParameter("LecturerId"))))
 						{
 							
@@ -228,7 +227,7 @@ public class AdminCourseController extends HttpServlet {
 				}
 			}
 			
-			AdminLecturerManager lecturerManager=new AdminLecturerManager();
+			AdminManager lecturerManager=new AdminManager();
 			 boolean dateResult=courseManager.dateValidation(start, end);
 				System.out.println(dateResult);
 				if(dateResult)

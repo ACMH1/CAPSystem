@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import service.coursemanager;
+import service.CourseManager;
 import exception.MyDataException;
 import model.CourseDTO;
 //import services.coursemanager;
@@ -48,7 +48,7 @@ public class LecturerCourseController extends HttpServlet {
 					lectureId= Integer.parseInt(session.getAttribute("lecturerid").toString());
 				}
 				
-				coursemanager cmgr = new coursemanager();
+				CourseManager cmgr = new CourseManager();
 				ArrayList<CourseDTO> mlist = cmgr.findCourseByLecturer(lectureId);
 				request.setAttribute("mlist", mlist);
 				RequestDispatcher rd = request.getRequestDispatcher("/LecturerViewCourseTaught.jsp");

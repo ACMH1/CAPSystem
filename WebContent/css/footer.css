@@ -1,0 +1,11 @@
+@CHARSET "UTF-8";
+	#footer {
+		position:absolute;
+	    bottom:0; 
+		width:100%;			/* Height of the footer */
+		background:#6cf;
+	}
+	#footer p {
+	/* 	margin:0; */
+		/* padding:10px; */
+	}

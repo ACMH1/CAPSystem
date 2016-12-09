@@ -11,9 +11,7 @@
 <title>Lecturer Login</title>
 <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
 </head>
-<div id="footer">
- <%@include file="footer.jsp"%>
-</div>
+
 <body>
  <%@include file="header.jsp"%>
  <br>
@@ -38,4 +36,7 @@ out.println(request.getSession().getAttribute("status"));
 <div>
 </div>
 </body>
+<div id="footer">
+ <%@include file="footer.jsp"%>
+</div>
 </html>

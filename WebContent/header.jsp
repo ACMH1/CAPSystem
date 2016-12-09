@@ -30,7 +30,7 @@
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
     <ul class="nav navbar-nav">
-    <% if (session.getAttribute("role")==" " ){ %>
+    <% if (session.getAttribute("role")==" "){ %>
       <li id="home" class="active"><a href="#">Home</a></li> 
       
         <li id="about"><a href="#"><span class="glyphicon glyphicon-eye-open"></span> About-CAPS</a></li>
@@ -46,7 +46,7 @@
       <%} %>
     </ul>
       <ul class="nav navbar-nav navbar-right">
-       <% if (session.getAttribute("role")==" " ){ %>
+       <% if (session.getAttribute("role")==" "|| session.getAttribute("role")==null){ %>
       <li id="login"class="dropdown">
         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
         <span class="glyphicon glyphicon-log-in"></span>  Login</a>
@@ -57,7 +57,7 @@
       </ul>
       </li> 
        <% } else if (session.getAttribute("role")!="") {%> 
-      <li id="logout"><a href="starting">Logout <span class="glyphicon glyphicon-log-out"></span></a></li>
+      <li id="logout"><a href="${pageContext.request.contextPath}/logoutcontroller?log=out">Logout <span class="glyphicon glyphicon-log-out"></span></a></li>
        <%} %>
       </ul>   
  </div>

@@ -1,0 +1,135 @@
+.bak {
+
+    font-family: 'open sans', helvetica, arial, sans;
+    background:url(http://farm8.staticflickr.com/7064/6858179818_5d652f531c_h.jpg) no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+table{
+	 border: 1px solid black;
+}
+
+.footer {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;  
+  text-align: center;
+}
+th {
+	color: #D5DDE5;;
+	background: #1b1e24;
+	border: 1px solid ;
+	border-bottom: 4px solid #9ea7af;
+	border-right: 1px solid #343a45;
+	font-size: 15px;
+	font-weight: 100;
+	padding: 15px;
+	text-align: center;
+	
+}
+
+th:first-child {
+	border-top-left-radius: 3px;
+	
+}
+
+th:last-child {
+	border-top-right-radius: 3px;
+	border-right: none;
+	margin: 20px;
+	text-align: center;
+}
+
+tr {
+	border-top: 1px solid #C1C3D1;
+	border-bottom-: 1px solid #C1C3D1;
+	color: #666B85;
+	font-size: 10px;
+	font-weight: normal;
+	height:50px;
+}
+
+tr:first-child {
+	border-top: none;
+}
+
+tr:last-child {
+	border-bottom: none;
+}
+
+tr:nth-child(odd) td {
+	background: #EBEBEB;
+}
+
+tr:last-child td:first-child {
+	border-bottom-left-radius: 3px;
+}
+
+tr:last-child td:last-child {
+	border-bottom-right-radius: 3px;
+}
+
+td {
+	background: #FFFFFF;
+	padding: 20px;
+	border: 1px solid gray;
+	text-align:left;
+	vertical-align: middle;
+	font-weight: 300;
+	font-size: 13px;
+	
+}
+
+td:last-child {
+	border-right: 0px;
+}
+
+
+
+td.text-left {
+	text-align:right;
+}
+
+td.text-center {
+	text-align: right;
+}
+
+td.text-right {
+	text-align:right;
+}
+li
+{
+    list-style:none;
+}
+
+.paging-nav {
+  text-align: right;
+  padding-top: 2px;
+}
+
+.paging-nav a {
+  margin: auto 1px;
+  text-decoration: none;
+  display: inline-block;
+  padding: 1px 7px;
+  background: #91b9e6;
+  color: #D5DDE5;
+  border-radius: 3px;
+}
+
+.paging-nav .selected-page {
+  background: #187ed5;
+  font-weight: bold;
+}
+
+.paging-nav,
+#tableData {
+  width: 400px;
+  margin: 0 auto;
+  font-family: Arial, sans-serif;
+}

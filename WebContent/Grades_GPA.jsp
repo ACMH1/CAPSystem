@@ -34,7 +34,10 @@
  <div>
  <div class="col-sm-9" id="upleft">
   <center> 
-  Your GPA:<input type="text" value="${gpa}"  readonly="readonly"><br/><br/>
+<c:if test="${gpa != 'null'}">
+Your GPA:<input type="text" value="${gpa}"  readonly="readonly"><br/><br/>
+</c:if>
+
   <c:if test="${ not empty courseGradeList}"> 
   
    <table border=1 width="80%" id="gradeList">

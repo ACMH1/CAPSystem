@@ -34,7 +34,6 @@
 	function myFunction() {
 		document.getElementById("contactform").reset();
 	}
-
 </script>
 </head>
 <body id="body">
@@ -59,8 +58,10 @@
 					%>
 					<div id="content" class="align">
 						<br />
-						<div id="subtitle">&nbsp;&nbsp;<fmt:message
-						key="label.lecturer.subtitle" /></div>
+						<div id="subtitle">
+							&nbsp;&nbsp;
+							<fmt:message key="label.lecturer.subtitle" />
+						</div>
 						<br />
 
 						<center>
@@ -68,30 +69,30 @@
 							<div class="registration">
 								<div class="form">
 
-									<form id="contactform" action="lecturer?action=add"
+									<form id="contactform" action="adminlecturer?action=add"
 										method="post">
 
 										<p class="contact">
 											<label for="name"><fmt:message
-						key="label.lecturer.lecturerlist.firstname" /></label>
+													key="label.lecturer.lecturerlist.firstname" /></label>
 										</p>
 
 										<input id="name" name="firstName" placeholder="First Name"
-											required="" tabindex="1" type="text">
+											required="" tabindex="1" type="text" maxlength="20">
 
 										<p class="contact">
 											<label for="name"><fmt:message
-						key="label.lecturer.lecturerlist.lastname" /></label>
+													key="label.lecturer.lecturerlist.lastname" /></label>
 										</p>
 
 										<input id="name" name="lastName" placeholder="Last Name"
-											required="" tabindex="2" type="text">
+											required="" tabindex="2" type="text" maxlength="20">
 
 
 
 										<p class="contact">
 											<label for="email"><fmt:message
-						key="label.lecturer.lecturerlist.email" /></label>
+													key="label.lecturer.lecturerlist.email" /></label>
 										</p>
 
 										<input id="email" name="email"
@@ -99,7 +100,7 @@
 											type="email">
 										<p class="contact">
 											<label for="email"><fmt:message
-						key="label.lecturer.lecturerlist.cofirmemail" /></label>
+													key="label.lecturer.lecturerlist.cofirmemail" /></label>
 										</p>
 
 										<input id="confirmEmail" name="confirmEmail"
@@ -133,62 +134,68 @@
 						%>%>
 						<div id="content" class="align">
 							<br />
-							<div id="subtitle">&nbsp;&nbsp;<fmt:message key="label.lecturer.modify.form" /></div>
+							<div id="subtitle">
+								&nbsp;&nbsp;
+								<fmt:message key="label.lecturer.modify.form" />
+							</div>
 							<br />
 
 							<center>
 								<div class="modification">
 									<div class="form">
 
-										<form id="contactform" action="lecturer?action=modify"
+										<form id="contactform" action="adminlecturer?action=modify"
 											method="post">
 
 
 											<p class="contact">
 												<label for="name"><fmt:message
-											key="label.lecturer.lecturerlist.lecturerid" /></label>
+														key="label.lecturer.lecturerlist.lecturerid" /></label>
 											</p>
 
 											<input id="lecturerID" name="lecturerID"
 												placeholder="First Name" required="" tabindex="1"
-												type="text" value="${lecturerID}" readOnly="true">
+												type="text" value="${lecturerID}" readOnly="readonly"
+												">
 
 											<p class="contact">
 												<label for="name"><fmt:message
-											key="label.lecturer.lecturerlist.firstname" /></label>
+														key="label.lecturer.lecturerlist.firstname" /></label>
 											</p>
 
 											<input id="firstName" name="firstName"
 												placeholder="First Name" required="" tabindex="1"
-												type="text" value="${firstName}">
+												type="text" value="${firstName}" maxlength="20">
 
 											<p class="contact">
 												<label for="name"><fmt:message
-											key="label.lecturer.lecturerlist.lastname" /></label>
+														key="label.lecturer.lecturerlist.lastname" /></label>
 											</p>
 
 											<input id="lastName" name="lastName" placeholder="Last Name"
-												required="" tabindex="2" type="text" value="${lastName}">
+												required="" tabindex="2" type="text" value="${lastName}"
+												maxlength="20">
 
 
 
 											<p class="contact">
 												<label for="email"><fmt:message
-											key="label.lecturer.lecturerlist.email" /></label>
+														key="label.lecturer.lecturerlist.email" /></label>
 											</p>
 
 											<input id="email" name="email"
 												placeholder="example@domain.com" required="" tabindex="3"
-												type="email" value="${email}"> <br /> <br />
+												type="email" value="${email}" readonly="readonly"> <br />
+											<br />
 
-											<p class="contact">
+											<%-- <p class="contact">
 												<label for="pw"><fmt:message
 											key="label.lecturer.lecturerlist.password" /> &nbsp;&nbsp;(To reset to
 													default password)</label>
 											</p>
 											<u><a href="javascript:AlertIt();"> Forget Password</a></u> <input
 												type="hidden" name="password" id="password"
-												value="${password}"> <label id="messagepw"></label><br />
+												value="${password}"> <label id="messagepw"></label><br /> --%>
 											<br /> <input class="buttom" name="submit" id="submit"
 												tabindex="5" value="Modify" type="submit">
 
@@ -200,11 +207,6 @@
 							<%
 								}
 							%>
-
-
-							<%--For displaying Previous link except for the 1st page --%>
-
-
 
 						</div>
 					</div>

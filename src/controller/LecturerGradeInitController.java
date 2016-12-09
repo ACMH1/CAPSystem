@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import exception.MyDataException;
 import model.CourseDTO;
-import service.coursemanager;
+import service.CourseManager;
 
 /**
  * Servlet implementation class FindCourseForGrade
@@ -39,7 +39,7 @@ public class LecturerGradeInitController extends HttpServlet {
 	}
 
 	private void doProcess(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
-		coursemanager cmgr = new coursemanager();
+		CourseManager cmgr = new CourseManager();
 		int lecturerId=0;
 			try {
 				HttpSession session=request.getSession();

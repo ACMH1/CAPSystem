@@ -1,4 +1,4 @@
-
+package controller;
 
 import java.io.IOException;
 
@@ -15,14 +15,14 @@ import javax.xml.ws.spi.http.HttpContext;
 /**
  * Servlet implementation class SampleServlet
  */
-@WebServlet("/starting")
-public class SampleServlet extends HttpServlet {
+@WebServlet("/logoutcontroller")
+public class LogOutController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SampleServlet() {
+    public LogOutController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -43,13 +43,17 @@ public class SampleServlet extends HttpServlet {
         //		String path="sample_login.jsp";
         //		RequestDispatcher rd= request.getRequestDispatcher(path);
         //		rd.forward(request, response);
-        
-        HttpSession session=request.getSession();
-        session.setAttribute("role", " ");
-        
-        String path="home.jsp";
-        RequestDispatcher rd= request.getRequestDispatcher(path);
-        rd.forward(request, response);
+//        
+//        HttpSession session=request.getSession();
+//        if(session.isNew())
+//        {
+//        	 session.setAttribute("role", " ");
+//             
+//             String path="/home.jsp";
+//             RequestDispatcher rd= request.getRequestDispatcher(path);
+//             rd.forward(request, response);
+//        }
+       
         
         
 //        		HttpSession session=request.getSession();
@@ -58,13 +62,22 @@ public class SampleServlet extends HttpServlet {
 //        		String path="sample_student.jsp";
 //        		RequestDispatcher rd= request.getRequestDispatcher(path);
 //        		rd.forward(request, response);
-        //
-        //		HttpSession session=request.getSession();
-        //		session.setAttribute("role", "admin");
-        //
-        //		String path="sample_admin.jsp";
-        //		RequestDispatcher rd= request.getRequestDispatcher(path);
-        //		rd.forward(request, response);
+        
+ HttpSession session=request.getSession();
+       if(session!=null&&request.getParameter("log").equals("out"))
+       {
+			session.invalidate();
+			RequestDispatcher rd2 = request.getRequestDispatcher("/home.jsp");
+			try {
+				rd2.forward(request, response);
+			} catch (ServletException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}		
         
         //		HttpSession session=request.getSession();
         //		session.setAttribute("role", "student");
@@ -72,6 +85,8 @@ public class SampleServlet extends HttpServlet {
         //		String path="sample_student.jsp";
         //		RequestDispatcher rd= request.getRequestDispatcher(path);
         //		rd.forward(request, response);
+   
+       
 		
 	}
 

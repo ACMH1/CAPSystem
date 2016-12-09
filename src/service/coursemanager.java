@@ -14,7 +14,7 @@ import model.EnrolmentDTO;
 import model.StudentDTO;
 
 
-public class coursemanager {
+public class CourseManager {
 	DAOFactory DF = DAOFactory.loadInstance();
 	CourseDAO cdao=DF.getCourseDAO();
 	EnrolmentDAO edao=DF.getEnrolmentDAO();

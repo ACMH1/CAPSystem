@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import exception.MyDataException;
 import model.StudentDTO;
-import service.coursemanager;
+import service.CourseManager;
 
 /**
  * Servlet implementation class StudentPerformanceInit
@@ -39,7 +39,7 @@ public class LecturerPerfInitController extends HttpServlet {
 
 	private void doprocess(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		coursemanager cmgr=new coursemanager();
+		CourseManager cmgr=new CourseManager();
 		try {
 			ArrayList<StudentDTO> slist=cmgr.searchAllStudents();
 			request.setAttribute("slist", slist);

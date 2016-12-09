@@ -14,7 +14,7 @@ import exception.MyDataException;
 import model.CourseDTO;
 import model.EnrolmentDTO;
 import model.StudentDTO;
-import service.coursemanager;
+import service.CourseManager;
 
 /**
  * Servlet implementation class courseEnrolment
@@ -42,7 +42,7 @@ public class LecturerEnrolController extends HttpServlet {
 	private void doProcess(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
 		
 		
-		coursemanager cmgr = new coursemanager();
+		CourseManager cmgr = new CourseManager();
 		CourseDTO course=new CourseDTO();
 		course.setCourseID(Integer.parseInt(request.getParameter("cid")));
 			try {

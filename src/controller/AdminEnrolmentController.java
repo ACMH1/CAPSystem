@@ -14,9 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import model.CourseDTO;
 import model.EnrolmentDTO;
 import model.StudentDTO;
-import service.AdminCourseManager;
-import service.AdminEnrolmentManager;
-import service.AdminStudentManager;
+import service.AdminManager;
 
 /**
  * Servlet implementation class admin_manageenrollment
@@ -42,9 +40,8 @@ public class AdminEnrolmentController extends HttpServlet {
 
 	private void doProcess(HttpServletRequest request, HttpServletResponse response) {
 		
-		AdminEnrolmentManager enrolManager=new AdminEnrolmentManager();
-		AdminCourseManager courseManager=new AdminCourseManager();
-		AdminStudentManager studentManager=new AdminStudentManager();
+		AdminManager AdminManager=new AdminManager();
+
 		String action=request.getParameter("action");
 		System.out.println(action);
 		String courseID = request.getParameter("CourseID");
@@ -54,13 +51,13 @@ public class AdminEnrolmentController extends HttpServlet {
 		{
 			System.out.println("view");
 			
-			CourseDTO course=courseManager.findCourse(Integer.parseInt(courseID));
+			CourseDTO course=AdminManager.findCourse(Integer.parseInt(courseID));
 			System.out.println(course);
-			ArrayList<EnrolmentDTO> data=enrolManager.findEnrolmentByCourse(course);
+			ArrayList<EnrolmentDTO> data=AdminManager.findEnrolmentByCourse(course);
 			if(data!=null)
 			{
 				
-				enrolManager.findEnrolmentByCourse(course);
+				AdminManager.findEnrolmentByCourse(course);
 				request.setAttribute("enrolment", data);
 				request.setAttribute("CourseID", courseID);
 			}
@@ -90,20 +87,20 @@ public class AdminEnrolmentController extends HttpServlet {
 			String path="";
 			 try {
 				 int id = Integer.parseInt(request.getParameter("StudentID"));
-				 StudentDTO student=studentManager.findStudent(Integer.parseInt(request.getParameter("StudentID")));
-					CourseDTO course =courseManager.findCourse(Integer.parseInt(request.getParameter("CourseID")));
+				 StudentDTO student=AdminManager.findStudent(Integer.parseInt(request.getParameter("StudentID")));
+					CourseDTO course =AdminManager.findCourse(Integer.parseInt(request.getParameter("CourseID")));
 					
 					if(student!=null)
 					{
 						if(course !=null)
 						{
-							ArrayList<EnrolmentDTO> data=enrolManager.findEnrolmentByCourse(course);
+							ArrayList<EnrolmentDTO> data=AdminManager.findEnrolmentByCourse(course);
 							
-								if(enrolManager.checkDuplicate(student,course)&&enrolManager.checkSize(course))
+								if(AdminManager.checkDuplicate(student,course)&&AdminManager.checkSize(course))
 								{
 									
 									EnrolmentDTO enrolment=new EnrolmentDTO(student,course);
-									int addEnrol=enrolManager.createEnrolment(enrolment);
+									int addEnrol=AdminManager.createEnrolment(enrolment);
 									System.out.println(addEnrol);
 									request.setAttribute("message", "success");
 									path="admin_manageenrolment?action=view";
@@ -155,10 +152,10 @@ public class AdminEnrolmentController extends HttpServlet {
 		else if (action!=null&&action.equals("delete"))
 		{
 			System.out.println("delete");
-			StudentDTO student=studentManager.findStudent(Integer.parseInt(request.getParameter("StudentID")));
-			CourseDTO course =courseManager.findCourse(Integer.parseInt(request.getParameter("CourseID")));
+			StudentDTO student=AdminManager.findStudent(Integer.parseInt(request.getParameter("StudentID")));
+			CourseDTO course =AdminManager.findCourse(Integer.parseInt(request.getParameter("CourseID")));
 			EnrolmentDTO enrol=new EnrolmentDTO(student,course);
-			int deleteEnrol=enrolManager.deleteEnrolment(enrol);
+			int deleteEnrol=AdminManager.deleteEnrolment(enrol);
 			System.out.println(deleteEnrol);
 			System.out.println(deleteEnrol);
 			request.setAttribute("message", "success");
@@ -175,7 +172,7 @@ public class AdminEnrolmentController extends HttpServlet {
 		}
 		else
 		{
-			ArrayList<CourseDTO> data = courseManager.listAllCourses();
+			ArrayList<CourseDTO> data = AdminManager.listAllCourses();
 			request.setAttribute("course", data);
 			request.setAttribute("usefor", "enrolment");
 			RequestDispatcher rd = request.getRequestDispatcher("/admin_managecourses.jsp");

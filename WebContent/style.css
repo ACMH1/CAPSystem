@@ -3,12 +3,14 @@
 footer {
   font-size: 12px;
   padding: 20px 0;
+  
   background-color:black;
 }
 
 footer .col-sm-8 {
   display: flex;
-  justify-content: flex-end;
+ justify-content: flex-end;
+/* justify-content:space-around */
 }
 
 footer ul {

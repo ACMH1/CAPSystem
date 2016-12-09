@@ -13,7 +13,7 @@ import model.CompletedDTO;
 import model.CourseDTO;
 import model.EnrolmentDTO;
 import model.StudentDTO;
-import service.coursemanager;
+import service.CourseManager;
 
 /**
  * Servlet implementation class DeleteUpdateCompleted
@@ -62,7 +62,7 @@ public class LecturerGradeUpdateController extends HttpServlet {
 		enrol.setStudent(student);
 		enrol.setCourse(course);
 		
-		coursemanager cmgr = new coursemanager();
+		CourseManager cmgr = new CourseManager();
 	
 		
 		try {

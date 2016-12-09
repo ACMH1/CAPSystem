@@ -3,7 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="http://displaytag.sf.net" prefix="display"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<%@page errorPage="error.jsp" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -63,7 +63,7 @@
 						<p class="error">${error}</p>
 						<center>
 
-							<display:table name="llist" pagesize="10" requestURI="/lecturer"
+							<display:table name="llist" pagesize="10" requestURI="/adminlecturer"
 								id="llist" class="table-fill">
 								<display:column property="lecturerID" title="Lecturer ID"
 									class="text-center" />
@@ -75,7 +75,7 @@
 									class="text-center" />
 
 								<display:column>
-									<c:url var="updurl" scope="page" value="lecturer">
+									<c:url var="updurl" scope="page" value="adminlecturer">
 										<c:param name="action" value="edit" />
 										<c:param name="lecturerId" value="${llist.lecturerID}" />
 
@@ -89,7 +89,7 @@
 								</display:column>
 
 								<display:column>
-									<c:url var="delurl" scope="page" value="lecturer">
+									<c:url var="delurl" scope="page" value="adminlecturer">
 										<c:param name="action" value="delete" />
 										<c:param name="lecturerId" value="${llist.lecturerID}" />
 									</c:url>

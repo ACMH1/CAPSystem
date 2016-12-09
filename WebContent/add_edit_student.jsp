@@ -27,13 +27,13 @@
 
 
 <script type="text/javascript">
-	function AlertIt() {
+	/* function AlertIt() {
 		var answer = confirm("Do you want to reset password.")
 		if (answer) {
 			document.getElementById('password').value = "12345";
 			document.getElementById('messagepw').innerHTML = "Password Reset Succesfully";
 		}
-	}
+	} */
 	function myFunction() {
 		document.getElementById("registerform").reset();
 	}
@@ -73,31 +73,31 @@
 							<div class="registration">
 								<div class="form">
 
-									<form id="registerform" action="student?action=add"
+									<form id="registerform" action="adminstudent?action=add"
 										method="post" name="registration">
 
 
 										<p class="contact">
 											<label for="name"><fmt:message
-											key="label.student.studentlist.firstname" /></label>
+													key="label.student.studentlist.firstname" /></label>
 										</p>
 
 										<input id="name" name="firstName" placeholder="First Name"
-											required="" tabindex="1" type="text">
+											required="" tabindex="1" type="text" maxlength="20">
 
 										<p class="contact">
 											<label for="name"><fmt:message
-											key="label.student.studentlist.lastname" /></label>
+													key="label.student.studentlist.lastname" /></label>
 										</p>
 
 										<input id="name" name="lastName" placeholder="Last Name"
-											required="" tabindex="2" type="text">
+											required="" tabindex="2" type="text" maxlength="20">
 
 
 
 										<p class="contact">
 											<label for="email"><fmt:message
-											key="label.student.studentlist.email" /></label>
+													key="label.student.studentlist.email" /></label>
 										</p>
 
 										<input id="email" name="email"
@@ -105,7 +105,7 @@
 											type="email">
 										<p class="contact">
 											<label for="email"><fmt:message
-											key="label.student.studentlist.confirmemail" /></label>
+													key="label.student.studentlist.confirmemail" /></label>
 										</p>
 
 										<input id="confirmEmail" name="confirmEmail"
@@ -114,7 +114,7 @@
 
 										<p class="contact">
 											<label for="enrollmentDate"><fmt:message
-											key="label.student.studentlist.enrollmentdate" /></label>
+													key="label.student.studentlist.enrollmentdate" /></label>
 										</p>
 
 										<input type="date" id="enrollmentDate" name="enrollmentDate"
@@ -144,53 +144,57 @@
 						%>%>
 						<div id="content" class="align">
 							<br />
-							<div id="subtitle">&nbsp;&nbsp;	<fmt:message key="label.student.modify.form" /></div>
+							<div id="subtitle">
+								&nbsp;&nbsp;
+								<fmt:message key="label.student.modify.form" />
+							</div>
 							<br />
 
 							<center>
 								<div class="modification">
 									<div class="form">
-										<form id="registerform" action="student?action=modify"
+										<form id="registerform" action="adminstudent?action=modify"
 											method="post">
 											<p class="contact">
 												<label for="name"><fmt:message
-											key="label.student.studentlist.studentid" /></label>
+														key="label.student.studentlist.studentid" /></label>
 											</p>
 
 											<input id="studentID" name="studentID"
 												placeholder="First Name" required="" tabindex="1"
-												type="text" value="${studentID}" readOnly="true">
+												type="text" value="${studentID}" readOnly="readonly">
 
 											<p class="contact">
 												<label for="name"><fmt:message
-											key="label.student.studentlist.firstname" /></label>
+														key="label.student.studentlist.firstname" /></label>
 											</p>
 
 											<input id="firstName" name="firstName"
 												placeholder="First Name" required="" tabindex="1"
-												type="text" value="${firstName}">
+												type="text" value="${firstName}" maxlength="20">
 
 											<p class="contact">
 												<label for="name"><fmt:message
-											key="label.student.studentlist.lastname" /></label>
+														key="label.student.studentlist.lastname" /></label>
 											</p>
 
 											<input id="lastName" name="lastName" placeholder="Last Name"
-												required="" tabindex="2" type="text" value="${lastName}">
+												required="" tabindex="2" type="text" value="${lastName}"
+												maxlength="20">
 
 
 
 											<p class="contact">
 												<label for="email"><fmt:message
-											key="label.student.studentlist.email" /></label>
+														key="label.student.studentlist.email" /></label>
 											</p>
 
 											<input id="email" name="email"
 												placeholder="example@domain.com" required="" tabindex="3"
-												type="email" value="${email}">
+												type="email" value="${email}" readonly="readonly">
 
 
-											<p class="contact">
+											<%-- 	<p class="contact">
 												<label for="pw"><fmt:message
 											key="label.student.studentlist.password" /> &nbsp;&nbsp;(To reset to
 													default password)</label>
@@ -198,7 +202,7 @@
 											<u><a href="javascript:AlertIt();"> Forget Password</a></u> <input
 												type="hidden" name="password" id="password"
 												value="${password}"> <label id="messagepw"></label><br />
-											<br />
+											<br /> --%>
 
 											<%-- <input id="email" name="email"
 												placeholder="example@domain.com" required="" tabindex="3"
@@ -207,11 +211,11 @@
 
 											<p class="contact">
 												<label for="enrollmentDate"><fmt:message
-											key="label.student.studentlist.enrollmentdate" /></label>
+														key="label.student.studentlist.enrollmentdate" /></label>
 											</p>
 
 											<input type="date" id="enrollmentDate" name="enrollmentDate"
-												required="" tabindex="5" value="${enrollmentDate}" readonly=readonly><br />
+												required="" tabindex="5" value="${enrollmentDate}"><br />
 											<br /> <br /> <input class="buttom" name="modify"
 												id="submit" tabindex="5" value="Save" type="submit">
 

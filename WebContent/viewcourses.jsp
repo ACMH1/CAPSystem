@@ -39,7 +39,7 @@
 				<div class="col-sm-9" id="upleft">
 
 					<c:if test="${ not empty courseList}">
-
+<center>
 						<table border=1 width="80%" id="coList">
 							<thead>
 								<tr>
@@ -63,10 +63,8 @@
 									<td>${EnrolmentDTO.getCourse().getEndDate()}</td>
 								</tr>
 							</c:forEach>
-
-
-
 						</table>
+</center>
                <div>
 
 				</div>

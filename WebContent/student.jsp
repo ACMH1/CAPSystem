@@ -57,7 +57,7 @@
 						<p class="message">${message}</p>
 						<p class="error">${error}</p>
 						<center>
-							<display:table name="slist" pagesize="10" requestURI="/student"
+							<display:table name="slist" pagesize="10" requestURI="/adminstudent"
 								id="slist" class="table-fill">
 								<display:column property="studentID" title="Student ID"
 									class="text-center" />
@@ -66,7 +66,7 @@
 								<display:column property="email" title=" Email" class="text-center"/>
 
 								<display:column>
-									<c:url var="updurl" scope="page" value="student">
+									<c:url var="updurl" scope="page" value="adminstudent">
 										<c:param name="action" value="edit" />
 										<c:param name="studentId" value="${slist.studentID}" />
 
@@ -80,7 +80,7 @@
 								</display:column>
 
 								<display:column>
-									<c:url var="delurl" scope="page" value="student">
+									<c:url var="delurl" scope="page" value="adminstudent">
 										<c:param name="action" value="delete" />
 										<c:param name="studentId" value="${slist.studentID}" />
 									</c:url>
