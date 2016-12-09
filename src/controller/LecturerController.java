@@ -48,7 +48,7 @@ public class LecturerController extends HttpServlet {
 		if (action != null && action.equals("add")) {
 
 			action = null;
-
+//hellooo
 			lecturer.setPassword("12345");
 			// lecturer.setlecturerID(10101);
 			lecturer.setLastName(request.getParameter("lastName"));
