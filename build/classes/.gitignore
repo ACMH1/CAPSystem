@@ -1,7 +1,4 @@
-/CourseGradeController.class
-/SampleServlet.class
 /controller/
-/dao/
-/model/
 /service/
-/test/
+/exception/
+/dao/

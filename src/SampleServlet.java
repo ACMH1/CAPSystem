@@ -15,7 +15,7 @@ import javax.xml.ws.spi.http.HttpContext;
 /**
  * Servlet implementation class SampleServlet
  */
-@WebServlet("/s")
+@WebServlet("/starting")
 public class SampleServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -44,20 +44,26 @@ public class SampleServlet extends HttpServlet {
         //		RequestDispatcher rd= request.getRequestDispatcher(path);
         //		rd.forward(request, response);
         
-//        HttpSession session=request.getSession();
-//        session.setAttribute("role", " ");
+        HttpSession session=request.getSession();
+        session.setAttribute("role"," ");
+        
+        String path="home.jsp";
+        RequestDispatcher rd= request.getRequestDispatcher(path);
+        rd.forward(request, response);
+
+//		HttpSession session=request.getSession();
+//		session.setAttribute("role", "lecturer");
+//
+//		
+//		RequestDispatcher rd= request.getRequestDispatcher("coursecontoller");
+//		rd.forward(request, response);
 //        
-//        String path="home.jsp";
-//        RequestDispatcher rd= request.getRequestDispatcher(path);
-//        rd.forward(request, response);
-        
-        
-        		HttpSession session=request.getSession();
-        		session.setAttribute("role", "student");
-        
-        		String path="sample_student.jsp";
-        		RequestDispatcher rd= request.getRequestDispatcher(path);
-        		rd.forward(request, response);
+//        		HttpSession session=request.getSession();
+//        		session.setAttribute("role", "student");
+//        
+//        		String path="sample_student.jsp";
+//        		RequestDispatcher rd= request.getRequestDispatcher(path);
+//        		rd.forward(request, response);
         //
         //		HttpSession session=request.getSession();
         //		session.setAttribute("role", "admin");

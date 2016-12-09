@@ -70,20 +70,25 @@ public class AuthenticateLecturer extends HttpServlet {
 		 	 service = new LecturerManager();
 	    	 result = service.authenticate(u,p,request);
 	    	 
-	    	 HttpSession session = request.getSession();
-	    	 session.setAttribute("role", "lecturer");
-	    	 session.setAttribute("lecturerid", u);
+	    	
 			
 		if (result)
 		{
-			path = "/Success.jsp";		
+			path = "coursecontoller";		
 			request.getSession().setAttribute("status", " ");
+			 HttpSession session = request.getSession();
+	    	 session.setAttribute("role", "lecturer");
+	    	 session.setAttribute("lecturerid", u);
+	    	 session.setAttribute("lecturername", p);
 	
 		}
 		else
 		{
 			path = "/lecturer_login.jsp";
 			request.getSession().setAttribute("status", "Wrong Password");
+			   HttpSession session=request.getSession();
+		        session.setAttribute("role"," ");
+		     
 		}
 		
 		}catch (NumberFormatException e)

@@ -14,7 +14,7 @@
 <body>
 <footer>
     <div class="row">
-      <p class="col-sm-4">&copy; 2016 CAPS-POWERED BY TEAM_6</p>
+      <p class="col-sm-4">&nbsp; &copy; 2016 CAPS-POWERED BY TEAM_6</p>
       <ul class="col-sm-8">
         <li class="col-sm-1">
           <img src="https://s3.amazonaws.com/codecademy-content/projects/make-a-website/lesson-4/twitter.svg">
@@ -28,7 +28,7 @@
         <li class="col-sm-1">
           <img src="https://s3.amazonaws.com/codecademy-content/projects/make-a-website/lesson-4/medium.svg">
         </li>
-      </ul>
+      </ul> 
     </div>
   </footer>
 </body>

@@ -1,3 +1,4 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -35,7 +36,13 @@
         <li id="about"><a href="#"><span class="glyphicon glyphicon-eye-open"></span> About-CAPS</a></li>
           <li id="contact"><a href="home.jsp#contacthome"><span class="glyphicon glyphicon-earphone"></span> Contact us</a></li>
                <% } else if (session.getAttribute("role")!=" " ){ %>
+               <% if (session.getAttribute("role")=="admin" ){ %>
             <li id="welcome" class="active"><a href="#" ><span class="glyphicon glyphicon-user"></span> Welcome "user name"</a></li>
+             <%}else if (session.getAttribute("role")=="lecturer" ){ %>
+              <li id="welcome" class="active"><a href="#" ><span class="glyphicon glyphicon-user"></span> Welcome &nbsp<c:out value="${lecturername}"/></a></li>
+              <%}else if (session.getAttribute("role")=="student" ){ %>
+               <li id="welcome" class="active"><a href="#" ><span class="glyphicon glyphicon-user"></span> Welcome "user name"</a></li>
+                 <%} %>
       <%} %>
     </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -44,13 +51,13 @@
         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
         <span class="glyphicon glyphicon-log-in"></span>  Login</a>
         <ul class="dropdown-menu"> 
-          <li><a href="sample_login.jsp"><span class="glyphicon glyphicon-user"></span> Admin login</a></li>
-          <li><a href="sample_login.jsp"><span class="glyphicon glyphicon-user"></span> Lecture login</a></li>
-          <li><a href="sample_login.jsp"><span class="glyphicon glyphicon-user"></span> Student login</a></li> 
+          <li><a href="admin_login.jsp"><span class="glyphicon glyphicon-user"></span> Admin login</a></li>
+          <li><a href="lecturer_login.jsp"><span class="glyphicon glyphicon-user"></span> Lecture login</a></li>
+          <li><a href="student_login.jsp"><span class="glyphicon glyphicon-user"></span> Student login</a></li> 
       </ul>
       </li> 
        <% } else if (session.getAttribute("role")!="") {%> 
-      <li id="logout"><a href="home.jsp">Logout <span class="glyphicon glyphicon-log-out"></span></a></li>
+      <li id="logout"><a href="starting">Logout <span class="glyphicon glyphicon-log-out"></span></a></li>
        <%} %>
       </ul>   
  </div>
