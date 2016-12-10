@@ -12,9 +12,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.apache.jasper.JasperException;
 
 import dao.NoDataException;
+import exception.ApplicationException;
 import model.CourseDTO;
+import model.LecturerDTO;
 import service.AdminManager;
 
 /**
@@ -23,7 +28,7 @@ import service.AdminManager;
 @WebServlet("/admin_managecourses")
 public class AdminCourseController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -37,38 +42,41 @@ public class AdminCourseController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		processRequest(request,response);
-		
+				processRequest(request,response);
+
 	}
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		processRequest(request,response);
-		
+				processRequest(request,response);
+
 	}
 
 	private void processRequest(HttpServletRequest request, HttpServletResponse response)  {
+		HttpSession session=request.getSession();
+
+		if(session.getAttribute("role")!=null&&session.getAttribute("role").equals("admin"))
+		{
 		request.setAttribute("usefor", "Course");
 		String action=request.getParameter("action");
-		System.out.println(action);
 		CourseDTO course= new CourseDTO();
 		String courseID = request.getParameter("courseID");
-		System.out.println(courseID);
-		AdminManager courseManager = new AdminManager();
+		AdminManager adminManager = new AdminManager();
 		String path="";
+		String error=request.getParameter("error");
 		if(action!=null&&action.equals("add"))
 		{
-			System.out.println("add");
 			SimpleDateFormat format= new SimpleDateFormat("yyyy-MM-dd");
 			Date start=null;
 			Date end=null;
 			try {
-				
+
 				start = format.parse(request.getParameter("StartDate"));
 				end=format.parse(request.getParameter("EndDate"));
-			} catch (ParseException e1) {
+			} catch (ParseException e1)
+			{
 				path="/processCourse.jsp?startError=start/end date format is incorrect";
 				RequestDispatcher rd = request.getRequestDispatcher(path);
 				try {
@@ -80,19 +88,32 @@ public class AdminCourseController extends HttpServlet {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-			}		 
-			boolean dateResult=courseManager.dateValidation(start, end);
+			}catch (NumberFormatException e) {
+				  path="/error.jsp";
+				  RequestDispatcher rd = request.getRequestDispatcher(path);
+					try {
+						rd.forward(request, response);
+					} catch (ServletException e1) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+			  }
+
+			boolean dateResult=adminManager.dateValidation(start, end);
 			System.out.println(dateResult);
 			if(dateResult)
-			{	
-				
-						 AdminManager lecturerManager=new AdminManager();
-						if(lecturerManager.lecturerValidation(Integer.parseInt(request.getParameter("LecturerId"))))
+			{
+
+
+						if(adminManager.lecturerValidation(Integer.parseInt(request.getParameter("LecturerId"))))
 						{
-							
+
 								try {
-									course.setLecturer(lecturerManager.findThatLecturer(Integer.parseInt(request.getParameter("LecturerId"))));
-								} catch (NumberFormatException | NoDataException e) {
+									course.setLecturer(adminManager.findThatLecturer(Integer.parseInt(request.getParameter("LecturerId"))));
+								} catch (NoDataException e) {
 									path="/processCourse.jsp?lecturerError=incorrect.";
 									RequestDispatcher rd = request.getRequestDispatcher(path);
 									try {
@@ -103,18 +124,16 @@ public class AdminCourseController extends HttpServlet {
 									} catch (IOException e1) {
 										// TODO Auto-generated catch block
 										e.printStackTrace();
-									}			
-								}				
+									}
+								}
+
 								course.setCourseID(1);
-								System.out.println(course);
 								course.setCourseName(request.getParameter("CourseName"));
 								course.setSize(Integer.parseInt(request.getParameter("Size")));
-								course.setCredits(Integer.parseInt(request.getParameter("Credits")));								
+								course.setCredits(Integer.parseInt(request.getParameter("Credits")));
 							    course.setStartDate(start);
-								course.setEndDate(end);		
-								System.out.println(course);
-								int addrow=courseManager .addCourses(course);
-								System.out.println(addrow);
+								course.setEndDate(end);
+								int addrow=adminManager .addCourses(course);
 								request.setAttribute("message", "success");
 								path="/admin_managecourses?action=";
 						}
@@ -122,14 +141,14 @@ public class AdminCourseController extends HttpServlet {
 						{
 							path="/processCourse.jsp?lecturerError=incorrect.";
 						}
-							
-					}									
+
+					}
 			else
 			{
-				path="/processCourse.jsp?startError=start date should be before end date and after today.";
-				
+				path="/processCourse.jsp?startError=start date should be before end date.";
+
 			}
-			
+
 				RequestDispatcher rd = request.getRequestDispatcher(path);
 				try {
 					rd.forward(request, response);
@@ -139,14 +158,12 @@ public class AdminCourseController extends HttpServlet {
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-				}						
+				}
 	}
 		else if(action!=null&&action.equals("delete"))
 		{
-			System.out.println(course.toString());
-			CourseDTO coursefind=courseManager .findCourse(Integer.parseInt(courseID));
-			int ins=courseManager .removeCourses(coursefind);
-			System.out.println("delete"+ins);
+			CourseDTO coursefind=adminManager .findCourse(Integer.parseInt(courseID));
+			int ins=adminManager.removeCourses(coursefind);
 			request.setAttribute("message", "success");
 			RequestDispatcher rd = request.getRequestDispatcher("/admin_managecourses?action=");
 			try {
@@ -161,10 +178,11 @@ public class AdminCourseController extends HttpServlet {
 		}
 		else if (action !=null&&action.equals("edit"))
 		{
-			System.out.println("edit");
-			course=courseManager.findCourse(Integer.parseInt(courseID));
+			course=adminManager.findCourse(Integer.parseInt(courseID));
 			if(course!=null)
 			{
+
+
 				request.setAttribute("CourseId", course.getCourseID());
 				request.setAttribute("CourseName", course.getCourseName());
 				request.setAttribute("Size", course.getSize());
@@ -173,7 +191,7 @@ public class AdminCourseController extends HttpServlet {
 				request.setAttribute("StartDate", course.getStartDate());
 				request.setAttribute("EndDate", course.getEndDate());
 				request.setAttribute("status", "edit");
-				System.out.println(course);
+
 				RequestDispatcher rd = request.getRequestDispatcher("processCourse.jsp");
 				try {
 					rd.forward(request, response);
@@ -198,14 +216,12 @@ public class AdminCourseController extends HttpServlet {
 					e.printStackTrace();
 				}
 			}
-			
+
 		}
 		else if ( action !=null&&action.equals("modify"))
 		{
-			System.out.println("modify");
 			String ID=request.getParameter("CourseId").trim();
-			course= courseManager .findCourse(Integer.parseInt(ID));
-			System.out.println(ID);
+			course= adminManager.findCourse(Integer.parseInt(ID));
 			SimpleDateFormat format= new SimpleDateFormat("yyyy-MM-dd");
 			Date start=null;
 			Date end=null;
@@ -213,8 +229,8 @@ public class AdminCourseController extends HttpServlet {
 				start = format.parse(request.getParameter("StartDate"));
 				end=format.parse(request.getParameter("EndDate"));
 			} catch (ParseException e1) {
-				
-				path="admin_managecourses?startError=start/end date format is incorrect&courseID="+ID;		
+
+				path="admin_managecourses?action=edit&startError=start/end date format is incorrect&courseID="+ID;
 				RequestDispatcher rd = request.getRequestDispatcher(path);
 				try {
 					rd.forward(request, response);
@@ -225,114 +241,83 @@ public class AdminCourseController extends HttpServlet {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+
 			}
-			
-			AdminManager lecturerManager=new AdminManager();
-			 boolean dateResult=courseManager.dateValidation(start, end);
-				System.out.println(dateResult);
-				if(dateResult)
-				{						
-						
-						if(lecturerManager.lecturerValidation(Integer.parseInt(request.getParameter("LecturerId"))))
-							{
-									try {
-										course.setLecturer(lecturerManager.findThatLecturer(Integer.parseInt(request.getParameter("LecturerId"))));
-									
-										int editlecturer=courseManager .updateCourses(course);
-									    System.out.println(editlecturer);
-									} catch (NumberFormatException | NoDataException e) {
-										
-										path="/processCourse.jsp?lecturerError=incorrect.";
-										RequestDispatcher rd = request.getRequestDispatcher(path);
-										try {
-											rd.forward(request, response);
-										} catch (ServletException e1) {
-											// TODO Auto-generated catch block
-											e1.printStackTrace();
-										} catch (IOException e1) {
-											// TODO Auto-generated catch block
-											e1.printStackTrace();
-										}
-									}
-							    course.setCourseName(request.getParameter("CourseName"));
-							    int editName=courseManager .updateCourses(course);
-							    System.out.println(editName);
-								course.setCredits(Integer.parseInt(request.getParameter("Credits")));	
-								int editcredit=courseManager .updateCourses(course);
-								System.out.println(editcredit);
-								course.setSize(Integer.parseInt(request.getParameter("Size")));
-								int editsize=courseManager .updateCourses(course);
-								System.out.println(editsize);
-								course.setStartDate(start);
-								int editstart=courseManager .updateCourses(course);
-								System.out.println(editstart);
-								course.setEndDate(end);
-								int editend=courseManager .updateCourses(course);
-								System.out.println(editend);
-								System.out.println(course.getCourseID());
-									
-								
-								
-								request.setAttribute("message", "success");
-									path="/admin_managecourses?action=";
-							}
-							else
-							{
-								
-								course.setCourseName(request.getParameter("CourseName"));
-							    int editName=courseManager .updateCourses(course);
-							    
-								course.setCredits(Integer.parseInt(request.getParameter("Credits")));	
-								int editcredit=courseManager .updateCourses(course);
-								System.out.println(editcredit);
-								course.setSize(Integer.parseInt(request.getParameter("Size")));
-								int editsize=courseManager .updateCourses(course);
-								System.out.println(editsize);
-								course.setStartDate(start);
-								int editstart=courseManager .updateCourses(course);
-								System.out.println(editstart);
-								course.setEndDate(end);
-								int editend=courseManager .updateCourses(course);
-								System.out.println(editend);
-								System.out.println(course.getCourseID());
-								path="admin_managecourses?action=edit&lecturerError=incorrect";
-							}							
-						}													
-				
+
+			LecturerDTO lec=null;
+			try {
+				lec=adminManager.findThatLecturer(Integer.parseInt(request.getParameter("LecturerId")));
+
+			} catch (NoDataException e) {
+				path="/processCourse.jsp?action=edit&lecturerError=incorrect&LecturerId=0&courseID="+ID;
+				RequestDispatcher rd = request.getRequestDispatcher(path);
+				try {
+					rd.forward(request, response);
+				} catch (ServletException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+
+
+			 boolean dateResult=adminManager.dateValidation(start, end);
+				if(dateResult&&lec!=null)
+				{
+					course.setLecturer(lec);
+					course.setCourseName(request.getParameter("CourseName"));
+					course.setCredits(Integer.parseInt(request.getParameter("Credits")));
+					course.setSize(Integer.parseInt(request.getParameter("Size")));
+					course.setStartDate(start);
+					course.setEndDate(end);
+					int editend=adminManager.updateCourses(course);
+					request.setAttribute("message", "success");
+					path="/admin_managecourses?action=";
+
+				}
+
 				else
 				{
-					try {
-						course.setLecturer(lecturerManager.findThatLecturer(Integer.parseInt(request.getParameter("LecturerId"))));
-					} catch (NumberFormatException | NoDataException e) {
-						path="/processCourse.jsp?lecturerError=incorrect.";
-						RequestDispatcher rd = request.getRequestDispatcher(path);
-						try {
-							rd.forward(request, response);
-						} catch (ServletException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						} catch (IOException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
+					if(dateResult&&lec==null)
+					{
+						course.setCourseName(request.getParameter("CourseName"));
+						course.setCredits(Integer.parseInt(request.getParameter("Credits")));
+						course.setSize(Integer.parseInt(request.getParameter("Size")));
+						course.setStartDate(start);
+						course.setEndDate(end);
+						int editlecturer=adminManager.updateCourses(course);
+						path="/processCourse.jsp?action=edit&lecturerError=incorrect&LecturerId=0&courseID="+ID;
 					}
-					
-					int editlecturer=courseManager .updateCourses(course);
-				    System.out.println(editlecturer);
-					course.setCourseName(request.getParameter("CourseName"));
-				    int editName=courseManager .updateCourses(course);
-				    
-					course.setCredits(Integer.parseInt(request.getParameter("Credits")));	
-					int editcredit=courseManager .updateCourses(course);
-					System.out.println(editcredit);
-					course.setSize(Integer.parseInt(request.getParameter("Size")));
-					int editsize=courseManager .updateCourses(course);
-					System.out.println(editsize);
-					path="admin_managecourses?action=edit&startError=start date should be before end date and after today&courseID="+ID;				
-				}
-				System.out.println(path);
+					if(!dateResult&&lec!=null)
+					{
+						course.setLecturer(lec);
+						course.setCourseName(request.getParameter("CourseName"));
+						course.setCredits(Integer.parseInt(request.getParameter("Credits")));
+						course.setSize(Integer.parseInt(request.getParameter("Size")));
+						course.setStartDate(start);
+						course.setEndDate(end);
+						int editlecturer=adminManager .updateCourses(course);
+						path="admin_managecourses?action=edit&startError=start date should be before end date.&courseID="+ID;
+					}
+					if(!dateResult&&lec==null)
+					{
+						LecturerDTO lecturererror=new LecturerDTO();
+						course.setCourseName(request.getParameter("CourseName"));
+						course.setCredits(Integer.parseInt(request.getParameter("Credits")));
+						course.setSize(Integer.parseInt(request.getParameter("Size")));
+						course.setStartDate(start);
+						course.setEndDate(end);
+						course.setLecturer(lecturererror);
+						int editlecturer=adminManager .updateCourses(course);
+
+						path="admin_managecourses?action=edit&startError=start date should be before end date.&courseID="+ID;
+					}
+
+					}
+
 					RequestDispatcher rd = request.getRequestDispatcher(path);
-					System.out.println(rd.toString());
 					try {
 						rd.forward(request, response);
 					} catch (ServletException e) {
@@ -341,13 +326,13 @@ public class AdminCourseController extends HttpServlet {
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
-					}	
-	
+					}
 		}
+
 		else
 		{
-			ArrayList<CourseDTO> data = courseManager .listAllCourses();
-			request.setAttribute("course", data);		
+			ArrayList<CourseDTO> data = adminManager .listAllCourses();
+			request.setAttribute("course", data);
 			RequestDispatcher rd = request.getRequestDispatcher("/admin_managecourses.jsp");
 			try {
 				rd.forward(request, response);
@@ -359,7 +344,20 @@ public class AdminCourseController extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-		
-	}
 
+	}
+		else
+		{
+			RequestDispatcher rd = request.getRequestDispatcher("/admin_login.jsp");
+			try {
+				rd.forward(request, response);
+			} catch (ServletException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
 }
