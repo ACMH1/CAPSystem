@@ -37,11 +37,29 @@
           <li id="contact"><a href="home.jsp#contacthome"><span class="glyphicon glyphicon-earphone"></span> Contact us</a></li>
                <% } else if (session.getAttribute("role")!=" " ){ %>
                <% if (session.getAttribute("role")=="admin" ){ %>
-            <li id="welcome" class="active"><a href="#" ><span class="glyphicon glyphicon-user"></span> Welcome "user name"</a></li>
+            <li id="welcome" class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#" ><span class="glyphicon glyphicon-user"></span> Welcome &nbsp<c:out value="${role}"/></a>
+            <ul class="dropdown-menu"> 
+          <li><a href="LecturerProfile"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
+          <li><a href="changepassword.jsp"><span class="glyphicon glyphicon-user"></span> Change Password</a></li>
+      </ul>
+      </li> 
              <%}else if (session.getAttribute("role")=="lecturer" ){ %>
-              <li id="welcome" class="active"><a href="#" ><span class="glyphicon glyphicon-user"></span> Welcome &nbsp<c:out value="${lecturername}"/></a></li>
+               <li id="welcome" class="dropdown">
+      <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user"></span> Welcome &nbsp<c:out value="${firstmidname}"/></a>
+        <ul class="dropdown-menu"> 
+          <li><a href="LecturerProfile"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
+          <li><a href="changepassword.jsp"><span class="glyphicon glyphicon-user"></span> Change Password</a></li>
+      </ul>
+      </li> 
               <%}else if (session.getAttribute("role")=="student" ){ %>
-               <li id="welcome" class="active"><a href="#" ><span class="glyphicon glyphicon-user"></span> Welcome "user name"</a></li>
+               <li id="welcome" class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#" ><span class="glyphicon glyphicon-user"></span> Welcome &nbsp<c:out value="${role}"/></a>
+            <ul class="dropdown-menu"> 
+          <li><a href="StudentProfile"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
+          <li><a href="changepassword.jsp"><span class="glyphicon glyphicon-user"></span> Change Password</a></li>
+      </ul>
+      </li> 
                  <%} %>
       <%} %>
     </ul>

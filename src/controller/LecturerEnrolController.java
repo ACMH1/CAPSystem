@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import exception.MyDataException;
 import model.CourseDTO;
@@ -43,8 +44,15 @@ public class LecturerEnrolController extends HttpServlet {
 		
 		
 		CourseManager cmgr = new CourseManager();
+
 		CourseDTO course=new CourseDTO();
 		course.setCourseID(Integer.parseInt(request.getParameter("cid")));
+HttpSession session=request.getSession();
+		if(session.getAttribute("role")!=null&&session.getAttribute("role").equals("lecturer"))
+		{
+
+
+
 			try {
 			
 				ArrayList<EnrolmentDTO> mlis = cmgr.findCourseEnrolment(course);
@@ -63,6 +71,18 @@ public class LecturerEnrolController extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+}
+		
+		else{
+			RequestDispatcher rd = request.getRequestDispatcher("/lecturer_login.jsp");
+			rd.forward(request, response);
+		}
+
+
+
+
+
+
 			
 		}
 			

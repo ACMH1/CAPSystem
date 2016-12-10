@@ -39,10 +39,13 @@ public class LecturerGradeInitController extends HttpServlet {
 	}
 
 	private void doProcess(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
+		HttpSession session=request.getSession();
+		if(session.getAttribute("role")!=null&&session.getAttribute("role").equals("lecturer"))
+		{
 		CourseManager cmgr = new CourseManager();
 		int lecturerId=0;
 			try {
-				HttpSession session=request.getSession();
+				
 				if(session.getAttribute("lecturerid") != null)
 				{
 					lecturerId= Integer.parseInt(session.getAttribute("lecturerid").toString());
@@ -55,6 +58,12 @@ public class LecturerGradeInitController extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}	
+	}
+		
+			else{
+				RequestDispatcher dd = request.getRequestDispatcher("/lecturer_login.jsp");
+				dd.forward(request, response);
+			}
 	}
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

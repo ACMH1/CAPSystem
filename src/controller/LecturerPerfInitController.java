@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import exception.MyDataException;
 import model.StudentDTO;
@@ -39,6 +40,9 @@ public class LecturerPerfInitController extends HttpServlet {
 
 	private void doprocess(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
 		// TODO Auto-generated method stub
+HttpSession session=request.getSession();
+		if(session.getAttribute("role")!=null&&session.getAttribute("role").equals("lecturer"))
+		{
 		CourseManager cmgr=new CourseManager();
 		try {
 			ArrayList<StudentDTO> slist=cmgr.searchAllStudents();
@@ -49,7 +53,13 @@ public class LecturerPerfInitController extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+}
+		else{
+			RequestDispatcher dd = request.getRequestDispatcher("/lecturer_login.jsp");
+			dd.forward(request, response);
+		}
 	}
+	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

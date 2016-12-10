@@ -146,7 +146,7 @@ public class StudentController extends HttpServlet {
 			else
 			{
 				strDouble = String.format("%.2f", gpa);
-				System.out.println(gpa);
+				//System.out.println(gpa);
 			}
 		   
 			request.setAttribute("gpa",strDouble);

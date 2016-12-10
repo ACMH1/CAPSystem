@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import exception.MyDataException;
 import model.CourseDTO;
@@ -38,6 +39,9 @@ doProcess(request,response);
 	}
 
 	private void doProcess(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
+HttpSession session=request.getSession();
+		if(session.getAttribute("role")!=null&&session.getAttribute("role").equals("lecturer"))
+		{
 		try {
 			CourseManager cmgr = new CourseManager();
 			ArrayList<CourseDTO> mlist = cmgr.searchAllCourses();
@@ -47,6 +51,11 @@ doProcess(request,response);
 		} catch (MyDataException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+}
+		else{
+			RequestDispatcher dd = request.getRequestDispatcher("/lecturer_login.jsp");
+			dd.forward(request, response);
 		}
 }
 
