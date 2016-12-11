@@ -61,7 +61,7 @@
 									<td>${EnrolmentDTO.getCourse().getCourseID()}</td>
 									<td>${EnrolmentDTO.getCourse().getCourseName()}</td>
 									<td>${EnrolmentDTO.getCourse().getCredits()}</td>
-									<td>${EnrolmentDTO.getCourse().getLecturer().getFirstMidName()}${EnrolmentDTO.getCourse().getLecturer().getLastName()}</td>
+									<td>${EnrolmentDTO.getCourse().getLecturer().getFirstMidName()} ${EnrolmentDTO.getCourse().getLecturer().getLastName()}</td>
 									<td>${EnrolmentDTO.getCourse().getStartDate()}</td>
 									<td>${EnrolmentDTO.getCourse().getEndDate()}</td>
 								</tr>

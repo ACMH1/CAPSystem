@@ -225,3 +225,12 @@ ADD PRIMARY KEY (`studentid`, `courseid`);
 
 ALTER TABLE `Completed` 
 ADD PRIMARY KEY (`studentid`, `courseid`);
+
+INSERT INTO `team6databasejava`.`course` (`courseid`, `coursename`, `size`, `credits`, `lecturerid`, `startdate`, `enddate`, `status`) VALUES ('7026', 'Artificial Intelligence in Starcraft', '45', '6', '2008', '2016-12-14', '2017-01-24', '1');
+INSERT INTO `team6databasejava`.`course` (`courseid`, `coursename`, `size`, `credits`, `lecturerid`, `startdate`, `enddate`, `status`) VALUES ('7027', 'Docker 101', '25', '8', '2001', '2016-12-25', '2017-03-15', '1');
+INSERT INTO `team6databasejava`.`course` (`courseid`, `coursename`, `size`, `credits`, `lecturerid`, `startdate`, `enddate`, `status`) VALUES ('7028', 'Data Structures', '56', '5', '2007', '2017-01-23', '2017-03-12', '1');
+INSERT INTO `team6databasejava`.`course` (`courseid`, `coursename`, `size`, `credits`, `lecturerid`, `startdate`, `enddate`, `status`) VALUES ('7029', 'Linux', '32', '9', '2006', '2017-02-28', '2017-08-14', '1');
+INSERT INTO `team6databasejava`.`course` (`courseid`, `coursename`, `size`, `credits`, `lecturerid`, `startdate`, `enddate`, `status`) VALUES ('7030', 'Software Engineering', '98', '4', '2010', '2017-03-01', '2016-08-14', '1');
+INSERT INTO `team6databasejava`.`course` (`courseid`, `coursename`, `size`, `credits`, `lecturerid`, `startdate`, `enddate`, `status`) VALUES ('7031', 'Virtual Reality', '43', '9', '2008', '2017-01-01', '2017-04-08', '1');
+INSERT INTO `team6databasejava`.`course` (`courseid`, `coursename`, `size`, `credits`, `lecturerid`, `startdate`, `enddate`, `status`) VALUES ('7032', 'Mathematics of Computer Science', '89', '6', '2009', '2017-02-13', '2018-09-18', '1');
+INSERT INTO `team6databasejava`.`course` (`courseid`, `coursename`, `size`, `credits`, `lecturerid`, `startdate`, `enddate`, `status`) VALUES ('7033', 'Artificial Intelligence', '23', '8', '2001', '2017-08-17', '2017-08-19', '1');

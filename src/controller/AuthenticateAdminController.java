@@ -71,14 +71,14 @@ public class AuthenticateAdminController extends HttpServlet {
 	    	 result = service.authenticate(u,p,request);
 	    	 
 	    	 HttpSession session = request.getSession();
-	    	 session.setAttribute("role", "admin");
-	    	 session.setAttribute("adminID", u);
+	    	 
 			
 		if (result)
 		{
 			path = "/adminstudent";		
 			request.getSession().setAttribute("status", " ");
-	
+			session.setAttribute("role", "admin");
+	    	session.setAttribute("adminID", u);
 		}
 		else
 		{
