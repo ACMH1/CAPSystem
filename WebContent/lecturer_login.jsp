@@ -29,6 +29,7 @@
 			<input type="text" name="lecturerid" class="form-control" id="username" placeholder="LecturerID" />
 			<br>		
 			    <input type="password"  class="form-control" name="password" id="username" placeholder="Password" />		
+			    <a href="ForgotPassword.jsp" style="color:#cc9900">Forgot Password</a>
 			    <br>
 			<button type="submit" id="btn">Login</button>	
 			

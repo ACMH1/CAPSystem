@@ -73,12 +73,13 @@ public class AuthenticateStudentController extends HttpServlet {
 			result = service.authenticate(u, p, request);
 
 			HttpSession session = request.getSession();
-			session.setAttribute("role", "student");
-			session.setAttribute("studentID", u);
+			
 
 			if (result) {
 				path = "/CourseGradeController";
 				request.getSession().setAttribute("status", " ");
+				session.setAttribute("role", "student");
+				session.setAttribute("studentID", u);
 
 			} else {
 				path = "/student_login.jsp";
